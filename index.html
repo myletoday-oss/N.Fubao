@@ -40,6 +40,60 @@
             box-shadow: 0 0 0 2px #C7D2FE; /* focus:ring-indigo-500 */
         }
 
+        /* --- CSS cho Modal và Spinner (Tính năng Gemini) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none; /* Ẩn theo mặc định */
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+        .modal-overlay.active {
+            display: flex; /* Hiển thị khi active */
+        }
+        .modal-content {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111827; /* text-gray-900 */
+        }
+        .modal-body {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: #374151; /* text-gray-700 */
+            white-space: pre-wrap; /* Giữ nguyên định dạng xuống dòng */
+            background-color: #F9FAFB; /* bg-gray-50 */
+            padding: 1rem;
+            border-radius: 0.375rem;
+            border: 1px solid #E5E7EB; /* border-gray-200 */
+        }
+        .modal-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #E5E7EB; /* border-gray-200 */
+            border-top-color: #4F46E5; /* indigo-600 */
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        /* --- Hết CSS cho Modal --- */
+
         /* Kiểu CSS cho bản in */
         @media print {
             body {
@@ -182,7 +236,8 @@
                     <div class="space-y-4 text-gray-700">
                         <div>
                             <p><strong>1. Xác định mục tiêu nội dung/chủ đề cho bài giảng E – learning?</strong></p>
-                            <textarea class="answer-box" rows="3" placeholder="Nhập câu trả lời của bạn..."></textarea>
+                            <!-- Thêm ID để JS có thể lấy giá trị -->
+                            <textarea id="bt1-q1-answer" class="answer-box" rows="3" placeholder="Nhập câu trả lời của bạn..."></textarea>
                         </div>
                         <p><strong>2. Có thể áp dụng công cụ nào để nhận thấy e – learning góp phần nâng cao hiệu quả dạy học chủ đề đã chọn so với bài giảng truyền thống?</strong></p>
                         <div class="ml-5 space-y-2 mt-2">
@@ -242,9 +297,16 @@
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 3: Nhiệm vụ kiến tạo</h3>
                     <p class="text-gray-700 mb-4">Theo kết quả phân tích các yêu cầu ở phần thiết lập nền tảng, lập kế hoạch thiết kế e – learning theo KHBD theo hướng dẫn bên dưới:</p>
+
+                    <!-- NÚT TÍCH HỢP GEMINI API -->
+                    <div class="my-4">
+                        <button id="gemini-suggest-plan-btn" class="flex items-center justify-center gap-2 w-full px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors duration-200">
+                            ✨ Gợi ý Kế hoạch E-learning (với Gemini)
+                        </button>
+                    </div>
+
                     <div class="overflow-x-auto mt-4">
                         <table class="min-w-full divide-y divide-gray-200 border">
-                            <!-- ... (nội dung bảng không đổi) ... -->
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Yêu cầu</th>
@@ -285,23 +347,28 @@
                     <p class="text-gray-700 leading-relaxed">
                         Tham khảo tài liệu hưởng dẫn để sử dụng H5P để tạo E – learning triển khai KHBD và kế hoạch thiết kế E – learning đã hoàn thành ở phần kiến tạo.
                     </p>
+                    <!-- Bổ sung ô nhập link sản phẩm -->
+                    <div class="mt-4">
+                        <p class="text-gray-700 font-medium">Sản phẩm: Nộp lại 01 đường link (URL) sản phẩm E-learning H5P hoàn chỉnh.</p>
+                        <input type="text" class="answer-box" placeholder="Dán đường link (URL) sản phẩm H5P của bạn tại đây...">
+                    </div>
                 </div>
             </div>
 
-            <!-- Trang: Bài tập 2 -->
+            <!-- Trang: Bài tập 2 (ĐÃ KHÔI PHỤC) -->
             <div id="page-bt2" class="page-content space-y-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-3xl font-bold text-gray-800">Bài tập 2: Tích hợp và Tái lập lại Nội dung số</h2>
+                    <h2 class="text-3xl font-bold text-gray-800">Bài tập 2: Tích hợp & Tái lập nội dung số</h2>
                     <a href="#" class="print-exercise-button p-3 rounded-lg text-sm font-medium bg-green-600 text-white text-center hover:bg-green-700 transition-colors duration-200">
                         In Bài 2 / Xuất PDF
                     </a>
                 </div>
-                
+
                 <!-- Phần 1: Tình huống sư phạm -->
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 1: Tình huống sư phạm</h3>
                     <p class="text-gray-700 leading-relaxed">
-                        Để chuẩn bị cho buổi chuyên đề “Lớp học đảo ngược“ vào tháng sau, bạn được tổ bộ môn yêu cầu thiết kế và giới thiệu về học liệu số trong dạy học môn sinh học. Với thời gian trên, bạn đang phân vân nên tạo ra các nội dung số mới cho học liệu hay tích hợp và tái lập các học liệu sẵn có và số hóa cho phù hợp. Song song đó, bạn cần giải quyết được câu hỏi: Làm học liệu số theo xu hướng hay có thực sự mang lại hiệu quả hơn so với học liệu truyền thống không? Làm thế nào để phát huy hiệu quả đó, để HLS không phải là sự số hóa đơn điệu, nhàm chán?
+                        Bạn đang cần tổ chức hoạt động học cho học sinh tích hợp kiến thức của 2 chủ đề (Ví dụ: Trao đổi chất và Năng lượng + Ứng dụng công nghệ sinh học) bằng việc tái lập nội dung số. Bạn có thể sử dụng công cụ số nào để tích hợp 2 chủ đề này? Làm thế nào để đảm bảo học sinh có thể tự thao tác và thực hành với nội dung tích hợp này?
                     </p>
                 </div>
 
@@ -310,63 +377,49 @@
                     <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 2: Thiết lập nền tảng</h3>
                     <div class="space-y-4 text-gray-700">
                         <div>
-                            <p><strong>1. Xác định mục tiêu về các nội dung/chủ đề để thiết kế học liệu?</strong></p>
-                            <textarea class="answer-box" rows="3" placeholder="Nhập câu trả lời của bạn..."></textarea>
-                        </div>
-                        <p><strong>2. Xác định phương tiện/công nghệ số mà bạn có thể sử dụng thành thạo để thiết kế các nội dung số cho e – learning?</strong></p>
-                        <div class="space-y-2 ml-5 text-gray-700 mt-2">
-                            <!-- Checkboxes -->
-                            <div class="flex items-center">
-                                <input id="bt2-tool-canva" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt2-tool-canva" class="ml-3 block text-gray-900">Canva/ Power Point</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="bt2-tool-drive" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt2-tool-drive" class="ml-3 block text-gray-900">Google drive/ Onedrive</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="bt2-tool-llm" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt2-tool-llm" class="ml-3 block text-gray-900">Notebook LLM</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="bt2-tool-capcut" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt2-tool-capcut" class="ml-3 block text-gray-900">Capcut</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="bt2-tool-docs" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt2-tool-docs" class="ml-3 block text-gray-900">Google docs/word</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="bt2-tool-other" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt2-tool-other" class="ml-3 block text-gray-900">Khác ……….</label>
+                            <p><strong>1. Xác định hình thức học liệu tích hợp sẽ thực hiện?</strong></p>
+                            <div class="ml-5 space-y-2 mt-2">
+                                <div class="flex items-center">
+                                    <input id="q1-flipbook" name="hoc-lieu-type" type="radio" value="flipbook" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                    <label for="q1-flipbook" class="ml-3 block text-gray-900">a) Flipbook (Sách điện tử tương tác)</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="q1-website" name="hoc-lieu-type" type="radio" value="website" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                    <label for="q1-website" class="ml-3 block text-gray-900">b) Website (Trang web nội dung)</label>
+                                </div>
                             </div>
                         </div>
+
                         <div>
-                            <p><strong>3. Phân tích chân dung người học (học lực, năng lực công nghệ, nhu cầu, động lực học tập và điều kiện học tập….) để thiết kế hoạt động tương tác và khám phá nội dung phù hợp</strong></p>
-                            <textarea class="answer-box" rows="4" placeholder="Nhập phân tích của bạn..."></textarea>
+                            <p><strong>2. Xác định công cụ sẽ sử dụng để tái lập nội dung số?</strong></p>
+                            <div class="ml-5 space-y-2 mt-2">
+                                <div class="flex items-center">
+                                    <input id="q2-a-flipbook" name="tool-type" type="radio" value="flipbook-tool" disabled class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                    <label for="q2-a-flipbook" class="ml-3 block text-gray-500 cursor-not-allowed">a) Dùng phần mềm tạo Flipbook (Ví dụ: FlipHTML5, PubHTML5)</label>
+                                </div>
+                                <div id="q2-a-details" class="ml-10 hidden bg-gray-50 p-3 rounded-lg border border-gray-200 text-sm mt-1">
+                                    <p class="font-medium">Ưu điểm:</p>
+                                    <textarea class="answer-box" rows="2" placeholder="Ưu điểm của công cụ tạo Flipbook..."></textarea>
+                                    <p class="font-medium mt-2">Hạn chế:</p>
+                                    <textarea class="answer-box" rows="2" placeholder="Hạn chế của công cụ tạo Flipbook..."></textarea>
+                                </div>
+
+                                <div class="flex items-center">
+                                    <input id="q2-b-website" name="tool-type" type="radio" value="website-tool" disabled class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                    <label for="q2-b-website" class="ml-3 block text-gray-500 cursor-not-allowed">b) Dùng công cụ lập trình web (Ví dụ: HTML, CSS, Javascript)</label>
+                                </div>
+                                <div id="q2-b-details" class="ml-10 hidden bg-gray-50 p-3 rounded-lg border border-gray-200 text-sm mt-1">
+                                    <p class="font-medium">Ưu điểm:</p>
+                                    <textarea class="answer-box" rows="2" placeholder="Ưu điểm của công cụ lập trình web..."></textarea>
+                                    <p class="font-medium mt-2">Hạn chế:</p>
+                                    <textarea class="answer-box" rows="2" placeholder="Hạn chế của công cụ lập trình web..."></textarea>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <!-- Bảng Tiêu chí phân loại -->
-                        <div class="overflow-x-auto mt-4">
-                            <table class="min-w-full divide-y divide-gray-200 border">
-                                <!-- ... (nội dung bảng không đổi) ... -->
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tiêu chí phân loại</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hướng dẫn phân loại</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200 text-gray-700">
-                                    <tr><td class="px-6 py-4 font-medium">Theo chủ đề</td><td class="px-6 py-4">"Sinh học tế bào, Di truyền học, Sinh lý học thực vật…"</td></tr>
-                                    <tr><td class="px-6 py-4 font-medium">Theo định dạng</td><td class="px-6 py-4">"Văn bản, hình ảnh, video, mô phỏng ảo, dữ liệu sinh học, quiz"</td></tr>
-                                    <tr><td class="px-6 py-4 font-medium">Theo giá trị cập nhật khoa học</td><td class="px-6 py-4">Học liệu “bền vững” (Evergreen): kiến thức cơ bản, ít thay đổi<br>Học liệu “cần cập nhật”: liên quan dữ liệu mới, công nghệ mới.</td></tr>
-                                    <tr><td class="px-6 py-4 font-medium">Theo giá trị sư phạm</td><td class="px-6 py-4">"Mức độ phù hợp với trình độ học sinh, khả năng trực quan, tính tương tác."</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
+
                         <div>
-                            <p>Đánh giá khách quan theo yêu cầu về công nghệ và chân dung người học đã phân tích trên để đưa ra quyết định “giữ – sửa – bỏ” các học liệu/NDS thu thập được.</p>
-                            <textarea class="answer-box" rows="3" placeholder="Nhập quyết định 'giữ – sửa – bỏ' của bạn..."></textarea>
+                            <p><strong>3. Xác định thời gian hoàn thành?</strong></p>
+                            <textarea class="answer-box" rows="2" placeholder="Nhập câu trả lời của bạn..."></textarea>
                         </div>
                     </div>
                 </div>
@@ -374,172 +427,95 @@
                 <!-- Phần 3: Nhiệm vụ kiến tạo -->
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 3: Nhiệm vụ kiến tạo</h3>
-                    <p class="text-green-700 italic mb-4">Theo kết quả phân tích phần nền tảng, hãy thiết kế khung nội dung cho sản phẩm số/HLS theo hướng dẫn bên dưới:</p>
-                    
-                    <p class="text-gray-700 font-medium">1. Dựa theo tài nguyên học liệu hiện có hãy chọn 1 trong hai loại học liệu sau để thiết kế:</p>
-                    <div class="ml-5 text-gray-700 space-y-2 mt-2">
-                        <!-- ... (radio buttons không đổi) ... -->
-                        <div class="flex items-center">
-                            <input id="q1-a-flipbook" name="hoc-lieu-type" type="radio" value="flipbook" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
-                            <label for="q1-a-flipbook" class="ml-3 block text-gray-900 cursor-pointer">a) Flipbook tương tác.</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="q1-b-website" name="hoc-lieu-type" type="radio" value="website" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
-                            <label for="q1-b-website" class="ml-3 block text-gray-900 cursor-pointer">b) Website học liệu mở</label>
-                        </div>
-                    </div>
-
-                    <p class="text-gray-700 font-medium mt-4">2. Lựa chọn phương án phù hợp để thiết kế khung nội dung cho loại sản phẩm số/HLS đã xác định:</p>
-                    <div class="ml-5 text-gray-700 space-y-3 mt-2">
-                        <!-- Option 2a (CÓ TEXTAREA) -->
-                        <div id="q2-a-content-wrapper">
-                            <div class="flex items-center">
-                                <input id="q2-a-flipbook" name="khung-noi-dung" type="radio" value="flipbook" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500" disabled>
-                                <label for="q2-a-flipbook" class="ml-3 block text-gray-900 font-medium cursor-not-allowed text-gray-500">a) Lập một "Dàn ý chi tiết (Outline)" cho Flipbook</label>
-                            </div>
-                            <!-- THAY THẾ NỘI DUNG TĨNH BẰNG TEXTAREA -->
-                            <div id="q2-a-details" class="ml-8 mt-2 hidden pl-4 border-l-2 border-gray-200">
-                                <p class="text-sm text-gray-600 mb-2">Soạn dàn ý chi tiết (Outline) của bạn tại đây:</p>
-                                <textarea class="answer-box" rows="8" placeholder="Tiêu đề: ...&#10;Mục tiêu: ...&#10;Nội dung: ...&#10;Hoạt động: ...&#10;Kết luận: ..."></textarea>
-                            </div>
-                        </div>
-                        <!-- Option 2b (CÓ TEXTAREA) -->
-                        <div id="q2-b-content-wrapper">
-                            <div class="flex items-center">
-                                <input id="q2-b-website" name="khung-noi-dung" type="radio" value="website" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500" disabled>
-                                <label for="q2-b-website" class="ml-3 block text-gray-900 font-medium cursor-not-allowed text-gray-500">b) Thiết kế một "Storyboard (Khung hình nội dung)" hoặc sitemap cho website.</label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- THAY THẾ NỘI DUNG TĨNH BẰNG TEXTAREA -->
-                    <div id="q2-b-details" class="overflow-x-auto mt-4 hidden">
-                        <p class="text-gray-600 mb-2">Sử dụng bảng bên dưới làm hướng dẫn và soạn Storyboard/Sitemap của bạn vào ô văn bản:</p>
+                    <p class="text-gray-700 mb-4">Lập kế hoạch thiết kế và tái lập nội dung số theo hướng dẫn:</p>
+                    <div class="overflow-x-auto mt-4">
                         <table class="min-w-full divide-y divide-gray-200 border">
-                            <!-- ... (nội dung bảng không đổi) ... -->
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thành phần</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mô tả</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Yêu cầu</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hướng dẫn</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200 text-gray-700">
-                                <tr><td class="px-6 py-4 font-medium">Khung hình / cảnh quay</td><td class="px-6 py-4">"Hình ảnh, sơ đồ hoặc đoạn mô phỏng."</td></tr>
-                                <tr><td class="px-6 py-4 font-medium">Lời thoại / văn bản</td><td class="px-6 py-4">Giải thích nội dung khoa học.</td></tr>
-                                <tr><td class="px-6 py-4 font-medium">Âm thanh</td><td class="px-6 py-4">"Giọng đọc, nhạc nhẹ, hiệu ứng."</td></tr>
-                                <tr><td class="px-6 py-4 font-medium">Tương tác</td><td class="px-6 py-4">"Câu hỏi gợi mở, lựa chọn đáp án."</td></tr>
-                                <tr><td class="px-6 py-4 font-medium">Trích dẫn</td><td class="px-6 py-4">"Ghi rõ nguồn hình ảnh, video."</td></tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-medium">Xác định cấu trúc nội dung</td>
+                                    <td class="px-6 py-4">"Liệt kê các chủ đề/mục tiêu kiến thức cần tích hợp và tái lập (cấu trúc của nội dung số)"</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-medium">Xác định vai trò của nội dung số</td>
+                                    <td class="px-6 py-4">"Mô tả cách nội dung được tái lập sẽ giúp HS khám phá/thực hành kiến thức tích hợp"</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-medium">"Xác định nguồn lực, công cụ"</td>
+                                    <td class="px-6 py-4">"Liệt kê tài liệu tham khảo, công cụ số (tạo hình ảnh, video, âm thanh...)"</td>
+                                </tr>
                             </tbody>
                         </table>
-                        <textarea class="answer-box mt-4" rows="10" placeholder="Soạn Storyboard (Khung hình nội dung) hoặc Sitemap cho website tại đây..."></textarea>
                     </div>
                 </div>
 
                 <!-- Phần 4: Thử thách sáng tạo -->
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 4: Thử thách sáng tạo</h3>
-                    <p class="text-green-700 italic leading-relaxed mb-4">Vận dụng khung nội dung số ở tạo thành ở phần nhiệm vụ kiến tạo và các công cụ hỗ trợ để tạo ra sản phẩm hoàn chỉnh(1 Flipbook hoặc 1 website học liệu). Sản phẩm đáp ứng các yêu cầu sau:</p>
-                    <ul class="list-disc list-inside text-gray-700 space-y-2">
-                        <!-- ... (danh sách yêu cầu không đổi) ... -->
-                        <li><strong>Yêu cầu Cắt – Ghép – Chuyển đổi:</strong> Phải thể hiện rõ các thao tác “tái cấu trúc” (sắp xếp lại nội dung).</li>
-                        <li><strong>Yêu cầu chuẩn hóa:</strong> sản phẩm phải "chuẩn hóa font, màu sắc, bố cục" trên toàn bộ HLS. Ngôn ngữ phải đảm bảo "khoa học – sư phạm", chính xác, tránh hàn lâm.</li>
-                        <li><strong>Yêu cầu về Tính cập nhật và Pháp lý:</strong> Các ví dụ, hình ảnh phải được cập nhật (ví dụ: bổ sung mô hình 3D, ví dụ thực tế). Mọi tài nguyên "tái sử dụng" (hình ảnh, video) phải đảm bảo nguồn hợp pháp và được trích dẫn (như trong Storyboard).</li>
-                    </ul>
-                    <p class="text-gray-700 font-medium mt-4">Nền tảng/công cụ số phù hợp để sản xuất sản phẩm số mà bạn đã xác định ở phần kiến tạo:</p>
-                    <div class="space-y-2 ml-5 text-gray-700 mt-2">
-                        <!-- Checkboxes -->
-                        <div class="flex items-center">
-                            <input id="bt2-final-tool-flipzine" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                            <label for="bt2-final-tool-flipzine" class="ml-3 block text-gray-900">Flipzine</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="bt2-final-tool-gdrive" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                            <label for="bt2-final-tool-gdrive" class="ml-3 block text-gray-900">Google drive/ Onedrive</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="bt2-final-tool-html" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt2-final-tool-html" class="ml-3 block text-gray-900">HTML (Gemini pro)</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="bt2-final-tool-wordpress" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                            <label for="bt2-final-tool-wordpress" class="ml-3 block text-gray-900">WordPress</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="bt2-final-tool-gsite" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                            <label for="bt2-final-tool-gsite" class="ml-3 block text-gray-900">Google site</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="bt2-final-tool-tempi" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                            <label for="bt2-final-tool-tempi" class="ml-3 block text-gray-900">Tempi</label>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="text-gray-700 font-medium mt-4">Sản phẩm: Nộp lại 01 đường link (URL) HLS hoàn chỉnh để giải quyết vấn đề sư phạm ở Phần 1.</p>
+                    <p class="text-gray-700 leading-relaxed">
+                        Theo kế hoạch đã lập, thiết kế sản phẩm nội dung số tích hợp (Flipbook hoặc Website) và nộp lại link.
+                    </p>
+                    <div class="mt-4">
+                        <p class="text-gray-700 font-medium">Sản phẩm: Nộp lại 01 đường link (URL) sản phẩm nội dung số tích hợp hoàn chỉnh.</p>
                         <input type="text" class="answer-box" placeholder="Dán đường link (URL) sản phẩm của bạn tại đây...">
+                        <textarea class="answer-box mt-4" rows="5" placeholder="Viết đoạn phản tư của bạn về sản phẩm..."></textarea>
                     </div>
                 </div>
             </div>
 
-            <!-- Trang: Bài tập 3 -->
+            <!-- Trang: Bài tập 3 (ĐÃ KHÔI PHỤC) -->
             <div id="page-bt3" class="page-content space-y-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-3xl font-bold text-gray-800">Bài tập 3: Phát triển Năng lực Lập trình</h2>
+                    <h2 class="text-3xl font-bold text-gray-800">Bài tập 3: Lập trình</h2>
                     <a href="#" class="print-exercise-button p-3 rounded-lg text-sm font-medium bg-green-600 text-white text-center hover:bg-green-700 transition-colors duration-200">
                         In Bài 3 / Xuất PDF
                     </a>
                 </div>
-                
+
                 <!-- Phần 1: Tình huống sư phạm -->
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 1: Tình huống sư phạm</h3>
                     <p class="text-gray-700 leading-relaxed">
-                        Bạn được giao nhiệm vụ ứng dụng quy trình phát triển sản phẩm số bằng ngôn ngữ lập trình để thiết kế một mô phỏng trực quan về cơ chế tái bản DNA. Đây là một hoạt động giáo dục định hướng STEM, giúp học sinh giải quyết các khó khăn trong việc hình dung các quá trình sinh học phân tử phức tạp.
+                        Bạn cần thiết kế một mô hình mô phỏng cơ chế tái bản DNA bằng HTML + CSS + Javascript để học sinh có thể trực quan hóa và thao tác. Bạn quyết định sử dụng AI để hỗ trợ lập trình. Làm thế nào để ra lệnh cho AI một cách hiệu quả nhất để nó tạo ra một sản phẩm code chính xác và có tính sư phạm? Làm thế nào để khắc phục lỗi code khi AI tạo ra sản phẩm bị lỗi?
                     </p>
                 </div>
-                
+
                 <!-- Phần 2: Thiết lập nền tảng -->
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 2: Thiết lập nền tảng</h3>
                     <div class="space-y-4 text-gray-700">
                         <div>
-                            <p><strong>1. Giải thích tại sao ứng dụng quy trình phát triển sản phẩm số bằng ngôn ngữ lập trình thiết kế cơ chế tái bản DNA có thể xem là hoạt động giáo dục định hướng STEM? Điều này giúp giải quyết vấn đề gì cho học sinh trong học tập môn Sinh học?</strong></p>
-                            <textarea class="answer-box" rows="4" placeholder="Nhập giải thích của bạn..."></textarea>
+                            <p><strong>1. Xác định mục tiêu nội dung/chủ đề lập trình?</strong></p>
+                            <textarea class="answer-box" rows="3" placeholder="Nhập câu trả lời của bạn..."></textarea>
                         </div>
-                        <p><strong>2. Bạn có thể thiết kế quy trình phát triển sản phẩm số bằng ngôn ngữ lập trình theo các bước?</strong></p>
-                        <div class="ml-5 space-y-2 mt-2">
-                            <!-- Radio buttons -->
-                            <div class="flex items-center">
-                                <input id="bt3-q2-a" name="bt3-q2" type="radio" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
-                                <label for="bt3-q2-a" class="ml-3 block text-gray-900">a) Thiết kế (AI code) => Cài đặt => Kiểm thử</label>
-                            </div>
-                             <div class="flex items-center">
-                                <input id="bt3-q2-b" name="bt3-q2" type="radio" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
-                                <label for="bt3-q2-b" class="ml-3 block text-gray-900">b) Sinh mã tự động => Sửa lỗi => Cài đặt</label>
-                            </div>
-                        </div>
-                        <p><strong>3. Xác định phương tiện/công nghệ số hỗ trợ lập trình?</strong></p>
+                        <p><strong>2. Xác định các công cụ lập trình sẽ sử dụng?</strong></p>
                         <div class="space-y-2 ml-5 text-gray-700 mt-2">
                             <!-- Checkboxes -->
-                             <div class="flex items-center">
-                                <input id="bt3-tool-replit" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt3-tool-replit" class="ml-3 block text-gray-900">Replit/ Script</label>
+                            <div class="flex items-center">
+                                <input id="bt3-tool-html" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt3-tool-html" class="ml-3 block text-gray-900">HTML / CSS / Javascript</label>
                             </div>
-                             <div class="flex items-center">
-                                <input id="bt3-tool-gemini" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt3-tool-gemini" class="ml-3 block text-gray-900">Gemini pro/ HTML + CSS + Javascript của GPT</LAbel>
+                            <div class="flex items-center">
+                                <input id="bt3-tool-p5" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt3-tool-p5" class="ml-3 block text-gray-900">p5.js (Thư viện mô phỏng/đồ họa)</label>
                             </div>
-                             <div class="flex items-center">
-                                <input id="bt3-tool-hoc" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt3-tool-hoc" class="ml-3 block text-gray-900">hoclaptrinh.io (chạy code)</label>
+                            <div class="flex items-center">
+                                <input id="bt3-tool-three" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt3-tool-three" class="ml-3 block text-gray-900">three.js (Thư viện 3D)</label>
                             </div>
-                             <div class="flex items-center">
-                                <input id="bt3-tool-vscode" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt3-tool-vscode" class="ml-3 block text-gray-900">Vscode</label>
+                            <div class="flex items-center">
+                                <input id="bt3-tool-other" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt3-tool-other" class="ml-3 block text-gray-900">Công cụ khác (Ví dụ: Thư viện âm thanh, Physic Engine...)</label>
                             </div>
-                             <div class="flex items-center">
-                                <input id="bt3-tool-github" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt3-tool-github" class="ml-3 block text-gray-900">Github</label>
-                            </div>
+                        </div>
+                        <div>
+                            <p><strong>3. Thời gian hoàn thành sản phẩm lập trình?</strong></p>
+                            <textarea class="answer-box" rows="2" placeholder="Nhập câu trả lời của bạn..."></textarea>
                         </div>
                     </div>
                 </div>
@@ -547,22 +523,29 @@
                 <!-- Phần 3: Nhiệm vụ kiến tạo -->
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 3: Nhiệm vụ kiến tạo</h3>
-                    <p class="text-gray-700 mb-4">Theo kết quả phân tích các yêu cầu ở phần thiết lập nền tảng, thực hành phác thảo và thiết kế nội dung/sản phẩm số theo hướng dẫn sau:</p>
                     <div class="space-y-4 text-gray-700">
                         <div>
-                            <p><strong>1. Xác định nội dung sản phẩm:</strong> Mô hình phải có những chức năng gì? (VD: Hiển thị 4 giai đoạn, có enzyme di chuyển, có màu sắc cho A,T,C,G). Mô tả đặc điểm cấu trúc phù hợp với chức năng tái bản của DNA.</p>
-                            <textarea class="answer-box" rows="4" placeholder="Nhập nội dung sản phẩm..."></textarea>
+                            <p><strong>1. Lập kế hoạch chi tiết cho sản phẩm lập trình:</strong></p>
+                            <textarea class="answer-box" rows="4" placeholder="Mô tả các thành phần, chức năng, giao diện của mô phỏng DNA..."></textarea>
                         </div>
                         <div>
-                            <p><strong>2. Mô tả hình thức hoạt động/ giao diện hiển thị mong muốn cho sản phẩm số?</strong></p>
-                            <textarea class="answer-box" rows="4" placeholder="Nhập mô tả hình thức/giao diện..."></textarea>
+                            <p><strong>2. Xác định các bước dò lỗi code (debugging) khi sản phẩm bị lỗi:</strong></p>
+                            <textarea class="answer-box" rows="3" placeholder="Liệt kê các bước bạn sẽ làm để tìm và khắc phục lỗi code..."></textarea>
                         </div>
                         <div>
-                            <p><strong>3. Thực hành "Sử dụng AI hỗ trợ sinh mã"</strong> (công cụ AI đã giới thiệu ở phần nền tảng). Viết prompt "mô tả bằng tiếng Việt/Anh rõ ràng" về nội dung và hình thức sản phẩm số (đã trình bày ở câu 1,2) để ra lệnh tạo code.</p>
+                            <p><strong>3. Viết Prompt (câu lệnh) cho AI để tạo code:</strong></p>
                             <p class="p-3 bg-gray-100 rounded-md border border-gray-200 text-sm mt-2">
                                 <strong>(Prompt mẫu):</strong> "Hãy viết code p5.js mô phỏng 4 giai đoạn tái bản DNA, có enzyme là hình tròn, có âm thanh click..."
                             </p>
-                            <textarea class="answer-box" rows="6" placeholder="Viết prompt của bạn tại đây..."></textarea>
+                            <!-- Thêm ID để JS có thể lấy giá trị -->
+                            <textarea id="bt3-prompt-answer" class="answer-box" rows="6" placeholder="Viết prompt của bạn tại đây..."></textarea>
+                            
+                            <!-- NÚT TÍCH HỢP GEMINI API -->
+                            <div class="mt-4">
+                                <button id="gemini-improve-prompt-btn" class="flex items-center justify-center gap-2 w-full px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors duration-200">
+                                    ✨ Cải thiện Prompt (với Gemini)
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -570,10 +553,15 @@
                 <!-- Phần 4: Thử thách sáng tạo -->
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 4: Thử thách sáng tạo</h3>
+                    
+                    <!-- BỔ SUNG ĐỀ BÀI -->
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        <strong>Đề bài:</strong> Tích hợp công cụ HTML + CSS + Javascript - hoclaptrinh.io – Github để thiết kế mô phỏng cơ chế tái bản DNA và hướng dẫn/ kế hoạch giáo dục định hướng HS phát triển năng lực STEM với quy trình phát triển sản phẩm bằng ngôn ngữ lập trình
+                    </p>
+                    
                     <p class="text-gray-700">Sản phẩm mẫu: <a href="https://myletoday-oss.github.io/Fubao/" target="_blank" class="text-blue-600 hover:underline">https://myletoday-oss.github.io/Fubao/</a></p>
                     <p class="text-gray-700 font-medium mt-4">Yêu cầu:</p>
                     <ul class="list-disc list-inside text-gray-700 space-y-2 mt-2">
-                        <!-- ... (danh sách yêu cầu không đổi) ... -->
                         <li><strong>Vận hành công cụ:</strong>
                             <ul class="list-circle list-inside ml-5">
                                 <li>Gửi Prompt ở Phần 3 cho AI (Gemini/GPT).</li>
@@ -598,12 +586,27 @@
                     <div>
                         <p class="text-gray-700 font-medium mt-4">Sản phẩm: Nộp lại 01 link GitHub Pages (sản phẩm mẫu) VÀ 01 đoạn phản tư sư phạm.</p>
                         <input type="text" class="answer-box" placeholder="Dán link GitHub Pages tại đây...">
-                        <textarea class="answer-box" rows="5" placeholder="Viết đoạn phản tư sư phạm của bạn tại đây..."></textarea>
+                        <textarea class="answer-box mt-4" rows="5" placeholder="Viết đoạn phản tư sư phạm của bạn tại đây..."></textarea>
                     </div>
                 </div>
             </div>
             
         </main>
+    </div>
+
+    <!-- Modal cho Tính năng Gemini -->
+    <div id="gemini-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="flex justify-between items-center">
+                <h3 id="gemini-modal-title" class="modal-title">Đang tải...</h3>
+                <button id="gemini-modal-close" class="text-gray-400 hover:text-gray-600">&times;</button>
+            </div>
+            <div id="gemini-modal-body-content" class="modal-body mt-4">
+                <div class="flex justify-center items-center h-24">
+                    <div class="modal-spinner"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -645,7 +648,7 @@
             // Hiển thị trang chủ khi tải lần đầu
             showPage('page-home');
 
-            // --- Logic cho Bài tập 2, Phần 3 ---
+            // --- Logic cho Bài tập 2, Phần 2 (Tái lập nội dung số) ---
             const q1Radios = document.querySelectorAll('input[name="hoc-lieu-type"]');
             
             const q2aRadio = document.getElementById('q2-a-flipbook');
@@ -655,7 +658,7 @@
             const q2bRadio = document.getElementById('q2-b-website');
             const q2bDetails = document.getElementById('q2-b-details');
             const q2bLabel = document.querySelector('label[for="q2-b-website"]');
-            // ... (Thêm code xử lý cho q1Radios) ...
+            
             q1Radios.forEach(radio => {
                 radio.addEventListener('change', (e) => {
                     const selectedValue = e.target.value;
@@ -703,6 +706,155 @@
                 });
             });
 
+            // --- LOGIC TÍCH HỢP GEMINI API (ĐÃ KHÔI PHỤC) ---
+
+            const modal = document.getElementById('gemini-modal');
+            const modalCloseBtn = document.getElementById('gemini-modal-close');
+            const modalTitle = document.getElementById('gemini-modal-title');
+            const modalBody = document.getElementById('gemini-modal-body-content');
+            const spinnerHTML = `<div class="flex justify-center items-center h-24"><div class="modal-spinner"></div></div>`;
+
+            // Mở modal
+            function openModal(title) {
+                modalTitle.textContent = title;
+                modalBody.innerHTML = spinnerHTML; // Hiển thị spinner
+                modal.classList.add('active');
+            }
+
+            // Đóng modal
+            function closeModal() {
+                modal.classList.remove('active');
+            }
+            modalCloseBtn.addEventListener('click', closeModal);
+
+            // Hàm gọi API Gemini với xử lý lỗi và thử lại (exponential backoff)
+            async function callGeminiAPI(userPrompt, systemPrompt = "", maxRetries = 3) {
+                const apiKey = ""; // API key sẽ được cung cấp tự động khi chạy
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+                const payload = {
+                    contents: [{ parts: [{ text: userPrompt }] }],
+                };
+
+                if (systemPrompt) {
+                    payload.systemInstruction = {
+                        parts: [{ text: systemPrompt }]
+                    };
+                }
+
+                let attempt = 0;
+                let delay = 1000; // 1 giây
+
+                while (attempt < maxRetries) {
+                    try {
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (!response.ok) {
+                            if (response.status === 429 || response.status >= 500) {
+                                // Lỗi có thể thử lại (Rate limit hoặc lỗi server)
+                                throw new Error(`Lỗi API: ${response.status}`);
+                            } else {
+                                // Lỗi không nên thử lại (ví dụ: 400 Bad Request)
+                                const errorResult = await response.json();
+                                return { error: `Lỗi API: ${errorResult.error?.message || response.statusText}` };
+                            }
+                        }
+
+                        const result = await response.json();
+                        const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                        if (text) {
+                            return { text: text };
+                        } else {
+                            return { error: "Không nhận được nội dung hợp lệ từ API." };
+                        }
+
+                    } catch (error) {
+                        attempt++;
+                        if (attempt >= maxRetries) {
+                            return { error: `Đã hết số lần thử. Lỗi cuối cùng: ${error.message}` };
+                        }
+                        // Chờ trước khi thử lại
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        delay *= 2; // Tăng gấp đôi thời gian chờ
+                    }
+                }
+                return { error: "Đã xảy ra lỗi không xác định." };
+            }
+
+            // --- 1. Xử lý cho "Gợi ý Kế hoạch E-learning" (Bài 1) ---
+            const suggestPlanBtn = document.getElementById('gemini-suggest-plan-btn');
+            if (suggestPlanBtn) {
+                suggestPlanBtn.addEventListener('click', async () => {
+                    const topic = document.getElementById('bt1-q1-answer').value;
+                    
+                    if (!topic.trim()) {
+                        alert("Vui lòng nhập Mục tiêu/Chủ đề (Phần 2, Câu 1) trước khi dùng tính năng này.");
+                        return;
+                    }
+
+                    openModal("Đang tạo gợi ý kế hoạch...");
+
+                    const systemPrompt = "Bạn là chuyên gia thiết kế E-learning (instructional designer) cho giáo viên Sinh học lớp 10 tại Việt Nam. Bạn rất giỏi trong việc tạo các hoạt động tương tác bằng H5P.";
+                    const userPrompt = `Dựa trên tình huống sư phạm (cuộc thi thiết kế E-learning) và chủ đề sau: "${topic}", hãy tạo giúp tôi một kế hoạch E-learning (khoảng 5 bước) để triển khai bằng H5P.
+
+Với mỗi bước, hãy:
+1.  Đặt tên cho Hoạt động (ví dụ: Khởi động, Khám phá...).
+2.  Đề xuất một loại nội dung H5P phù hợp (ví dụ: Interactive Video, Course Presentation, Quiz...).
+3.  Mô tả ngắn gọn nội dung/mục tiêu của hoạt động đó.`;
+
+                    const result = await callGeminiAPI(userPrompt, systemPrompt);
+
+                    if (result.error) {
+                        modalTitle.textContent = "Lỗi";
+                        modalBody.textContent = result.error;
+                    } else {
+                        modalTitle.textContent = "✨ Gợi ý Kế hoạch E-learning";
+                        modalBody.textContent = result.text;
+                    }
+                });
+            }
+
+            // --- 2. Xử lý cho "Cải thiện Prompt" (Bài 3) ---
+            const improvePromptBtn = document.getElementById('gemini-improve-prompt-btn');
+            if (improvePromptBtn) {
+                improvePromptBtn.addEventListener('click', async () => {
+                    const userPrompt = document.getElementById('bt3-prompt-answer').value;
+
+                    if (!userPrompt.trim()) {
+                        alert("Vui lòng nhập nội dung prompt của bạn (Phần 3, Câu 3) trước khi dùng tính năng này.");
+                        return;
+                    }
+
+                    openModal("Đang cải thiện prompt...");
+
+                    const systemPrompt = "Bạn là một kỹ sư prompt (prompt engineer) chuyên nghiệp, làm việc với các mô hình AI tạo code (như p5.js, HTML/CSS/JS). Nhiệm vụ của bạn là nhận một prompt cơ bản từ người dùng (giáo viên Sinh học) và viết lại nó một cách chi tiết, rõ ràng, chính xác về mặt kỹ thuật để AI có thể tạo ra sản phẩm mô phỏng tốt nhất.";
+                    const apiPrompt = `Hãy cải thiện prompt sau đây để ra lệnh cho AI tạo code (HTML/CSS/JS, có thể dùng p5.js hoặc three.js) mô phỏng sinh học.
+Prompt gốc của người dùng:
+"${userPrompt}"
+
+Hãy viết lại prompt mới, thêm các chi tiết quan trọng như:
+-   Các thành phần (elements) cụ thể (ví dụ: enzyme, sợi DNA, nucleotide).
+-   Các giai đoạn hoặc bước (steps) của quá trình.
+-   Các tương tác (ví dụ: nút bấm "Start", "Pause", "Reset").
+-   Màu sắc và kiểu dáng (ví dụ: "Sợi DNA A-T có màu đỏ, G-C có màu xanh").
+-   Ghi rõ "Prompt đã cải thiện:" ở đầu kết quả của bạn.`;
+
+                    const result = await callGeminiAPI(apiPrompt, systemPrompt);
+
+                    if (result.error) {
+                        modalTitle.textContent = "Lỗi";
+                        modalBody.textContent = result.error;
+                    } else {
+                        modalTitle.textContent = "✨ Prompt đã được cải thiện";
+                        modalBody.textContent = result.text;
+                    }
+                });
+            }
         });
     </script>
 </body>
