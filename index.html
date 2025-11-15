@@ -1,496 +1,740 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>SSchoolBio — Blue Dark (50 câu) — Role: Teacher Gate</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --blue1:#001428;
-  --blue2:#002B55;
-  --accent:#00A8FF;
-  --accent2:#007BFF;
-  --card:#07192b;
-  --text:#EAF8FF;
-  --muted:#9fbcd6;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,var(--blue1),var(--blue2));
-  color:var(--text);
-  min-height:100vh;
-}
-header{
-  background:linear-gradient(90deg,#003459,#0077cc);
-  padding:18px 0;
-  box-shadow:0 6px 18px rgba(0,0,0,0.35);
-}
-.container{max-width:1100px;margin:20px auto;padding:18px;background:rgba(255,255,255,0.03);border-radius:12px}
-.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-button{cursor:pointer;border:0;padding:10px 14px;border-radius:8px;background:linear-gradient(135deg,var(--accent2),var(--accent));color:#fff;font-weight:600}
-button.ghost{background:transparent;color:var(--accent);border:1px solid rgba(255,255,255,0.08)}
-button.small{padding:6px 8px;font-size:13px}
-.row{display:flex;gap:14px;flex-wrap:wrap}
-.col{flex:1;min-width:300px}
-.card{padding:14px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));border:1px solid rgba(255,255,255,0.04);margin-bottom:12px;box-shadow:0 6px 20px rgba(0,0,0,0.45)}
-label{display:block;margin-top:8px;font-size:13px;color:var(--muted)}
-input[type=text],select,textarea,input[type=number]{width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);color:var(--text)}
-.q-list .q{border-left:4px solid var(--accent);padding:10px;margin:8px 0;border-radius:6px;background:rgba(0,0,0,0.18)}
-.small{font-size:13px;color:var(--muted)}
-.bar{height:12px;background:#07243a;border-radius:8px;overflow:hidden}
-.bar > i{display:block;height:100%;background:linear-gradient(90deg,#00A8FF,#66D1FF)}
-.hidden{display:none}
-.footer{font-size:14px;color:var(--muted);text-align:center;padding:16px;margin-top:20px;border-top:1px solid rgba(255,255,255,0.03);background:rgba(255,255,255,0.01);border-radius:6px}
-.footer strong{color:var(--accent);text-shadow:0 0 6px rgba(0,168,255,0.15);font-weight:700}
-pre{white-space:pre-wrap;background:rgba(255,255,255,0.03);padding:10px;border-radius:8px;border:1px dashed rgba(255,255,255,0.04);color:#bfe9ff}
-#modal{position:fixed;right:20px;bottom:20px;width:320px;background:#012033;padding:12px;border-radius:8px;border-left:4px solid var(--accent);box-shadow:0 6px 24px rgba(0,0,0,0.6);display:none}
-#loginModal{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:9999;display:none}
-#loginModal .box{background:linear-gradient(180deg,#071427,#0f2742);padding:20px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);width:360px;box-shadow:0 10px 40px rgba(0,0,0,0.6)}
-.label-locked{color:#ffbaba;background:rgba(255,80,80,0.06);padding:8px;border-radius:6px;margin-top:8px;border:1px solid rgba(255,80,80,0.08)}
-.teacher-controls.locked *{pointer-events:none;opacity:0.45}
-.top-right {position: absolute; right: 28px; top: 22px; color: rgba(255,255,255,0.85)}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nền tảng Bài tập Sáng tạo NDS</title>
+    <!-- Tải Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Thêm font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Sử dụng font Inter làm mặc định */
+        body { 
+            font-family: 'Inter', sans-serif; 
+        }
+        /* Ẩn tất cả các trang nội dung theo mặc định */
+        .page-content { 
+            display: none; 
+        }
+        /* Hiển thị trang đang hoạt động */
+        .page-content.active { 
+            display: block; 
+        }
+        /* Kiểu cho link điều hướng đang hoạt động */
+        .nav-link.active {
+            background-color: #4338CA; /* indigo-700 */
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Định nghĩa lớp answer-box */
+        .answer-box {
+            margin-top: 0.5rem;
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #D1D5DB; /* border-gray-300 */
+            border-radius: 0.375rem; /* rounded-md */
+        }
+        .answer-box:focus {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            border-color: #4F46E5; /* border-indigo-500 */
+            box-shadow: 0 0 0 2px #C7D2FE; /* focus:ring-indigo-500 */
+        }
+
+        /* Kiểu CSS cho bản in */
+        @media print {
+            body {
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 12pt;
+                color: #000;
+            }
+            /* Ẩn thanh điều hướng và nút in */
+            nav, #print-button {
+                display: none !important;
+            }
+            main {
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+            }
+            /* Không in trang chủ */
+            #page-home {
+                display: none !important;
+            }
+            /* Hiển thị TẤT CẢ các bài tập, mỗi bài trên 1 trang mới */
+            .page-content {
+                display: block !important;
+                page-break-before: always;
+                /* Bỏ ẩn display do JS thêm vào (nếu có) */
+                display: block !important; 
+            }
+            /* Reset styles cho gọn gàng */
+            .bg-white, .bg-gray-100 {
+                background-color: #fff !important;
+            }
+            .shadow-md {
+                box-shadow: none !important;
+                border: 1px solid #eee !important;
+            }
+            h1, h2, h3 {
+                color: #000 !important;
+            }
+            .text-indigo-700, .text-green-700, .text-gray-700, .text-gray-900, .text-gray-600 {
+                color: #000 !important;
+            }
+            a {
+                text-decoration: none;
+                color: #000;
+            }
+            table, th, td {
+                border: 1px solid #ccc !important;
+                page-break-inside: avoid;
+            }
+            ul, p, div {
+                page-break-inside: avoid;
+            }
+            /* Đảm bảo ô trả lời hiển thị rõ ràng */
+            .answer-box {
+                border: 1px dashed #999 !important;
+                background-color: #f9f9f9 !important;
+                page-break-inside: avoid;
+                /* Hiển thị nội dung của textarea khi in */
+                overflow: visible !important;
+                height: auto !important;
+            }
+            /* Ẩn các chi tiết không cần thiết */
+            #q2-a-details.hidden, #q2-b-details.hidden {
+                display: none !important;
+            }
+        }
+    </style>
 </head>
-<body>
-<header>
-  <div class="container" style="display:flex;justify-content:space-between;align-items:center;background:transparent;padding:0">
-    <div>
-      <h2 style="margin:0">SSchoolBio — MVP (Sinh học 11)</h2>
-      <div class="small">Ngân hàng câu hỏi • Lưu cục bộ • Demo</div>
-    </div>
-    <div style="display:flex;gap:8px;align-items:center">
-      <button id="btnExport" class="small ghost">Export JSON</button>
-      <button id="btnImport" class="small">Import JSON</button>
-      <input id="fileInput" type="file" accept=".json" style="display:none">
-    </div>
-  </div>
-</header>
+<body class="bg-gray-100">
 
-<main class="container">
-  <div class="nav">
-    <button id="nav-home">Home</button>
-    <button id="nav-teacher" class="ghost">Teacher</button>
-    <button id="nav-student" class="ghost">Student</button>
-    <button id="btn-reset" class="ghost small">Reset dữ liệu</button>
-    <div style="flex:1"></div>
-    <div id="roleBox" class="small top-right"></div>
-  </div>
-
-  <div id="view-home" class="card">
-    <h3>Giới thiệu</h3>
-    <p class="small">Ứng dụng prototype đánh giá năng lực Sinh học 11 (dựa trên tài liệu bạn cung cấp). Chọn "Teacher" để quản lý ngân hàng câu hỏi / sinh đề; "Student" để làm bài.</p>
-    <div style="margin-top:10px"><button id="seed" class="small">Tải dữ liệu mẫu (50 câu)</button></div>
-  </div>
-
-  <!-- TEACHER -->
-  <div id="view-teacher" class="hidden">
-    <div id="teacherLocked" class="card">
-      <!-- This will be replaced/hidden when teacher logged in -->
-      <h4>Khu vực Giáo viên</h4>
-      <p class="small">Chỉ giáo viên mới được phép xem và quản lý ngân hàng câu hỏi. Vui lòng <strong>đăng nhập</strong> để tiếp tục.</p>
-      <div style="margin-top:10px">
-        <button id="openLogin" class="small">Đăng nhập Giáo viên</button>
-      </div>
-    </div>
-
-    <div id="teacherArea" class="hidden teacher-controls">
-      <div class="row">
-        <div class="col">
-          <div class="card">
-            <h4>Thêm / Chỉnh sửa câu hỏi</h4>
-            <label>Chủ đề</label><input id="q_topic" type="text" placeholder="vd: Quang hợp">
-            <label>Loại</label>
-            <select id="q_type"><option value="mcq">Trắc nghiệm (MCQ)</option><option value="tf">Đúng/Sai</option><option value="essay">Tự luận</option></select>
-            <label>Nội dung câu hỏi</label><textarea id="q_text" rows="3"></textarea>
-            <div id="mcq_area">
-              <label>Đáp án A</label><input id="opt_a" type="text">
-              <label>Đáp án B</label><input id="opt_b" type="text">
-              <label>Đáp án C</label><input id="opt_c" type="text">
-              <label>Đáp án D</label><input id="opt_d" type="text">
-              <label>Chỉ số đáp án đúng (0..3)</label><input id="opt_correct" type="number" min="0" max="3" value="0">
+    <div class="flex flex-col md:flex-row min-h-screen">
+        
+        <!-- Thanh điều hướng bên (Sidebar) -->
+        <nav class="w-full md:w-72 bg-indigo-800 text-white p-5 space-y-3 shrink-0 flex flex-col">
+            <div>
+                <h1 class="text-2xl font-bold mb-6 text-center">
+                    Năng lực Sáng tạo NDS
+                </h1>
+                <a href="#" class="nav-link active block p-3 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors duration-200" data-target="page-home">
+                    Trang chủ
+                </a>
+                <a href="#" class="nav-link block p-3 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors duration-200" data-target="page-bt1">
+                    Bài tập 1: Phát triển NDS
+                </a>
+                <a href="#" class="nav-link block p-3 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors duration-200" data-target="page-bt2">
+                    Bài tập 2: Tích hợp & Tái lập
+                </a>
+                <a href="#" class="nav-link block p-3 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors duration-200" data-target="page-bt3">
+                    Bài tập 3: Lập trình
+                </a>
             </div>
-            <label>Mức độ</label>
-            <select id="q_level"><option>Nhận biết</option><option>Thông hiểu</option><option>Vận dụng</option></select>
-            <div style="margin-top:10px">
-              <button id="add_q">Thêm câu hỏi</button>
-              <button id="clear_form" class="ghost small">Xóa form</button>
+            <!-- Nút In / Xuất PDF -->
+            <div class="mt-auto pt-6">
+                <a href="#" id="print-button" class="block p-3 rounded-lg text-sm font-medium bg-green-600 text-white text-center hover:bg-green-700 transition-colors duration-200">
+                    In bài làm / Xuất PDF
+                </a>
             </div>
-          </div>
+        </nav>
 
-          <div class="card">
-            <h4>Tạo đề tự động</h4>
-            <label>Số câu MCQ</label><input id="gen_mcq" type="number" value="8" min="0">
-            <label>Số câu Essay</label><input id="gen_essay" type="number" value="1" min="0">
-            <label>Chủ đề ưu tiên (để trống = toàn bộ)</label><input id="gen_topic" type="text">
-            <div style="margin-top:8px">
-              <button id="gen_btn">Sinh đề</button>
-              <button id="save_gen" class="ghost small" disabled>Lưu đề</button>
+        <!-- Khu vực nội dung chính -->
+        <main class="flex-1 p-6 md:p-10 overflow-auto">
+
+            <!-- Trang: Trang chủ -->
+            <div id="page-home" class="page-content active space-y-6">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                    Chào mừng đến với Nền tảng Bài tập
+                </h2>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Đây là nền tảng web được thiết kế để hỗ trợ bạn thực hành các bài tập phát triển năng lực sáng tạo nội dung số (NDS).
+                    </p>
+                    <p class="text-gray-700 leading-relaxed mt-4">
+                        Mỗi bài tập được xây dựng theo cấu trúc 4 giai đoạn:
+                    </p>
+                    <ul class="list-decimal list-inside text-gray-700 mt-4 space-y-2">
+                        <li><strong>Trải nghiệm cụ thể (Tình huống sư phạm):</strong> Đặt ra bối cảnh thực tiễn.</li>
+                        <li><strong>Quan sát phản tư (Thiết lập nền tảng):</strong> Thiết kế nhiệm vụ để phát triển năng lực.</li>
+                        <li><strong>Trừu tượng hóa (Nhiệm vụ kiến tạo):</strong> Thiết kế khung nội dung/kế hoạch cho sản phẩm.</li>
+                        <li><strong>Thử nghiệm tích cực (Thử thách sáng tạo):</strong> Vận dụng kiến thức để phát triển sản phẩm.</li>
+                    </ul>
+                    <p class="text-gray-700 leading-relaxed mt-4">
+                        Sử dụng thanh điều hướng bên trái để chọn bài tập bạn muốn thực hiện.
+                    </p>
+                </div>
             </div>
-            <pre id="gen_preview" class="small"></pre>
-          </div>
-        </div>
 
-        <div class="col">
-          <div class="card">
-            <h4>Ngân hàng câu hỏi</h4>
-            <div id="q_list" class="q-list small">(chưa có)</div>
-          </div>
+            <!-- Trang: Bài tập 1 -->
+            <div id="page-bt1" class="page-content space-y-6">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Bài tập 1: Phát triển Năng lực Phát triển Nội dung số</h2>
+                
+                <!-- Phần 1: Tình huống sư phạm -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 1: Tình huống sư phạm</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Là một GVBM Sinh học tại trường THPT A, tham gia cuộc thi “Thiết kế bài giảng E – learning năm học 2025-2026” và nhận chủ đề thiết kế bài giảng thuộc chương trình sinh học 10. Bạn đang đứng trước các vấn đề: E-learning có những ưu việt gì so với bài giảng truyền thống? Làm thế nào để thiết kế một bài giảng E-learning có tính tương tác cao, giúp học sinh tự khám phá, thao tác và hiểu sâu kiến thức Sinh học thông qua các công cụ số phù hợp?
+                    </p>
+                </div>
+                
+                <!-- Phần 2: Thiết lập nền tảng -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 2: Thiết lập nền tảng</h3>
+                    <div class="space-y-4 text-gray-700">
+                        <div>
+                            <p><strong>1. Xác định mục tiêu nội dung/chủ đề cho bài giảng E – learning?</strong></p>
+                            <textarea class="answer-box" rows="3" placeholder="Nhập câu trả lời của bạn..."></textarea>
+                        </div>
+                        <p><strong>2. Có thể áp dụng công cụ nào để nhận thấy e – learning góp phần nâng cao hiệu quả dạy học chủ đề đã chọn so với bài giảng truyền thống?</strong></p>
+                        <div class="ml-5 space-y-2 mt-2">
+                            <div class="flex items-center">
+                                <input id="bt1-q2-a" name="bt1-q2" type="radio" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                <label for="bt1-q2-a" class="ml-3 block text-gray-900">a) Khảo sát (thu nhận phản hồi từ người học)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="bt1-q2-b" name="bt1-q2" type="radio" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                <label for="bt1-q2-b" class="ml-3 block text-gray-900">b) Bài kiểm tra cuối khóa</label>
+                            </div>
+                        </div>
+                        <p><strong>3. Xác định phương tiện/công nghệ số mà bạn có thể sử dụng thành thạo để thiết kế các nội dung số cho e – learning?</strong></p>
+                        <div class="space-y-2 ml-5 text-gray-700 mt-2">
+                            <!-- Checkboxes -->
+                            <div class="flex items-center">
+                                <input id="bt1-tool-canva" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt1-tool-canva" class="ml-3 block text-gray-900">Canva/ Power Point</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="bt1-tool-gpt" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt1-tool-gpt" class="ml-3 block text-gray-900">GPT/Gemini</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="bt1-tool-powtoon" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt1-tool-powtoon" class="ml-3 block text-gray-900">Powtoon/Prezi</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="bt1-tool-docs" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt1-tool-docs" class="ml-3 block text-gray-900">Google docs/word</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="bt1-tool-draw" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt1-tool-draw" class="ml-3 block text-gray-900">Draw/ App đồ họa</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="bt1-tool-kahoot" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt1-tool-kahoot" class="ml-3 block text-gray-900">Kahoot</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="bt1-tool-leoai" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt1-tool-leoai" class="ml-3 block text-gray-900">Leonardo AI</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="bt1-tool-other" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt1-tool-other" class="ml-3 block text-gray-900">Khác</label>
+                            </div>
+                        </div>
+                        <div>
+                            <p><strong>4. Thời gian hoàn thành E-learning?</strong></p>
+                            <textarea class="answer-box" rows="2" placeholder="Nhập câu trả lời của bạn..."></textarea>
+                        </div>
+                    </div>
+                </div>
 
-          <div class="card">
-            <h4>Đề thi đã lưu</h4>
-            <div id="quiz_list" class="small">(chưa có)</div>
-          </div>
+                <!-- Phần 3: Nhiệm vụ kiến tạo -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 3: Nhiệm vụ kiến tạo</h3>
+                    <p class="text-gray-700 mb-4">Theo kết quả phân tích các yêu cầu ở phần thiết lập nền tảng, lập kế hoạch thiết kế e – learning theo KHBD theo hướng dẫn bên dưới:</p>
+                    <div class="overflow-x-auto mt-4">
+                        <table class="min-w-full divide-y divide-gray-200 border">
+                            <!-- ... (nội dung bảng không đổi) ... -->
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Yêu cầu</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hướng dẫn</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200 text-gray-700">
+                                <tr>
+                                    <td class="px-6 py-4 font-medium">Phân tích cấu trúc kế hoạch dạy học</td>
+                                    <td class="px-6 py-4">"Xác định: mục tiêu bài học? nội dung trọng tâm? hình thức tổ chức (trực tiếp, trực tuyến, kết hợp)?"</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-medium">Xác định vai trò của nội dung số trong từng hoạt động học</td>
+                                    <td class="px-6 py-4">
+                                        <ul class="list-disc list-inside">
+                                            <li>Hoạt động khởi động: sử dụng video, hình ảnh, câu hỏi gợi mở.</li>
+                                            <li>Hoạt động hình thành/khám phá kiến thức: video – bải giảng tương tác</li>
+                                            <li>Hoạt động luyện tập/đánh giá: quiz, trò chơi, bài tập tương tác</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-medium">"Xác định thời gian, nguồn lực và công cụ số"</td>
+                                    <td class="px-6 py-4">"Lập kế hoạch chi tiết cho từng loại nội dung: thời lượng, công cụ (Canva, H5P, ..)"</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-medium">Tìm hiểu về H5P</td>
+                                    <td class="px-6 py-4"><a href="https://drive.google.com/file/d/1HdthPJHYe4EdaG4PBbiB6nP6ztCslysk/view?usp=sharing" target="_blank" class="text-blue-600 hover:underline">Link tài liệu H5P</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-          <div class="card">
-            <h4>Thống kê</h4>
-            <div id="teacher_stats" class="small">(chưa có kết quả)</div>
-            <div style="margin-top:10px"><button id="btnLogout" class="ghost small">Đăng xuất</button></div>
-          </div>
-        </div>
-      </div>
+                <!-- Phần 4: Thử thách sáng tạo -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 4: Thử thách sáng tạo</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Tham khảo tài liệu hưởng dẫn để sử dụng H5P để tạo E – learning triển khai KHBD và kế hoạch thiết kế E – learning đã hoàn thành ở phần kiến tạo.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Trang: Bài tập 2 -->
+            <div id="page-bt2" class="page-content space-y-6">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Bài tập 2: Tích hợp và Tái lập lại Nội dung số</h2>
+                
+                <!-- Phần 1: Tình huống sư phạm -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 1: Tình huống sư phạm</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Để chuẩn bị cho buổi chuyên đề “Lớp học đảo ngược“ vào tháng sau, bạn được tổ bộ môn yêu cầu thiết kế và giới thiệu về học liệu số trong dạy học môn sinh học. Với thời gian trên, bạn đang phân vân nên tạo ra các nội dung số mới cho học liệu hay tích hợp và tái lập các học liệu sẵn có và số hóa cho phù hợp. Song song đó, bạn cần giải quyết được câu hỏi: Làm học liệu số theo xu hướng hay có thực sự mang lại hiệu quả hơn so với học liệu truyền thống không? Làm thế nào để phát huy hiệu quả đó, để HLS không phải là sự số hóa đơn điệu, nhàm chán?
+                    </p>
+                </div>
+
+                <!-- Phần 2: Thiết lập nền tảng -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 2: Thiết lập nền tảng</h3>
+                    <div class="space-y-4 text-gray-700">
+                        <div>
+                            <p><strong>1. Xác định mục tiêu về các nội dung/chủ đề để thiết kế học liệu?</strong></p>
+                            <textarea class="answer-box" rows="3" placeholder="Nhập câu trả lời của bạn..."></textarea>
+                        </div>
+                        <p><strong>2. Xác định phương tiện/công nghệ số mà bạn có thể sử dụng thành thạo để thiết kế các nội dung số cho e – learning?</strong></p>
+                        <div class="space-y-2 ml-5 text-gray-700 mt-2">
+                            <!-- Checkboxes -->
+                            <div class="flex items-center">
+                                <input id="bt2-tool-canva" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt2-tool-canva" class="ml-3 block text-gray-900">Canva/ Power Point</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="bt2-tool-drive" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt2-tool-drive" class="ml-3 block text-gray-900">Google drive/ Onedrive</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="bt2-tool-llm" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt2-tool-llm" class="ml-3 block text-gray-900">Notebook LLM</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="bt2-tool-capcut" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt2-tool-capcut" class="ml-3 block text-gray-900">Capcut</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="bt2-tool-docs" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt2-tool-docs" class="ml-3 block text-gray-900">Google docs/word</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="bt2-tool-other" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt2-tool-other" class="ml-3 block text-gray-900">Khác ……….</label>
+                            </div>
+                        </div>
+                        <div>
+                            <p><strong>3. Phân tích chân dung người học (học lực, năng lực công nghệ, nhu cầu, động lực học tập và điều kiện học tập….) để thiết kế hoạt động tương tác và khám phá nội dung phù hợp</strong></p>
+                            <textarea class="answer-box" rows="4" placeholder="Nhập phân tích của bạn..."></textarea>
+                        </div>
+                        
+                        <!-- Bảng Tiêu chí phân loại -->
+                        <div class="overflow-x-auto mt-4">
+                            <table class="min-w-full divide-y divide-gray-200 border">
+                                <!-- ... (nội dung bảng không đổi) ... -->
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tiêu chí phân loại</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hướng dẫn phân loại</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200 text-gray-700">
+                                    <tr><td class="px-6 py-4 font-medium">Theo chủ đề</td><td class="px-6 py-4">"Sinh học tế bào, Di truyền học, Sinh lý học thực vật…"</td></tr>
+                                    <tr><td class="px-6 py-4 font-medium">Theo định dạng</td><td class="px-6 py-4">"Văn bản, hình ảnh, video, mô phỏng ảo, dữ liệu sinh học, quiz"</td></tr>
+                                    <tr><td class="px-6 py-4 font-medium">Theo giá trị cập nhật khoa học</td><td class="px-6 py-4">Học liệu “bền vững” (Evergreen): kiến thức cơ bản, ít thay đổi<br>Học liệu “cần cập nhật”: liên quan dữ liệu mới, công nghệ mới.</td></tr>
+                                    <tr><td class="px-6 py-4 font-medium">Theo giá trị sư phạm</td><td class="px-6 py-4">"Mức độ phù hợp với trình độ học sinh, khả năng trực quan, tính tương tác."</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <p>Đánh giá khách quan theo yêu cầu về công nghệ và chân dung người học đã phân tích trên để đưa ra quyết định “giữ – sửa – bỏ” các học liệu/NDS thu thập được.</p>
+                            <textarea class="answer-box" rows="3" placeholder="Nhập quyết định 'giữ – sửa – bỏ' của bạn..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phần 3: Nhiệm vụ kiến tạo -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 3: Nhiệm vụ kiến tạo</h3>
+                    <p class="text-green-700 italic mb-4">Theo kết quả phân tích phần nền tảng, hãy thiết kế khung nội dung cho sản phẩm số/HLS theo hướng dẫn bên dưới:</p>
+                    
+                    <p class="text-gray-700 font-medium">1. Dựa theo tài nguyên học liệu hiện có hãy chọn 1 trong hai loại học liệu sau để thiết kế:</p>
+                    <div class="ml-5 text-gray-700 space-y-2 mt-2">
+                        <!-- ... (radio buttons không đổi) ... -->
+                        <div class="flex items-center">
+                            <input id="q1-a-flipbook" name="hoc-lieu-type" type="radio" value="flipbook" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                            <label for="q1-a-flipbook" class="ml-3 block text-gray-900 cursor-pointer">a) Flipbook tương tác.</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="q1-b-website" name="hoc-lieu-type" type="radio" value="website" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                            <label for="q1-b-website" class="ml-3 block text-gray-900 cursor-pointer">b) Website học liệu mở</label>
+                        </div>
+                    </div>
+
+                    <p class="text-gray-700 font-medium mt-4">2. Lựa chọn phương án phù hợp để thiết kế khung nội dung cho loại sản phẩm số/HLS đã xác định:</p>
+                    <div class="ml-5 text-gray-700 space-y-3 mt-2">
+                        <!-- Option 2a (CÓ TEXTAREA) -->
+                        <div id="q2-a-content-wrapper">
+                            <div class="flex items-center">
+                                <input id="q2-a-flipbook" name="khung-noi-dung" type="radio" value="flipbook" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500" disabled>
+                                <label for="q2-a-flipbook" class="ml-3 block text-gray-900 font-medium cursor-not-allowed text-gray-500">a) Lập một "Dàn ý chi tiết (Outline)" cho Flipbook</label>
+                            </div>
+                            <!-- THAY THẾ NỘI DUNG TĨNH BẰNG TEXTAREA -->
+                            <div id="q2-a-details" class="ml-8 mt-2 hidden pl-4 border-l-2 border-gray-200">
+                                <p class="text-sm text-gray-600 mb-2">Soạn dàn ý chi tiết (Outline) của bạn tại đây:</p>
+                                <textarea class="answer-box" rows="8" placeholder="Tiêu đề: ...&#10;Mục tiêu: ...&#10;Nội dung: ...&#10;Hoạt động: ...&#10;Kết luận: ..."></textarea>
+                            </div>
+                        </div>
+                        <!-- Option 2b (CÓ TEXTAREA) -->
+                        <div id="q2-b-content-wrapper">
+                            <div class="flex items-center">
+                                <input id="q2-b-website" name="khung-noi-dung" type="radio" value="website" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500" disabled>
+                                <label for="q2-b-website" class="ml-3 block text-gray-900 font-medium cursor-not-allowed text-gray-500">b) Thiết kế một "Storyboard (Khung hình nội dung)" hoặc sitemap cho website.</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- THAY THẾ NỘI DUNG TĨNH BẰNG TEXTAREA -->
+                    <div id="q2-b-details" class="overflow-x-auto mt-4 hidden">
+                        <p class="text-gray-600 mb-2">Sử dụng bảng bên dưới làm hướng dẫn và soạn Storyboard/Sitemap của bạn vào ô văn bản:</p>
+                        <table class="min-w-full divide-y divide-gray-200 border">
+                            <!-- ... (nội dung bảng không đổi) ... -->
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thành phần</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mô tả</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200 text-gray-700">
+                                <tr><td class="px-6 py-4 font-medium">Khung hình / cảnh quay</td><td class="px-6 py-4">"Hình ảnh, sơ đồ hoặc đoạn mô phỏng."</td></tr>
+                                <tr><td class="px-6 py-4 font-medium">Lời thoại / văn bản</td><td class="px-6 py-4">Giải thích nội dung khoa học.</td></tr>
+                                <tr><td class="px-6 py-4 font-medium">Âm thanh</td><td class="px-6 py-4">"Giọng đọc, nhạc nhẹ, hiệu ứng."</td></tr>
+                                <tr><td class="px-6 py-4 font-medium">Tương tác</td><td class="px-6 py-4">"Câu hỏi gợi mở, lựa chọn đáp án."</td></tr>
+                                <tr><td class="px-6 py-4 font-medium">Trích dẫn</td><td class="px-6 py-4">"Ghi rõ nguồn hình ảnh, video."</td></tr>
+                            </tbody>
+                        </table>
+                        <textarea class="answer-box mt-4" rows="10" placeholder="Soạn Storyboard (Khung hình nội dung) hoặc Sitemap cho website tại đây..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Phần 4: Thử thách sáng tạo -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 4: Thử thách sáng tạo</h3>
+                    <p class="text-green-700 italic leading-relaxed mb-4">Vận dụng khung nội dung số ở tạo thành ở phần nhiệm vụ kiến tạo và các công cụ hỗ trợ để tạo ra sản phẩm hoàn chỉnh(1 Flipbook hoặc 1 website học liệu). Sản phẩm đáp ứng các yêu cầu sau:</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <!-- ... (danh sách yêu cầu không đổi) ... -->
+                        <li><strong>Yêu cầu Cắt – Ghép – Chuyển đổi:</strong> Phải thể hiện rõ các thao tác “tái cấu trúc” (sắp xếp lại nội dung).</li>
+                        <li><strong>Yêu cầu chuẩn hóa:</strong> sản phẩm phải "chuẩn hóa font, màu sắc, bố cục" trên toàn bộ HLS. Ngôn ngữ phải đảm bảo "khoa học – sư phạm", chính xác, tránh hàn lâm.</li>
+                        <li><strong>Yêu cầu về Tính cập nhật và Pháp lý:</strong> Các ví dụ, hình ảnh phải được cập nhật (ví dụ: bổ sung mô hình 3D, ví dụ thực tế). Mọi tài nguyên "tái sử dụng" (hình ảnh, video) phải đảm bảo nguồn hợp pháp và được trích dẫn (như trong Storyboard).</li>
+                    </ul>
+                    <p class="text-gray-700 font-medium mt-4">Nền tảng/công cụ số phù hợp để sản xuất sản phẩm số mà bạn đã xác định ở phần kiến tạo:</p>
+                    <div class="space-y-2 ml-5 text-gray-700 mt-2">
+                        <!-- Checkboxes -->
+                        <div class="flex items-center">
+                            <input id="bt2-final-tool-flipzine" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                            <label for="bt2-final-tool-flipzine" class="ml-3 block text-gray-900">Flipzine</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="bt2-final-tool-gdrive" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                            <label for="bt2-final-tool-gdrive" class="ml-3 block text-gray-900">Google drive/ Onedrive</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="bt2-final-tool-html" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt2-final-tool-html" class="ml-3 block text-gray-900">HTML (Gemini pro)</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="bt2-final-tool-wordpress" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                            <label for="bt2-final-tool-wordpress" class="ml-3 block text-gray-900">WordPress</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="bt2-final-tool-gsite" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                            <label for="bt2-final-tool-gsite" class="ml-3 block text-gray-900">Google site</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="bt2-final-tool-tempi" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                            <label for="bt2-final-tool-tempi" class="ml-3 block text-gray-900">Tempi</label>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-gray-700 font-medium mt-4">Sản phẩm: Nộp lại 01 đường link (URL) HLS hoàn chỉnh để giải quyết vấn đề sư phạm ở Phần 1.</p>
+                        <input type="text" class="answer-box" placeholder="Dán đường link (URL) sản phẩm của bạn tại đây...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trang: Bài tập 3 -->
+            <div id="page-bt3" class="page-content space-y-6">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Bài tập 3: Phát triển Năng lực Lập trình</h2>
+                
+                <!-- Phần 1: Tình huống sư phạm -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 1: Tình huống sư phạm</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Bạn được giao nhiệm vụ ứng dụng quy trình phát triển sản phẩm số bằng ngôn ngữ lập trình để thiết kế một mô phỏng trực quan về cơ chế tái bản DNA. Đây là một hoạt động giáo dục định hướng STEM, giúp học sinh giải quyết các khó khăn trong việc hình dung các quá trình sinh học phân tử phức tạp.
+                    </p>
+                </div>
+                
+                <!-- Phần 2: Thiết lập nền tảng -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 2: Thiết lập nền tảng</h3>
+                    <div class="space-y-4 text-gray-700">
+                        <div>
+                            <p><strong>1. Giải thích tại sao ứng dụng quy trình phát triển sản phẩm số bằng ngôn ngữ lập trình thiết kế cơ chế tái bản DNA có thể xem là hoạt động giáo dục định hướng STEM? Điều này giúp giải quyết vấn đề gì cho học sinh trong học tập môn Sinh học?</strong></p>
+                            <textarea class="answer-box" rows="4" placeholder="Nhập giải thích của bạn..."></textarea>
+                        </div>
+                        <p><strong>2. Bạn có thể thiết kế quy trình phát triển sản phẩm số bằng ngôn ngữ lập trình theo các bước?</strong></p>
+                        <div class="ml-5 space-y-2 mt-2">
+                            <!-- Radio buttons -->
+                            <div class="flex items-center">
+                                <input id="bt3-q2-a" name="bt3-q2" type="radio" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                <label for="bt3-q2-a" class="ml-3 block text-gray-900">a) Thiết kế (AI code) => Cài đặt => Kiểm thử</label>
+                            </div>
+                             <div class="flex items-center">
+                                <input id="bt3-q2-b" name="bt3-q2" type="radio" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                <label for="bt3-q2-b" class="ml-3 block text-gray-900">b) Sinh mã tự động => Sửa lỗi => Cài đặt</label>
+                            </div>
+                        </div>
+                        <p><strong>3. Xác định phương tiện/công nghệ số hỗ trợ lập trình?</strong></p>
+                        <div class="space-y-2 ml-5 text-gray-700 mt-2">
+                            <!-- Checkboxes -->
+                             <div class="flex items-center">
+                                <input id="bt3-tool-replit" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt3-tool-replit" class="ml-3 block text-gray-900">Replit/ Script</label>
+                            </div>
+                             <div class="flex items-center">
+                                <input id="bt3-tool-gemini" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt3-tool-gemini" class="ml-3 block text-gray-900">Gemini pro/ HTML + CSS + Javascript của GPT</LAbel>
+                            </div>
+                             <div class="flex items-center">
+                                <input id="bt3-tool-hoc" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt3-tool-hoc" class="ml-3 block text-gray-900">hoclaptrinh.io (chạy code)</label>
+                            </div>
+                             <div class="flex items-center">
+                                <input id="bt3-tool-vscode" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt3-tool-vscode" class="ml-3 block text-gray-900">Vscode</label>
+                            </div>
+                             <div class="flex items-center">
+                                <input id="bt3-tool-github" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="bt3-tool-github" class="ml-3 block text-gray-900">Github</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phần 3: Nhiệm vụ kiến tạo -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 3: Nhiệm vụ kiến tạo</h3>
+                    <p class="text-gray-700 mb-4">Theo kết quả phân tích các yêu cầu ở phần thiết lập nền tảng, thực hành phác thảo và thiết kế nội dung/sản phẩm số theo hướng dẫn sau:</p>
+                    <div class="space-y-4 text-gray-700">
+                        <div>
+                            <p><strong>1. Xác định nội dung sản phẩm:</strong> Mô hình phải có những chức năng gì? (VD: Hiển thị 4 giai đoạn, có enzyme di chuyển, có màu sắc cho A,T,C,G). Mô tả đặc điểm cấu trúc phù hợp với chức năng tái bản của DNA.</p>
+                            <textarea class="answer-box" rows="4" placeholder="Nhập nội dung sản phẩm..."></textarea>
+                        </div>
+                        <div>
+                            <p><strong>2. Mô tả hình thức hoạt động/ giao diện hiển thị mong muốn cho sản phẩm số?</strong></p>
+                            <textarea class="answer-box" rows="4" placeholder="Nhập mô tả hình thức/giao diện..."></textarea>
+                        </div>
+                        <div>
+                            <p><strong>3. Thực hành "Sử dụng AI hỗ trợ sinh mã"</strong> (công cụ AI đã giới thiệu ở phần nền tảng). Viết prompt "mô tả bằng tiếng Việt/Anh rõ ràng" về nội dung và hình thức sản phẩm số (đã trình bày ở câu 1,2) để ra lệnh tạo code.</p>
+                            <p class="p-3 bg-gray-100 rounded-md border border-gray-200 text-sm mt-2">
+                                <strong>(Prompt mẫu):</strong> "Hãy viết code p5.js mô phỏng 4 giai đoạn tái bản DNA, có enzyme là hình tròn, có âm thanh click..."
+                            </p>
+                            <textarea class="answer-box" rows="6" placeholder="Viết prompt của bạn tại đây..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phần 4: Thử thách sáng tạo -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 4: Thử thách sáng tạo</h3>
+                    <p class="text-gray-700">Sản phẩm mẫu: <a href="https://myletoday-oss.github.io/Fubao/" target="_blank" class="text-blue-600 hover:underline">https://myletoday-oss.github.io/Fubao/</a></p>
+                    <p class="text-gray-700 font-medium mt-4">Yêu cầu:</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2 mt-2">
+                        <!-- ... (danh sách yêu cầu không đổi) ... -->
+                        <li><strong>Vận hành công cụ:</strong>
+                            <ul class="list-circle list-inside ml-5">
+                                <li>Gửi Prompt ở Phần 3 cho AI (Gemini/GPT).</li>
+                                <li>"Tích hợp nội dung" (code) mà AI trả về vào hoclaptrinh.io.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Kiểm thử (Testing) & Lặp lại:</strong>
+                            <ul class="list-circle list-inside ml-5">
+                                <li>"Chạy thử" code.</li>
+                                <li>(Quan trọng) "Phát hiện lỗi logic hoặc giao diện" (VD: enzyme chạy quá nhanh, lệch giao diện).</li>
+                                <li>"Khắc phục" bằng cách quay lại AI, "mô tả lỗi đang gặp" và yêu cầu nó sửa (sử dụng "AI hỗ trợ dò lỗi code").</li>
+                                <li>Lặp lại chu trình (Dán code mới -> Chạy thử -> Phát hiện lỗi -> Yêu cầu AI sửa) cho đến khi sản phẩm "ổn định".</li>
+                            </ul>
+                        </li>
+                        <li><strong>Chia sẻ (Optional):</strong>
+                            <ul class="list-circle list-inside ml-5">
+                                <li>Khi đã ổn định, "Đưa sản phẩm lên GitHub" và kích hoạt GitHub Pages.</li>
+                            </ul>
+                        </li>
+                         <li><strong>Vận dụng Sư phạm:</strong> thiết kế hướng dẫn/ kế hoạch giáo dục định hướng HS phát triển năng lực STEM với quy trình phát triển sản phẩm bằng ngôn ngữ lập trình.</li>
+                    </ul>
+                    <div>
+                        <p class="text-gray-700 font-medium mt-4">Sản phẩm: Nộp lại 01 link GitHub Pages (sản phẩm mẫu) VÀ 01 đoạn phản tư sư phạm.</p>
+                        <input type="text" class="answer-box" placeholder="Dán link GitHub Pages tại đây...">
+                        <textarea class="answer-box" rows="5" placeholder="Viết đoạn phản tư sư phạm của bạn tại đây..."></textarea>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
     </div>
-  </div>
 
-  <!-- STUDENT -->
-  <div id="view-student" class="hidden">
-    <div class="row">
-      <div class="col">
-        <div class="card">
-          <h4>Học sinh làm bài</h4>
-          <label>Tên</label><input id="stu_name" type="text" placeholder="Nhập tên học sinh...">
-          <label>Chọn đề</label>
-          <select id="select_quiz"></select>
-          <div style="margin-top:8px">
-            <button id="start_quiz">Bắt đầu</button>
-            <button id="sample_quiz" class="ghost small">Lấy đề mẫu</button>
-          </div>
-        </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page-content');
+            const sidebar = document.querySelector('nav');
 
-        <div id="take_area" class="card hidden">
-          <h4 id="take_title">Bài làm</h4>
-          <div id="question_box"></div>
-          <div style="margin-top:10px">
-            <button id="prev_btn" class="ghost small">Trước</button>
-            <button id="next_btn" class="ghost small">Tiếp</button>
-            <button id="submit_quiz">Nộp bài</button>
-          </div>
-        </div>
-      </div>
+            // Hàm để hiển thị trang và cập nhật link active
+            function showPage(targetId) {
+                // Ẩn tất cả các trang
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                    page.style.display = 'none'; // Thêm để đảm bảo ẩn
+                });
+                
+                // Hiển thị trang mục tiêu
+                const targetPage = document.getElementById(targetId);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                    targetPage.style.display = 'block'; // Thêm để đảm bảo hiển thị
+                }
 
-      <div class="col">
-        <div class="card">
-          <h4>Kết quả gần đây</h4>
-          <div id="recent" class="small">(chưa có)</div>
-        </div>
+                // Cập nhật trạng thái active cho các link
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.dataset.target === targetId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
 
-        <div class="card">
-          <h4>Phân tích năng lực theo chủ đề</h4>
-          <div id="analysis" class="small">Chưa có dữ liệu</div>
-        </div>
-      </div>
-    </div>
-  </div>
+            // Thêm sự kiện click cho mỗi link điều hướng
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault(); // Ngăn hành vi mặc định của thẻ <a>
+                    const targetId = e.currentTarget.dataset.target;
+                    showPage(targetId);
+                });
+            });
 
-  <div id="modal" class="hidden card" style="position:fixed;right:20px;bottom:20px;width:320px"></div>
-</main>
+            // Hiển thị trang chủ khi tải lần đầu
+            showPage('page-home');
 
-<footer class="footer">
-  ✨ <strong>Design by Fubao</strong> ✨ — Dữ liệu câu hỏi lấy từ Bài 12, Bài 13, Bài 14.
-</footer>
+            // --- Logic cho Bài tập 2, Phần 3 ---
+            const q1Radios = document.querySelectorAll('input[name="hoc-lieu-type"]');
+            
+            const q2aRadio = document.getElementById('q2-a-flipbook');
+            const q2aDetails = document.getElementById('q2-a-details');
+            const q2aLabel = document.querySelector('label[for="q2-a-flipbook"]');
 
-<!-- Login Modal -->
-<div id="loginModal">
-  <div class="box">
-    <h3>Đăng nhập Giáo viên</h3>
-    <p class="small">Nhập mật khẩu giáo viên để xem và quản lý ngân hàng câu hỏi.</p>
-    <label>Mật khẩu</label>
-    <input id="loginPass" type="password" placeholder="Mật khẩu giáo viên">
-    <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
-      <button id="loginCancel" class="ghost small">Hủy</button>
-      <button id="loginOk" class="small">Đăng nhập</button>
-    </div>
-    <div style="margin-top:10px" class="small">Mật khẩu mặc định: <strong>teacher123</strong> (Bạn có thể thay đổi trong code)</div>
-  </div>
-</div>
+            const q2bRadio = document.getElementById('q2-b-website');
+            const q2bDetails = document.getElementById('q2-b-details');
+            const q2bLabel = document.querySelector('label[for="q2-b-website"]');
 
-<script>
-/* ===== Role-based access additions =====
-   - Simple teacher auth with password stored in code (default 'teacher123').
-   - Role persisted in localStorage key 'ssbio_role' = 'teacher' | 'student' | null
-   - Teacher-only UI elements disabled/hidden when not authenticated
-*/
+            q1Radios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    const selectedValue = e.target.value;
 
-/* ===== Storage & initial data (PRELOADED = 50 câu, as before) ===== */
-const KEY = 'ssbio_v2';
-const ROLE_KEY = 'ssbio_role';
-let state = { questions: [], quizzes: [], results: [] };
-let isTeacher = (localStorage.getItem(ROLE_KEY) === 'teacher');
+                    if (selectedValue === 'flipbook') {
+                        // Kích hoạt lựa chọn A
+                        q2aRadio.disabled = false;
+                        q2aRadio.checked = true;
+                        q2aLabel.classList.remove('cursor-not-allowed', 'text-gray-500');
+                        q2aLabel.classList.add('text-gray-900');
+                        q2aDetails.classList.remove('hidden');
 
-/* Preloaded 50 câu (same as before) */
-const PRELOADED = [
-  /* (50 question objects identical to previous message) */
-  {id:'q1', topic:'Miễn dịch', type:'mcq', level:'Nhận biết',
-   question:'Miễn dịch là gì?', options:['Khả năng chống lại tác nhân gây bệnh','Quá trình tạo tế bào mới','Quá trình quang hợp','Sự trao đổi khí'], answer:0, source:'Bài 12'},
-  /* ... SNIPPED for brevity in code listing here, but in the actual file the full 50 items must be present ... */
-];
+                        // Vô hiệu hóa lựa chọn B
+                        q2bRadio.disabled = true;
+                        q2bRadio.checked = false;
+                        q2bLabel.classList.add('cursor-not-allowed', 'text-gray-500');
+                        q2bLabel.classList.remove('text-gray-900');
+                        q2bDetails.classList.add('hidden');
 
-/* NOTE: For brevity in this displayed snippet I've omitted the full PRELOADED array content.
-   When you paste this into your project, ensure PRELOADED includes the full 50 question objects
-   exactly as in the previous full HTML I provided. */
+                    } else if (selectedValue === 'website') {
+                        // Kích hoạt lựa chọn B
+                        q2bRadio.disabled = false;
+                        q2bRadio.checked = true;
+                        q2bLabel.classList.remove('cursor-not-allowed', 'text-gray-500');
+                        q2bLabel.classList.add('text-gray-900');
+                        q2bDetails.classList.remove('hidden');
 
-/* ===== helpers & persistence ===== */
-function save(){ localStorage.setItem(KEY, JSON.stringify(state)); }
-function load(){ const raw = localStorage.getItem(KEY); if(raw) state = JSON.parse(raw); else state = {questions: PRELOADED.slice(), quizzes: [], results: []}; }
-function ui(id){ return document.getElementById(id); }
-function uid(){ return 'id'+Math.random().toString(36).slice(2,9); }
-function toast(msg, t=2500){ const m = ui('modal'); m.innerText = msg; m.style.display='block'; setTimeout(()=>m.style.display='none', t); }
+                        // Vô hiệu hóa lựa chọn A
+                        q2aRadio.disabled = true;
+                        q2aRadio.checked = false;
+                        q2aLabel.classList.add('cursor-not-allowed', 'text-gray-500');
+                        q2aLabel.classList.remove('text-gray-900');
+                        q2aDetails.classList.add('hidden');
+                    }
+                });
+            });
+            
+            // --- Logic cho nút In (ĐÃ CẢI THIỆN) ---
+            const printButton = document.getElementById('print-button');
 
-/* ===== init ===== */
-load(); renderRoleUI(); renderAll();
+            // Hàm chuẩn bị trước khi in:
+            function beforePrint() {
+                // 1. Ẩn thanh điều hướng
+                sidebar.style.display = 'none';
+                
+                // 2. Hiển thị TẤT CẢ các trang bài tập (trừ trang chủ)
+                pages.forEach(page => {
+                    if (page.id !== 'page-home') {
+                        page.style.display = 'block'; // Ép hiển thị
+                        page.classList.remove('active'); // Bỏ active để CSS in xử lý
+                    } else {
+                        page.style.display = 'none'; // Ẩn trang chủ
+                    }
+                });
+            }
 
-/* ===== Role UI functions ===== */
-function setTeacherRole(flag){
-  isTeacher = !!flag;
-  localStorage.setItem(ROLE_KEY, isTeacher ? 'teacher' : 'student');
-  renderRoleUI();
-}
-function clearRole(){
-  isTeacher = false;
-  localStorage.removeItem(ROLE_KEY);
-  renderRoleUI();
-}
-function renderRoleUI(){
-  // show role label
-  const rb = ui('roleBox');
-  if(isTeacher) rb.innerHTML = 'Role: <strong>Giáo viên</strong>';
-  else rb.innerHTML = 'Role: <strong>Học sinh</strong>';
+            // Hàm dọn dẹp sau khi in (hoặc hủy in)
+            function afterPrint() {
+                // 1. Hiển thị lại thanh điều hướng
+                sidebar.style.display = 'flex';
+                
+                // 2. Khôi phục lại trạng thái tab đang xem
+                const activeLink = document.querySelector('.nav-link.active');
+                const targetId = activeLink ? activeLink.dataset.target : 'page-home';
+                showPage(targetId);
+            }
 
-  // teacher area visibility
-  ui('teacherArea').classList.toggle('hidden', !isTeacher);
-  ui('teacherLocked').classList.toggle('hidden', isTeacher);
+            // Gán sự kiện cho trình duyệt
+            // Đây là cách đáng tin cậy hơn để xử lý in
+            window.addEventListener('beforeprint', beforePrint);
+            window.addEventListener('afterprint', afterPrint);
 
-  // protect export/import buttons: only teacher can export/import
-  ui('btnExport').disabled = !isTeacher;
-  ui('btnImport').disabled = !isTeacher;
-  ui('btnExport').classList.toggle('ghost', !isTeacher);
-  ui('btnImport').classList.toggle('ghost', !isTeacher);
+            // Xử lý sự kiện click nút in
+            printButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Chỉ cần gọi window.print(),
+                // sự kiện 'beforeprint' sẽ tự động kích hoạt
+                window.print();
+            });
 
-  // teacher controls locking (visual + pointer-events)
-  const tControls = document.querySelectorAll('.teacher-controls');
-  tControls.forEach(el => {
-    if(!isTeacher){
-      el.classList.add('locked');
-      el.style.pointerEvents='none'; el.style.opacity='0.5';
-    } else {
-      el.classList.remove('locked');
-      el.style.pointerEvents='auto'; el.style.opacity='1';
-    }
-  });
-
-  // update visible view if teacher view is active but not logged in
-  if(!isTeacher && document.getElementById('view-teacher') && !ui('view-teacher').classList.contains('hidden') ){
-    // ensure teacher locked UI visible
-    ui('teacherArea').classList.add('hidden'); ui('teacherLocked').classList.remove('hidden');
-  }
-
-  renderQuestionList();
-  renderQuizList();
-}
-
-/* ===== Navigation ===== */
-ui('nav-home').onclick = ()=>{ showView('home'); }
-ui('nav-teacher').onclick = ()=>{
-  // if already teacher, show teacher view
-  if(isTeacher){ showView('teacher'); renderQuestionList(); renderQuizList(); renderTeacherStats(); }
-  else {
-    // open login modal
-    ui('loginModal').style.display='flex';
-  }
-}
-ui('nav-student').onclick = ()=>{ setStudentView(); }
-function setStudentView(){ setTeacherRole(false); showView('student'); populateQuizSelect(); renderRecent(); renderAnalysis(); }
-
-ui('seed').onclick = ()=>{ state.questions = PRELOADED.slice(); state.quizzes = []; state.results = []; save(); toast('Đã nạp dữ liệu mẫu (50 câu)'); renderAll(); }
-ui('btn-reset').onclick = ()=>{ if(!confirm('Xóa toàn bộ dữ liệu lưu trên trình duyệt?')) return; localStorage.removeItem(KEY); localStorage.removeItem(ROLE_KEY); load(); renderAll(); renderRoleUI(); toast('Đã reset'); }
-
-/* ===== Login modal handlers ===== */
-ui('openLogin').onclick = ()=> ui('loginModal').style.display='flex';
-ui('loginCancel').onclick = ()=> ui('loginModal').style.display='none';
-ui('loginOk').onclick = ()=>{
-  const pass = ui('loginPass').value;
-  const REAL_PASS = 'teacher123'; // change here if you want a different password
-  if(pass === REAL_PASS){
-    setTeacherRole(true);
-    ui('loginModal').style.display='none';
-    ui('loginPass').value = '';
-    showView('teacher'); renderQuestionList(); renderQuizList(); renderTeacherStats();
-    toast('Đăng nhập thành công (Giáo viên)');
-  } else {
-    alert('Mật khẩu không đúng');
-  }
-};
-ui('btnLogout') && (ui('btnLogout').onclick = ()=>{ if(confirm('Đăng xuất khỏi tài khoản Giáo viên?')){ clearRole(); showView('home'); toast('Đã đăng xuất'); } });
-
-/* ===== Teacher: add question (now guarded) ===== */
-ui('q_type') && (ui('q_type').onchange = ()=>{ ui('mcq_area').style.display = ui('q_type').value==='mcq' ? 'block' : 'none'; });
-ui('add_q') && (ui('add_q').onclick = ()=>{
-  if(!isTeacher) return alert('Chỉ giáo viên mới được thêm câu hỏi. Vui lòng đăng nhập.');
-  const topic = ui('q_topic').value.trim() || 'Chung';
-  const type = ui('q_type').value;
-  const text = ui('q_text').value.trim();
-  const level = ui('q_level').value;
-  if(!text) return alert('Nhập nội dung câu hỏi');
-  const q = { id: uid(), topic, type, level, question: text, source: 'Người dùng' };
-  if(type==='mcq'){
-    const opts = [ui('opt_a').value, ui('opt_b').value, ui('opt_c').value, ui('opt_d').value].map(s=>s.trim());
-    if(!opts[0]||!opts[1]) return alert('MCQ cần ít nhất 2 đáp án (A,B)');
-    q.options = opts; q.answer = Number(ui('opt_correct').value) || 0;
-  } else if(type==='tf'){
-    q.options = ['Đúng','Sai']; q.answer = 0;
-  } else { q.type='essay'; }
-  state.questions.push(q); save(); renderQuestionList(); toast('Đã thêm câu hỏi');
-  ui('q_topic').value=''; ui('q_text').value=''; ui('opt_a').value=''; ui('opt_b').value=''; ui('opt_c').value=''; ui('opt_d').value=''; ui('opt_correct').value=0;
-});
-
-/* ===== render question list (teacher-only content hidden for students) ===== */
-function renderQuestionList(){
-  const wrap = ui('q_list'); if(!wrap) return;
-  if(!isTeacher){ wrap.innerHTML = '<div class="small label-locked">Chỉ giáo viên mới thấy ngân hàng câu hỏi. Vui lòng đăng nhập.</div>'; return; }
-  if(!state.questions.length){ wrap.innerHTML='(chưa có câu hỏi)'; return; }
-  wrap.innerHTML = state.questions.map(q=>{
-    const meta = `${q.topic} • ${q.level} • ${q.type.toUpperCase()}`;
-    const ans = q.type==='mcq' ? (q.options && q.options[q.answer] ? `Đáp: ${q.options[q.answer]}` : '') : (q.type==='tf' ? `Đáp: ${q.options[q.answer]}` : 'Tự luận');
-    return `<div class="q"><strong>${escape(q.question)}</strong><div class="small">${escape(meta)} • ${escape(q.source||'—')}</div><div class="small" style="margin-top:6px">${escape(ans)}</div>
-      <div style="margin-top:6px"><button class="ghost small" onclick="deleteQ('${q.id}')">Xóa</button></div></div>`;
-  }).join('');
-}
-window.deleteQ = function(id){ if(!isTeacher) return alert('Chỉ giáo viên mới được xóa câu hỏi.'); if(!confirm('Xóa câu hỏi?')) return; state.questions = state.questions.filter(x=>x.id!==id); state.quizzes.forEach(z=>z.qids = z.qids.filter(i=>i!==id)); save(); renderQuestionList(); renderQuizList(); toast('Đã xóa'); };
-
-/* ===== generate quiz (guarded: only teacher can save quizzes) ===== */
-ui('gen_btn') && (ui('gen_btn').onclick = ()=>{
-  const mcqN = Number(ui('gen_mcq').value)||0;
-  const essayN = Number(ui('gen_essay').value)||0;
-  const topic = ui('gen_topic').value.trim().toLowerCase();
-  let pool = state.questions.slice();
-  if(topic) pool = pool.filter(q=>q.topic.toLowerCase().includes(topic));
-  const mcqPool = pool.filter(q=>q.type==='mcq');
-  const essayPool = pool.filter(q=>q.type==='essay');
-  if(mcqPool.length < mcqN || essayPool.length < essayN) {
-    return alert('Không đủ câu hỏi trong pool theo yêu cầu. Giảm số câu hoặc thêm câu hỏi.');
-  }
-  const pick = sample(mcqPool, mcqN).concat(sample(essayPool, essayN));
-  ui('gen_preview').innerText = pick.map((q,i)=>`${i+1}. ${q.question} (${q.type})`).join('\n\n');
-  ui('save_gen').disabled = false; ui('save_gen').dataset.temp = JSON.stringify(pick.map(q=>q.id));
-});
-ui('save_gen') && (ui('save_gen').onclick = ()=>{
-  if(!isTeacher) return alert('Chỉ giáo viên mới được lưu đề.');
-  const ids = JSON.parse(ui('save_gen').dataset.temp || '[]'); if(!ids.length) return alert('Không có đề');
-  const title = prompt('Tiêu đề đề thi:', `Đề tự sinh ${new Date().toLocaleString()}`);
-  const quiz = { id: uid(), title, qids: ids, created: Date.now() };
-  state.quizzes.push(quiz); save(); renderQuizList(); populateQuizSelect(); ui('save_gen').disabled = true; ui('gen_preview').innerText = ''; toast('Đã lưu đề');
-});
-
-/* ===== render quizzes (if not teacher, hide management actions) ===== */
-function renderQuizList(){
-  const wrap = ui('quiz_list'); if(!wrap) return;
-  if(!isTeacher){
-    wrap.innerHTML = '<div class="small label-locked">Chỉ giáo viên mới thấy danh sách đề đã lưu.</div>'; return;
-  }
-  if(!state.quizzes.length){ wrap.innerHTML='(chưa có đề)'; return; }
-  wrap.innerHTML = state.quizzes.map(z=>{
-    return `<div style="margin-bottom:8px"><strong>${escape(z.title)}</strong> <div class="small">(${z.qids.length} câu)</div>
-      <div style="margin-top:6px"><button class="ghost small" onclick="preview('${z.id}')">Xem</button> <button class="ghost small" onclick="deleteQuiz('${z.id}')">Xóa</button></div></div>`;
-  }).join('');
-}
-window.preview = function(id){ const z = state.quizzes.find(x=>x.id===id); if(!z) return alert('Không có'); alert('Preview: '+z.qids.map((qid,i)=>`${i+1}. ${(state.questions.find(q=>q.id===qid)||{question:'[đã xóa]'}).question}`).join('\n\n')); }
-window.deleteQuiz = function(id){ if(!isTeacher) return alert('Chỉ giáo viên mới được xóa đề.'); if(!confirm('Xóa đề?')) return; state.quizzes = state.quizzes.filter(x=>x.id!==id); save(); renderQuizList(); populateQuizSelect(); toast('Đã xóa đề'); };
-
-/* ===== student flows unchanged (students cannot create/save/delete quizzes) ===== */
-/* (same student code as before - omitted here for brevity but should be included) */
-
-/* For brevity: include the same student start/submit/render logic from the previous full implementation.
-   IMPORTANT: ensure UI interactions do NOT allow students to call teacher-only functions (guards added above). */
-
-/* ===== Export / Import JSON (guarded) ===== */
-ui('btnExport').onclick = ()=>{
-  if(!isTeacher) return alert('Chỉ giáo viên mới được export dữ liệu.');
-  const data = JSON.stringify(state, null, 2);
-  const blob = new Blob([data], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url; a.download = 'ssbio_questions_export.json'; document.body.appendChild(a); a.click(); a.remove();
-};
-ui('btnImport').onclick = ()=> {
-  if(!isTeacher) { return alert('Chỉ giáo viên mới được import dữ liệu.'); }
-  ui('fileInput').click();
-};
-ui('fileInput').onchange = e=>{
-  const f = e.target.files[0]; if(!f) return;
-  const reader = new FileReader(); reader.onload = ev=>{
-    try{
-      const json = JSON.parse(ev.target.result);
-      if(json.questions) state = json; else return alert('File JSON không đúng định dạng (cần trường questions).');
-      save(); renderAll(); toast('Import thành công');
-    }catch(err){ alert('Không thể đọc file JSON: '+err); }
-  }; reader.readAsText(f);
-};
-
-/* ===== utilities & renders (keep same behavior) ===== */
-function renderTeacherStats(){
-  const wrap = ui('teacher_stats');
-  if(!state.results.length){ wrap.innerHTML='(chưa có kết quả)'; return; }
-  const avg = Math.round(state.results.reduce((s,r)=>s+r.score,0)/state.results.length);
-  const byTopic = {};
-  state.results.forEach(r=> Object.entries(r.byTopic||{}).forEach(([t,st])=>{ if(!byTopic[t]) byTopic[t]={correct:0,total:0}; byTopic[t].correct+=st.correct; byTopic[t].total+=st.total; }));
-  let html = `Số lần làm: ${state.results.length} • Điểm trung bình (MCQ): ${avg}%\n`;
-  Object.entries(byTopic).forEach(([t,st])=>{ const pct = st.total ? Math.round(100*st.correct/st.total):0; html += `\n${t}: ${pct}% (${st.correct}/${st.total})`; });
-  wrap.innerText = html;
-}
-
-function renderRecent(){
-  const wrap = ui('recent'); if(!state.results.length){ wrap.innerHTML='(chưa có)'; return; }
-  wrap.innerHTML = state.results.slice(-6).reverse().map(r=>`${r.student} • ${r.title} • ${r.score}% • ${new Date(r.timestamp).toLocaleString()}`).join('<br>');
-}
-
-function suggestion(pct){
-  if(pct>=85) return 'Tốt — tiếp tục nâng cao';
-  if(pct>=65) return 'Khá — ôn thêm câu sai';
-  if(pct>=40) return 'Trung bình — ôn lại kiến thức cơ bản';
-  return 'Yếu — cần ôn lại toàn bộ chủ đề';
-}
-
-function renderAnalysis(){
-  const wrap = ui('analysis');
-  const name = ui('stu_name').value.trim();
-  const r = name ? state.results.slice().reverse().find(x=>x.student===name) : state.results.slice().reverse()[0];
-  if(!r){ wrap.innerHTML = 'Chưa có dữ liệu phân tích cho học sinh này.'; return; }
-  let html = `<div class="small">Phân tích: <strong>${escape(r.student)}</strong> • Điểm: <strong>${r.score}%</strong></div>`;
-  Object.entries(r.byTopic).forEach(([t,st])=>{ const pct = st.total ? Math.round(100*st.correct/st.total) : 0; html += `<div style="margin-top:8px"><strong>${escape(t)}</strong> — ${pct}% <div class="bar" style="margin-top:6px"><i style="width:${pct}%"></i></div><div class="small">Gợi ý: ${suggestion(pct)}</div></div>`; });
-  wrap.innerHTML = html;
-}
-
-function populateQuizSelect(){
-  const sel = ui('select_quiz'); if(!sel) return;
-  sel.innerHTML = '';
-  if(!state.quizzes.length){ sel.innerHTML = '<option value="">(Chưa có đề - giáo viên tạo)</option>'; return; }
-  sel.innerHTML = state.quizzes.map(z=>`<option value="${z.id}">${escape(z.title)}</option>`).join('');
-}
-
-function showView(which){
-  ui('view-home').classList.toggle('hidden', which!=='home');
-  ui('view-teacher').classList.toggle('hidden', which!=='teacher');
-  ui('view-student').classList.toggle('hidden', which!=='student');
-}
-function show(id){ ui(id).classList.remove('hidden'); }
-function hide(id){ ui(id).classList.add('hidden'); }
-function escape(s){ return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
-function sample(arr,n){ const copy=arr.slice(), res=[]; for(let i=0;i<n;i++){ const j=Math.floor(Math.random()*copy.length); res.push(copy.splice(j,1)[0]); } return res; }
-
-function renderAll(){ renderQuestionList(); renderQuizList(); populateQuizSelect(); renderRecent(); renderAnalysis(); renderTeacherStats(); }
-
-/* initial view */
-showView('home');
-</script>
+        });
+    </script>
 </body>
 </html>
