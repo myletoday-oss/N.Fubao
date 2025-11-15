@@ -37,9 +37,6 @@
             border-radius: 0.375rem; /* rounded-md */
         }
         .answer-box:focus {
-            outline: 2px solid transparent;
-            outline-offset: 2px;
-            border-color: #4F46E5; /* border-indigo-500 */
             box-shadow: 0 0 0 2px #C7D2FE; /* focus:ring-indigo-500 */
         }
 
@@ -51,7 +48,7 @@
                 color: #000;
             }
             /* Ẩn thanh điều hướng và nút in */
-            nav, #print-button {
+            nav, .print-exercise-button {
                 display: none !important;
             }
             main {
@@ -59,16 +56,14 @@
                 margin: 0 !important;
                 width: 100% !important;
             }
-            /* Không in trang chủ */
-            #page-home {
+            /* Ẩn TẤT CẢ các trang theo mặc định khi in */
+            .page-content {
                 display: none !important;
             }
-            /* Hiển thị TẤT CẢ các bài tập, mỗi bài trên 1 trang mới */
-            .page-content {
+            /* CHỈ HIỂN THỊ trang đang 'active' khi in */
+            .page-content.active {
                 display: block !important;
-                page-break-before: always;
-                /* Bỏ ẩn display do JS thêm vào (nếu có) */
-                display: block !important; 
+                page-break-before: auto !important; /* Không ngắt trang trước */
             }
             /* Reset styles cho gọn gàng */
             .bg-white, .bg-gray-100 {
@@ -134,12 +129,7 @@
                     Bài tập 3: Lập trình
                 </a>
             </div>
-            <!-- Nút In / Xuất PDF -->
-            <div class="mt-auto pt-6">
-                <a href="#" id="print-button" class="block p-3 rounded-lg text-sm font-medium bg-green-600 text-white text-center hover:bg-green-700 transition-colors duration-200">
-                    In bài làm / Xuất PDF
-                </a>
-            </div>
+            <!-- Nút In / Xuất PDF (ĐÃ XÓA KHỎI ĐÂY) -->
         </nav>
 
         <!-- Khu vực nội dung chính -->
@@ -171,7 +161,12 @@
 
             <!-- Trang: Bài tập 1 -->
             <div id="page-bt1" class="page-content space-y-6">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Bài tập 1: Phát triển Năng lực Phát triển Nội dung số</h2>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-3xl font-bold text-gray-800">Bài tập 1: Phát triển Năng lực Phát triển Nội dung số</h2>
+                    <a href="#" class="print-exercise-button p-3 rounded-lg text-sm font-medium bg-green-600 text-white text-center hover:bg-green-700 transition-colors duration-200">
+                        In Bài 1 / Xuất PDF
+                    </a>
+                </div>
                 
                 <!-- Phần 1: Tình huống sư phạm -->
                 <div class="bg-white p-6 rounded-lg shadow-md">
@@ -295,7 +290,12 @@
 
             <!-- Trang: Bài tập 2 -->
             <div id="page-bt2" class="page-content space-y-6">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Bài tập 2: Tích hợp và Tái lập lại Nội dung số</h2>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-3xl font-bold text-gray-800">Bài tập 2: Tích hợp và Tái lập lại Nội dung số</h2>
+                    <a href="#" class="print-exercise-button p-3 rounded-lg text-sm font-medium bg-green-600 text-white text-center hover:bg-green-700 transition-colors duration-200">
+                        In Bài 2 / Xuất PDF
+                    </a>
+                </div>
                 
                 <!-- Phần 1: Tình huống sư phạm -->
                 <div class="bg-white p-6 rounded-lg shadow-md">
@@ -482,7 +482,12 @@
 
             <!-- Trang: Bài tập 3 -->
             <div id="page-bt3" class="page-content space-y-6">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Bài tập 3: Phát triển Năng lực Lập trình</h2>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-3xl font-bold text-gray-800">Bài tập 3: Phát triển Năng lực Lập trình</h2>
+                    <a href="#" class="print-exercise-button p-3 rounded-lg text-sm font-medium bg-green-600 text-white text-center hover:bg-green-700 transition-colors duration-200">
+                        In Bài 3 / Xuất PDF
+                    </a>
+                </div>
                 
                 <!-- Phần 1: Tình huống sư phạm -->
                 <div class="bg-white p-6 rounded-lg shadow-md">
@@ -605,21 +610,18 @@
         document.addEventListener('DOMContentLoaded', () => {
             const navLinks = document.querySelectorAll('.nav-link');
             const pages = document.querySelectorAll('.page-content');
-            const sidebar = document.querySelector('nav');
 
             // Hàm để hiển thị trang và cập nhật link active
             function showPage(targetId) {
                 // Ẩn tất cả các trang
                 pages.forEach(page => {
                     page.classList.remove('active');
-                    page.style.display = 'none'; // Thêm để đảm bảo ẩn
                 });
                 
                 // Hiển thị trang mục tiêu
                 const targetPage = document.getElementById(targetId);
                 if (targetPage) {
                     targetPage.classList.add('active');
-                    targetPage.style.display = 'block'; // Thêm để đảm bảo hiển thị
                 }
 
                 // Cập nhật trạng thái active cho các link
@@ -653,7 +655,7 @@
             const q2bRadio = document.getElementById('q2-b-website');
             const q2bDetails = document.getElementById('q2-b-details');
             const q2bLabel = document.querySelector('label[for="q2-b-website"]');
-
+            // ... (Thêm code xử lý cho q1Radios) ...
             q1Radios.forEach(radio => {
                 radio.addEventListener('change', (e) => {
                     const selectedValue = e.target.value;
@@ -691,47 +693,14 @@
                 });
             });
             
-            // --- Logic cho nút In (ĐÃ CẢI THIỆN) ---
-            const printButton = document.getElementById('print-button');
-
-            // Hàm chuẩn bị trước khi in:
-            function beforePrint() {
-                // 1. Ẩn thanh điều hướng
-                sidebar.style.display = 'none';
-                
-                // 2. Hiển thị TẤT CẢ các trang bài tập (trừ trang chủ)
-                pages.forEach(page => {
-                    if (page.id !== 'page-home') {
-                        page.style.display = 'block'; // Ép hiển thị
-                        page.classList.remove('active'); // Bỏ active để CSS in xử lý
-                    } else {
-                        page.style.display = 'none'; // Ẩn trang chủ
-                    }
+            // --- Logic cho nút In ---
+            // Xóa trình nghe cũ (nếu có) và thêm trình nghe mới cho các nút theo lớp
+            const printButtons = document.querySelectorAll('.print-exercise-button');
+            printButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.print();
                 });
-            }
-
-            // Hàm dọn dẹp sau khi in (hoặc hủy in)
-            function afterPrint() {
-                // 1. Hiển thị lại thanh điều hướng
-                sidebar.style.display = 'flex';
-                
-                // 2. Khôi phục lại trạng thái tab đang xem
-                const activeLink = document.querySelector('.nav-link.active');
-                const targetId = activeLink ? activeLink.dataset.target : 'page-home';
-                showPage(targetId);
-            }
-
-            // Gán sự kiện cho trình duyệt
-            // Đây là cách đáng tin cậy hơn để xử lý in
-            window.addEventListener('beforeprint', beforePrint);
-            window.addEventListener('afterprint', afterPrint);
-
-            // Xử lý sự kiện click nút in
-            printButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                // Chỉ cần gọi window.print(),
-                // sự kiện 'beforeprint' sẽ tự động kích hoạt
-                window.print();
             });
 
         });
