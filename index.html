@@ -382,7 +382,7 @@
                                 <div class="flex items-center">
                                     <input id="q1-flipbook" name="hoc-lieu-type" type="radio" value="flipbook" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
                                     <label for="q1-flipbook" class="ml-3 block text-gray-900">a) Flipbook (Sách điện tử tương tác)</label>
-                                </div>
+                                }
                                 <div class="flex items-center">
                                     <input id="q1-website" name="hoc-lieu-type" type="radio" value="website" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
                                     <label for="q1-website" class="ml-3 block text-gray-900">b) Website (Trang web nội dung)</label>
@@ -432,22 +432,28 @@
                         <table class="min-w-full divide-y divide-gray-200 border">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Yêu cầu</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hướng dẫn</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/3">Yêu cầu</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-2/3">Kế hoạch chi tiết</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200 text-gray-700">
                                 <tr>
-                                    <td class="px-6 py-4 font-medium">Xác định cấu trúc nội dung</td>
-                                    <td class="px-6 py-4">"Liệt kê các chủ đề/mục tiêu kiến thức cần tích hợp và tái lập (cấu trúc của nội dung số)"</td>
+                                    <td class="px-6 py-4 font-medium align-top">Xác định cấu trúc nội dung</td>
+                                    <td class="px-6 py-2">
+                                        <textarea class="answer-box" rows="3" placeholder="Liệt kê các chủ đề/mục tiêu kiến thức cần tích hợp và tái lập (cấu trúc của nội dung số)"></textarea>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td class="px-6 py-4 font-medium">Xác định vai trò của nội dung số</td>
-                                    <td class="px-6 py-4">"Mô tả cách nội dung được tái lập sẽ giúp HS khám phá/thực hành kiến thức tích hợp"</td>
+                                    <td class="px-6 py-4 font-medium align-top">Xác định vai trò của nội dung số</td>
+                                    <td class="px-6 py-2">
+                                        <textarea class="answer-box" rows="3" placeholder="Mô tả cách nội dung được tái lập sẽ giúp HS khám phá/thực hành kiến thức tích hợp"></textarea>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td class="px-6 py-4 font-medium">"Xác định nguồn lực, công cụ"</td>
-                                    <td class="px-6 py-4">"Liệt kê tài liệu tham khảo, công cụ số (tạo hình ảnh, video, âm thanh...)"</td>
+                                    <td class="px-6 py-4 font-medium align-top">"Xác định nguồn lực, công cụ"</td>
+                                    <td class="px-6 py-2">
+                                        <textarea class="answer-box" rows="3" placeholder="Liệt kê tài liệu tham khảo, công cụ số (tạo hình ảnh, video, âm thanh...)"></textarea>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
