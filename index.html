@@ -57,12 +57,22 @@
         .molecule-particle {
             position: absolute;
             border-radius: 50%;
-            transition: all 6s ease-in-out;
+            transition: all 4s ease-in-out; /* Tốc độ di chuyển cân bằng động */
             z-index: 20;
         }
         
         .molecule-particle.static-jitter {
             animation: jitter 3s infinite linear;
+        }
+
+        /* Water Level Animation for U-tube */
+        @keyframes rise {
+            0% { height: 120px; }
+            100% { height: 180px; }
+        }
+        @keyframes fall {
+            0% { height: 120px; }
+            100% { height: 60px; }
         }
 
         /* UI Styles */
@@ -199,7 +209,7 @@
             <section id="sec-concept" class="hidden space-y-8 animate-[float_0.5s_ease-out]">
                 <div class="text-center mb-8">
                     <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Kiến thức nền</span>
-                    <h2 class="text-3xl font-bold text-slate-800 mt-2">Trao đổi chất ở Tế bào</h2>
+                    <h2 class="text-3xl font-bold text-slate-800 mt-2">Trao đổi chất ở tế bào</h2>
                 </div>
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="glass-panel p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
@@ -209,7 +219,7 @@
                     </div>
                     <div class="glass-panel p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
                         <div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center text-3xl mb-6 text-emerald-600">🛡️</div>
-                        <h3 class="font-bold text-xl mb-3 text-slate-800">Vai trò Màng sinh chất</h3>
+                        <h3 class="font-bold text-xl mb-3 text-slate-800">Vai trò màng sinh chất</h3>
                         <p class="text-slate-600 leading-relaxed">Đóng vai trò như "người gác cổng", kiểm soát các chất ra/vào tế bào một cách có chọn lọc. Giúp duy trì môi trường nội bào ổn định để tế bào hoạt động bình thường.</p>
                     </div>
                 </div>
@@ -221,49 +231,73 @@
                     <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Phân biệt</span>
                     <h2 class="text-3xl font-bold text-slate-800 mt-2">Các hình thức vận chuyển</h2>
                 </div>
-                <div class="grid md:grid-cols-2 gap-8">
+                <!-- SỬA Ở ĐÂY: Bỏ 'md:' để luôn chia 2 cột -->
+                <div class="grid grid-cols-2 gap-4 md:gap-8">
+                    <!-- Passive -->
                     <div class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden group">
                         <div class="h-2 bg-gradient-to-r from-green-400 to-green-600"></div>
-                        <div class="p-8">
-                            <div class="flex items-center justify-between mb-6">
-                                <h3 class="font-bold text-2xl text-green-800">Thụ động</h3>
-                                <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded">Passive</span>
+                        <div class="p-4 md:p-8">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 md:mb-6">
+                                <h3 class="font-bold text-xl md:text-2xl text-green-800">Thụ động</h3>
+                                <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded w-fit">Passive</span>
                             </div>
-                            <ul class="space-y-4">
-                                <li class="flex items-start gap-3">
+                            
+                            <ul class="space-y-4 text-sm md:text-base">
+                                <li class="flex items-start gap-2 md:gap-3">
                                     <span class="bg-green-100 p-1 rounded text-green-600 text-lg">✅</span>
-                                    <div><strong class="block text-slate-800">Nguyên lý</strong><span class="text-sm text-slate-500">Nồng độ Cao ➔ Thấp (Xuôi dòng)</span></div>
+                                    <div>
+                                        <strong class="block text-slate-800">Nguyên lý</strong>
+                                        <span class="text-slate-500">Nồng độ Cao ➔ Thấp (Xuôi dòng)</span>
+                                    </div>
                                 </li>
-                                <li class="flex items-start gap-3">
+                                <li class="flex items-start gap-2 md:gap-3">
                                     <span class="bg-green-100 p-1 rounded text-green-600 text-lg">⚡</span>
-                                    <div><strong class="block text-slate-800">Năng lượng</strong><span class="text-sm text-slate-500">Không tốn ATP</span></div>
+                                    <div>
+                                        <strong class="block text-slate-800">Năng lượng</strong>
+                                        <span class="text-slate-500">Không tốn ATP</span>
+                                    </div>
                                 </li>
-                                <li class="flex items-start gap-3">
+                                <li class="flex items-start gap-2 md:gap-3">
                                     <span class="bg-green-100 p-1 rounded text-green-600 text-lg">🔍</span>
-                                    <div><strong class="block text-slate-800">Ví dụ</strong><span class="text-sm text-slate-500">O2, CO2, H2O, Glucose (qua kênh protein)</span></div>
+                                    <div>
+                                        <strong class="block text-slate-800">Ví dụ</strong>
+                                        <span class="text-slate-500">O2, CO2, H2O, Glucose (qua kênh protein)</span>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
                     </div>
+
+                    <!-- Active -->
                     <div class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden group">
                         <div class="h-2 bg-gradient-to-r from-red-400 to-red-600"></div>
-                        <div class="p-8">
-                            <div class="flex items-center justify-between mb-6">
-                                <h3 class="font-bold text-2xl text-red-800">Chủ động</h3>
-                                <span class="bg-red-100 text-red-700 text-xs font-bold px-2 py-1 rounded">Active</span>
+                        <div class="p-4 md:p-8">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 md:mb-6">
+                                <h3 class="font-bold text-xl md:text-2xl text-red-800">Chủ động</h3>
+                                <span class="bg-red-100 text-red-700 text-xs font-bold px-2 py-1 rounded w-fit">Active</span>
                             </div>
-                            <ul class="space-y-4">
-                                <li class="flex items-start gap-3">
+                            
+                            <ul class="space-y-4 text-sm md:text-base">
+                                <li class="flex items-start gap-2 md:gap-3">
                                     <span class="bg-red-100 p-1 rounded text-red-600 text-lg">⚙️</span>
-                                    <div><strong class="block text-slate-800">Nguyên lý</strong><span class="text-sm text-slate-500">Nồng độ Thấp ➔ Cao (Ngược dòng)</span></div>
+                                    <div>
+                                        <strong class="block text-slate-800">Nguyên lý</strong>
+                                        <span class="text-slate-500">Nồng độ Thấp ➔ Cao (Ngược dòng)</span>
+                                    </div>
                                 </li>
-                                <li class="flex items-start gap-3">
+                                <li class="flex items-start gap-2 md:gap-3">
                                     <span class="bg-red-100 p-1 rounded text-red-600 text-lg">⚡</span>
-                                    <div><strong class="block text-slate-800">Năng lượng</strong><span class="text-sm text-slate-500">Cần tiêu tốn ATP</span></div>
+                                    <div>
+                                        <strong class="block text-slate-800">Năng lượng</strong>
+                                        <span class="text-slate-500">Cần tiêu tốn ATP</span>
+                                    </div>
                                 </li>
-                                <li class="flex items-start gap-3">
+                                <li class="flex items-start gap-2 md:gap-3">
                                     <span class="bg-red-100 p-1 rounded text-red-600 text-lg">🔍</span>
-                                    <div><strong class="block text-slate-800">Ví dụ</strong><span class="text-sm text-slate-500">Bơm Na-K, tái hấp thu tại ống thận</span></div>
+                                    <div>
+                                        <strong class="block text-slate-800">Ví dụ</strong>
+                                        <span class="text-slate-500">Bơm Na-K, tái hấp thu tại ống thận, <strong>Protein vận chuyển nước Aquaporin</strong></span>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -291,19 +325,21 @@
                             </div>
                             <div class="p-4 bg-white rounded-xl shadow-sm border border-slate-100 text-sm text-slate-600">
                                 <p class="mb-2 font-bold">Nguyên lý:</p>
-                                <p>Chất tan di chuyển từ nơi có <strong>nồng độ cao</strong> sang nơi có <strong>nồng độ thấp</strong> cho đến khi cân bằng.</p>
+                                <p>Chất tan di chuyển từ nơi <strong>nồng độ cao</strong> sang nơi <strong>nồng độ thấp</strong> cho đến khi đạt trạng thái <strong>cân bằng động</strong> (các hạt vẫn chuyển động nhưng nồng độ 2 bên bằng nhau).</p>
                             </div>
                             <button onclick="runDiffusion()" class="mt-4 w-full py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold shadow-md transition transform hover:-translate-y-1">▶️ Bắt đầu</button>
                             <button onclick="resetDiffusion()" class="w-full py-2 bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl font-bold transition">🔄 Làm lại</button>
                         </div>
                         <div class="flex-1 bg-[#002b5b] relative overflow-hidden flex items-center justify-center p-8">
                             <div class="relative w-[500px] h-[300px] border-4 border-white/50 rounded-xl bg-white/5 backdrop-blur-sm flex">
+                                <!-- Background Labels -->
                                 <div class="w-1/2 h-full border-r-2 border-dashed border-white/40 flex items-center justify-center relative z-0">
-                                    <div class="absolute bottom-2 text-white/50 text-xs font-bold uppercase">Nồng độ Cao</div>
+                                    <div id="diff-label-left" class="absolute bottom-2 text-white/50 text-xs font-bold uppercase transition-all">Nồng độ Cao</div>
                                 </div>
                                 <div class="w-1/2 h-full flex items-center justify-center relative z-0">
-                                    <div class="absolute bottom-2 text-white/50 text-xs font-bold uppercase">Nồng độ Thấp</div>
+                                    <div id="diff-label-right" class="absolute bottom-2 text-white/50 text-xs font-bold uppercase transition-all">Nồng độ Thấp</div>
                                 </div>
+                                <!-- Particles Container -->
                                 <div id="diffusion-particles" class="absolute inset-0 pointer-events-none z-10"></div>
                             </div>
                         </div>
@@ -371,7 +407,7 @@
                         </div>
                     </div>
 
-                    <!-- LAB 3: OSMOSIS CELL -->
+                    <!-- LAB CONTENT 3: OSMOSIS CELL -->
                     <div id="lab-osmosis-cell" class="hidden flex flex-col md:flex-row flex-1">
                         <div class="w-full md:w-80 bg-slate-50 border-r border-slate-100 p-8 flex flex-col gap-4 z-10">
                             <div class="mb-4">
@@ -395,7 +431,7 @@
                             <div id="lab-result" class="mt-auto p-4 rounded-xl bg-slate-800 text-white text-sm hidden shadow-lg transform transition-all"></div>
                             <div class="mt-4 p-4 bg-slate-100 rounded-lg text-xs text-slate-600 space-y-2">
                                 <div class="font-bold text-slate-800 mb-1">Chú thích:</div>
-                                <div class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-green-400 border border-white inline-block"></span><span>Chất tan (Muối)</span></div>
+                                <div class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-green-400 border border-white inline-block"></span><span>Chất tan (NaCl)</span></div>
                                 <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-400 inline-block"></span><span>Phân tử Nước</span></div>
                                 <div class="flex items-center gap-2"><span class="text-lg">➔</span><span>Hướng nước di chuyển</span></div>
                             </div>
@@ -504,7 +540,7 @@
             document.getElementById('btn-' + id).classList.add('active');
         }
 
-        // --- Tab Switcher Logic ---
+        // --- NEW: Lab Tab Switcher ---
         function switchLabTab(tab) {
             const tabs = ['diffusion', 'osmosis-basic', 'osmosis-cell'];
             tabs.forEach(t => {
@@ -528,22 +564,54 @@
         function resetDiffusion() {
             const container = document.getElementById('diffusion-particles');
             container.innerHTML = '';
+            
+            // Reset Labels
+            document.getElementById('diff-label-left').innerText = "Nồng độ Cao";
+            document.getElementById('diff-label-left').className = "absolute bottom-2 text-white/50 text-xs font-bold uppercase transition-all";
+            document.getElementById('diff-label-right').innerText = "Nồng độ Thấp";
+            document.getElementById('diff-label-right').className = "absolute bottom-2 text-white/50 text-xs font-bold uppercase transition-all";
+
+            // Create particles
             for(let i=0; i<30; i++) {
                 const dot = document.createElement('div');
-                dot.className = 'absolute w-3 h-3 bg-green-400 rounded-full shadow-sm border border-white/30 transition-all duration-[4s] ease-in-out z-20';
+                // Added 'molecule-particle' and 'static-jitter' classes for continuous movement
+                dot.className = 'molecule-particle static-jitter absolute w-3 h-3 bg-green-400 rounded-full shadow-sm border border-white/30 transition-all duration-[4s] ease-in-out z-20';
+                
                 const left = Math.random() * 45; 
                 const top = Math.random() * 90 + 5; 
-                dot.style.left = left + '%'; dot.style.top = top + '%';
+                
+                dot.style.left = left + '%';
+                dot.style.top = top + '%';
+                // Add random delay to jitter so they don't move in sync
+                dot.style.animationDelay = Math.random() + 's';
+                
                 container.appendChild(dot);
             }
         }
+
         function runDiffusion() {
             const dots = document.getElementById('diffusion-particles').children;
+            
+            // Move particles to distribute evenly
             for(let i=0; i<dots.length; i++) {
                 const targetLeft = Math.random() * 95; 
                 const targetTop = Math.random() * 90 + 5;
-                dots[i].style.left = targetLeft + '%'; dots[i].style.top = targetTop + '%';
+                
+                dots[i].style.left = targetLeft + '%';
+                dots[i].style.top = targetTop + '%';
             }
+
+            // Update Labels after animation starts
+            setTimeout(() => {
+                const lblLeft = document.getElementById('diff-label-left');
+                const lblRight = document.getElementById('diff-label-right');
+                
+                lblLeft.innerText = "Cân bằng nồng độ";
+                lblLeft.className = "absolute bottom-2 text-green-300 text-xs font-bold uppercase transition-all scale-110";
+                
+                lblRight.innerText = "Cân bằng nồng độ";
+                lblRight.className = "absolute bottom-2 text-green-300 text-xs font-bold uppercase transition-all scale-110";
+            }, 4000); // Wait for movement to finish (4s duration)
         }
 
         // --- 2. Osmosis Basic (Beaker) Logic ---
@@ -565,30 +633,44 @@
             const cellCrenated = document.getElementById('cell-crenated-bg');
             const resultBox = document.getElementById('lab-result');
             
+            // Reset
             cellWrapper.style.animation = 'none';
             cellWrapper.style.transform = 'scale(1)';
             cellWrapper.style.opacity = '1';
             cellWrapper.style.display = 'flex';
-            
             cellNormal.style.display = 'flex';
             cellCrenated.style.display = 'none';
             cellCrenated.classList.remove('cell-crenated');
-            
             void cellWrapper.offsetWidth;
             
             resultBox.classList.remove('hidden');
-            drawMolecules(type); drawArrows(type);
-            setTimeout(() => { animateExistingMolecules(type); }, 100);
+            
+            // Draw molecules initially
+            drawMolecules(type); 
+            drawArrows(type);
+
+            // Animate Existing Molecules after a slight delay
+            setTimeout(() => {
+                animateExistingMolecules(type);
+            }, 100);
 
             if(type === 'hyper') {
+                // Hypertonic: Shrink GRADUALLY (6s)
                 cellWrapper.style.animation = 'morph-shrink 6s forwards';
-                setTimeout(() => { cellNormal.style.display = 'none'; cellCrenated.style.display = 'block'; cellCrenated.classList.add('cell-crenated'); }, 5800); 
+                
+                setTimeout(() => {
+                    cellNormal.style.display = 'none';
+                    cellCrenated.style.display = 'block';
+                    cellCrenated.classList.add('cell-crenated'); 
+                }, 5800); 
+
                 resultBox.innerHTML = "<strong class='text-orange-300 block mb-1'>Ưu trương (Hypertonic):</strong><br> - Ngoài: Nhiều Chất tan.<br> - Trong: Nhiều Nước.<br> ➔ Nước đi RA ➔ Tế bào teo lại.";
                 resultBox.className = "mt-auto p-4 rounded-xl bg-slate-800 border-l-4 border-orange-500 text-white text-sm shadow-lg";
             } else if(type === 'iso') {
                 resultBox.innerHTML = "<strong class='text-green-300 block mb-1'>Đẳng trương (Isotonic):</strong><br> Cân bằng.<br> ➔ Nước ra/vào như nhau ➔ Tế bào bình thường.";
                 resultBox.className = "mt-auto p-4 rounded-xl bg-slate-800 border-l-4 border-green-500 text-white text-sm shadow-lg";
             } else if(type === 'hypo') {
+                // Hypotonic: Swell GRADUALLY (6s)
                 cellWrapper.style.animation = 'swell-burst 6s forwards';
                 resultBox.innerHTML = "<strong class='text-blue-300 block mb-1'>Nhược trương (Hypotonic):</strong><br> - Ngoài: Nhiều Nước.<br> - Trong: Nhiều Chất tan.<br> ➔ Nước đi VÀO ➔ Tế bào trương lên và VỠ.";
                 resultBox.className = "mt-auto p-4 rounded-xl bg-slate-800 border-l-4 border-blue-500 text-white text-sm shadow-lg";
@@ -597,9 +679,11 @@
 
         // Shared Utils for Cell Lab
         function drawArrows(type) {
-            const container = document.getElementById('arrows-container'); container.innerHTML = '';
+            const container = document.getElementById('arrows-container');
+            container.innerHTML = '';
             if (type === 'iso') return; 
-            const arrowCount = 6; const isOut = type === 'hyper'; 
+            const arrowCount = 6;
+            const isOut = type === 'hyper'; 
             for(let i=0; i<arrowCount; i++) {
                 const angle = (360 / arrowCount) * i;
                 const arrowEl = document.createElement('div');
@@ -614,65 +698,185 @@
         }
 
         function drawMolecules(type) {
-            const container = document.getElementById('molecules-layer'); container.innerHTML = ''; 
-            let outCounts = [0, 0]; let inCounts = [0, 0];
-            if(type === 'hyper') { outCounts = [5, 8]; inCounts = [2, 12]; } 
-            else if(type === 'iso') { outCounts = [4, 7]; inCounts = [4, 7]; } 
-            else if(type === 'hypo') { outCounts = [3, 20]; inCounts = [10, 5]; }
+            const container = document.getElementById('molecules-layer'); 
+            container.innerHTML = ''; 
             
+            let outCounts = [0, 0]; let inCounts = [0, 0];
+            // [Solute (Green), Water (Blue)]
+            if(type === 'hyper') { 
+                outCounts = [5, 8]; inCounts = [2, 12]; 
+            } 
+            else if(type === 'iso') { 
+                outCounts = [4, 7]; inCounts = [4, 7]; 
+            } 
+            else if(type === 'hypo') { 
+                outCounts = [3, 20]; inCounts = [10, 5]; 
+            }
+            
+            // Mảng lưu vị trí các hạt đã vẽ để kiểm tra va chạm
             const placedPositions = [];
+
+            // Helper to get random position with Collision Detection
             const getPos = (isInside, particleRadius) => {
-                let maxTries = 100; let bestPos = {x: 50, y: 50}; let foundSafe = false;
+                let maxTries = 100; // Số lần thử tìm vị trí trống tối đa
+                let bestPos = {x: 50, y: 50};
+                let foundSafe = false;
+
                 while(maxTries > 0 && !foundSafe) {
                     const angle = Math.random() * Math.PI * 2;
-                    let r = isInside ? Math.random() * 15 : 30 + Math.random() * 15;
+                    let r;
+                    
+                    if(isInside) {
+                        r = Math.random() * 15; // Bên trong (gần tâm)
+                    } else {
+                        // Bên ngoài: Bán kính từ 30% đến 45% (nằm trong hộp nhưng ngoài tế bào)
+                        r = 30 + Math.random() * 15; 
+                    }
+                    
                     const x = 50 + r * Math.cos(angle);
                     const y = 50 + r * Math.sin(angle);
+                    
+                    // Kiểm tra va chạm với TẤT CẢ các hạt đã đặt trước đó
                     let collision = false;
                     for (let p of placedPositions) {
-                        const dx = x - p.x; const dy = y - p.y;
+                        const dx = x - p.x;
+                        const dy = y - p.y;
                         const dist = Math.sqrt(dx*dx + dy*dy);
-                        if (dist < particleRadius + p.radius + 3) { collision = true; break; }
+                        const minSafeDist = particleRadius + p.radius + 3; // +3% buffer để tách rời hẳn
+                        
+                        if (dist < minSafeDist) {
+                            collision = true;
+                            break;
+                        }
                     }
-                    if (!collision) { bestPos = {x, y}; foundSafe = true; }
+
+                    if (!collision) {
+                        bestPos = {x, y};
+                        foundSafe = true;
+                    }
                     maxTries--;
                 }
                 return bestPos;
             };
 
             const spawn = (count, moleculeType, isInside) => {
+                // Ước lượng bán kính hạt theo % container để tính toán va chạm
+                // Solute (w-6) ~ 5%, Water (w-3) ~ 2.5%
                 const pRadius = moleculeType === 'solute' ? 4 : 2;
+
                 for(let i=0; i<count; i++) {
                     const dot = document.createElement('div');
                     dot.className = `molecule-particle absolute rounded-full static-jitter`;
-                    if(moleculeType === 'solute') { dot.classList.add('bg-green-400', 'w-6', 'h-6', 'shadow-sm'); } else { dot.classList.add('bg-blue-400', 'w-3', 'h-3'); } 
+                    
+                    if(moleculeType === 'solute') { 
+                        dot.classList.add('bg-green-400', 'w-6', 'h-6', 'shadow-sm'); 
+                    } else { 
+                        dot.classList.add('bg-blue-400', 'w-3', 'h-3'); 
+                    } 
+                    
                     const pos = getPos(isInside, pRadius);
+                    
+                    // Lưu vị trí lại
                     placedPositions.push({x: pos.x, y: pos.y, radius: pRadius});
-                    dot.style.left = pos.x + '%'; dot.style.top = pos.y + '%';
+
+                    dot.style.left = pos.x + '%';
+                    dot.style.top = pos.y + '%';
+                    
                     dot.dataset.loc = isInside ? 'in' : 'out';
                     dot.dataset.type = moleculeType; 
+
                     container.appendChild(dot);
                 }
             };
-            spawn(outCounts[0], 'solute', false); spawn(inCounts[0], 'solute', true); 
-            spawn(outCounts[1], 'water', false); spawn(inCounts[1], 'water', true);
+            
+            spawn(outCounts[0], 'solute', false); 
+            spawn(inCounts[0], 'solute', true); 
+            spawn(outCounts[1], 'water', false); 
+            spawn(inCounts[1], 'water', true);
         }
 
         function animateExistingMolecules(type) {
             const particles = document.querySelectorAll('.molecule-particle');
+            
+            // Clear interval if any
+            if (window.isoInterval) {
+                clearInterval(window.isoInterval);
+                window.isoInterval = null;
+            }
+
+            if (type === 'iso') {
+                // Dynamic Equilibrium: STRICTLY BALANCED MOVEMENT
+                // 1 In -> Out AND 1 Out -> In at the same time
+                window.isoInterval = setInterval(() => {
+                    const allParticles = Array.from(document.querySelectorAll('.molecule-particle'));
+                    
+                    // Filter candidates
+                    const waterIn = allParticles.filter(p => p.dataset.type === 'water' && p.dataset.loc === 'in');
+                    const waterOut = allParticles.filter(p => p.dataset.type === 'water' && p.dataset.loc === 'out');
+                    const soluteIn = allParticles.filter(p => p.dataset.type === 'solute' && p.dataset.loc === 'in');
+                    const soluteOut = allParticles.filter(p => p.dataset.type === 'solute' && p.dataset.loc === 'out');
+
+                    // Function to move a specific particle
+                    const moveParticle = (p, targetLoc) => {
+                        if (!p) return;
+                        const angle = Math.random() * Math.PI * 2;
+                        let r;
+                        if (targetLoc === 'in') {
+                            r = Math.random() * 18; // Target inside
+                        } else {
+                            r = 30 + Math.random() * 15; // Target outside
+                        }
+                        const x = 50 + r * Math.cos(angle);
+                        const y = 50 + r * Math.sin(angle);
+                        
+                        p.style.left = x + '%';
+                        p.style.top = y + '%';
+                        p.dataset.loc = targetLoc; // Update location status
+                    };
+
+                    // Move 1 Water Pair (In <-> Out) to simulate balance
+                    if (Math.random() > 0.3 && waterIn.length > 0 && waterOut.length > 0) {
+                        const pIn = waterIn[Math.floor(Math.random() * waterIn.length)];
+                        const pOut = waterOut[Math.floor(Math.random() * waterOut.length)];
+                        moveParticle(pIn, 'out');
+                        moveParticle(pOut, 'in');
+                    }
+
+                    // Move 1 Solute Pair (In <-> Out) occasionally
+                    if (Math.random() > 0.6 && soluteIn.length > 0 && soluteOut.length > 0) {
+                        const pIn = soluteIn[Math.floor(Math.random() * soluteIn.length)];
+                        const pOut = soluteOut[Math.floor(Math.random() * soluteOut.length)];
+                        moveParticle(pIn, 'out');
+                        moveParticle(pOut, 'in');
+                    }
+
+                }, 1500); // Trigger every 1.5s
+                return;
+            }
+
+            // Hyper / Hypo logic (Unchanged)
             particles.forEach(p => {
                 if(p.dataset.type !== 'water') return; 
+                
                 if(type === 'hyper' && p.dataset.loc === 'in') {
                     const angle = Math.random() * Math.PI * 2;
                     const r = 30 + Math.random() * 15; 
-                    const x = 50 + r * Math.cos(angle); const y = 50 + r * Math.sin(angle);
-                    p.style.left = x + '%'; p.style.top = y + '%'; p.style.opacity = 0;
+                    const x = 50 + r * Math.cos(angle);
+                    const y = 50 + r * Math.sin(angle);
+                    
+                    p.style.left = x + '%';
+                    p.style.top = y + '%';
+                    p.style.opacity = 0; 
                 }
                 else if(type === 'hypo' && p.dataset.loc === 'out') {
                     const angle = Math.random() * Math.PI * 2;
                     const r = Math.random() * 15; 
-                    const x = 50 + r * Math.cos(angle); const y = 50 + r * Math.sin(angle);
-                    p.style.left = x + '%'; p.style.top = y + '%'; p.style.opacity = 0; 
+                    const x = 50 + r * Math.cos(angle);
+                    const y = 50 + r * Math.sin(angle);
+                    
+                    p.style.left = x + '%';
+                    p.style.top = y + '%';
+                    p.style.opacity = 0; 
                 }
             });
         }
@@ -684,7 +888,7 @@
             if(id === 'bowl2') { document.getElementById('salt-slice').style.transform = "scale(0.85) rotate(15deg)"; }
         }
 
-        // --- FIXED: Missing Function Added Here ---
+        // --- Missing Function Added Here ---
         function toggleApplySlide(slideNum) {
             const s1 = document.getElementById('apply-slide-1');
             const s2 = document.getElementById('apply-slide-2');
