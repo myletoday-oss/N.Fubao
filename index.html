@@ -3,952 +3,717 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nền tảng Bài tập Sáng tạo NDS</title>
-    <!-- Tải Tailwind CSS -->
+    <title>E-Learning: Vận Chuyển Các Chất Qua Màng Sinh Chất</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Thêm font Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Sử dụng font Inter làm mặc định */
-        body { 
-            font-family: 'Inter', sans-serif; 
-        }
-        /* Ẩn tất cả các trang nội dung theo mặc định */
-        .page-content { 
-            display: none; 
-        }
-        /* Hiển thị trang đang hoạt động */
-        .page-content.active { 
-            display: block; 
-        }
-        /* Kiểu cho link điều hướng đang hoạt động */
-        .nav-link.active {
-            background-color: #4338CA; /* indigo-700 */
-            color: white;
-            font-weight: 600;
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #ecfdf5; /* emerald-50 */
+            color: #064e3b; /* emerald-900 */
         }
 
-        /* Định nghĩa lớp answer-box */
-        .answer-box {
-            margin-top: 0.5rem;
-            width: 100%;
-            padding: 0.5rem;
-            border: 1px solid #D1D5DB; /* border-gray-300 */
-            border-radius: 0.375rem; /* rounded-md */
-        }
-        .answer-box:focus {
-            box-shadow: 0 0 0 2px #C7D2FE; /* focus:ring-indigo-500 */
+        /* --- Animations --- */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
-        /* --- CSS cho Modal và Spinner (Tính năng Gemini) --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: none; /* Ẩn theo mặc định */
-            align-items: center;
-            justify-content: center;
-            z-index: 50;
+        /* --- Cell Shape Animations (Synchronized 6s) --- */
+        @keyframes morph-shrink {
+            0% { transform: scale(1); }
+            100% { transform: scale(0.7); }
         }
-        .modal-overlay.active {
-            display: flex; /* Hiển thị khi active */
+        
+        .cell-crenated {
+            clip-path: polygon(
+                50% 0%, 61% 10%, 75% 5%, 85% 15%, 95% 10%, 90% 25%, 100% 35%, 90% 50%, 
+                100% 65%, 90% 75%, 95% 90%, 80% 85%, 70% 95%, 60% 85%, 50% 100%, 40% 85%, 
+                30% 95%, 20% 85%, 5% 90%, 10% 75%, 0% 65%, 10% 50%, 0% 35%, 10% 25%, 
+                5% 10%, 15% 15%, 25% 5%, 39% 10%
+            );
+            background-color: #ef4444; 
+            transition: clip-path 0.5s ease;
         }
-        .modal-content {
-            background-color: white;
-            padding: 0; /* Reset padding để dùng layout flex tốt hơn */
-            border-radius: 0.5rem;
-            width: 90%;
-            max-width: 700px;
-            max-height: 85vh;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .modal-header {
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid #E5E7EB;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #F3F4F6;
-            border-top-left-radius: 0.5rem;
-            border-top-right-radius: 0.5rem;
-        }
-        .modal-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #111827;
-        }
-        .modal-body-container {
-            padding: 1.5rem;
-            overflow-y: auto;
-            flex: 1;
-            font-family: 'Inter', sans-serif; /* Ép buộc font Inter */
-        }
-        .modal-body-text {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #374151;
-        }
-        /* Styles cho nội dung Markdown đã parse */
-        .markdown-content h3 { font-weight: 700; font-size: 1.1em; margin-top: 1em; margin-bottom: 0.5em; color: #1F2937; }
-        .markdown-content strong { font-weight: 700; color: #111827; }
-        .markdown-content ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 1em; }
-        .markdown-content li { margin-bottom: 0.25em; }
-        .markdown-content p { margin-bottom: 1em; }
-        .markdown-content br { display: block; margin-bottom: 0.5em; }
 
-        .modal-footer {
-            padding: 1rem 1.5rem;
-            border-top: 1px solid #E5E7EB;
-            display: flex;
-            justify-content: flex-end;
-            background-color: #F9FAFB;
-            border-bottom-left-radius: 0.5rem;
-            border-bottom-right-radius: 0.5rem;
+        @keyframes swell-burst {
+            0% { transform: scale(1); opacity: 1; border-color: rgba(255,255,255,0.2); }
+            80% { transform: scale(1.5); opacity: 0.9; border-radius: 50%; background-color: #f87171; }
+            90% { transform: scale(1.6); opacity: 0.5; }
+            100% { transform: scale(2); opacity: 0; display: none; }
         }
-        .modal-spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid #E5E7EB; 
-            border-top-color: #4F46E5; 
+
+        /* Particle Jitter */
+        @keyframes jitter {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(2px, 2px); }
+            50% { transform: translate(-2px, -2px); }
+            75% { transform: translate(-2px, 2px); }
+            100% { transform: translate(0, 0); }
+        }
+        
+        .molecule-particle {
+            position: absolute;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            transition: all 6s ease-in-out;
+            z-index: 20;
         }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        
+        .molecule-particle.static-jitter {
+            animation: jitter 3s infinite linear;
         }
-        /* --- Hết CSS cho Modal --- */
 
-        /* Kiểu CSS cho bản in */
-        @media print {
-            body {
-                font-family: 'Times New Roman', Times, serif;
-                font-size: 12pt;
-                color: #000;
-            }
-            /* Ẩn thanh điều hướng và nút in */
-            nav, .print-exercise-button, button {
-                display: none !important;
-            }
-            main {
-                padding: 0 !important;
-                margin: 0 !important;
-                width: 100% !important;
-            }
-            /* Ẩn TẤT CẢ các trang theo mặc định khi in */
-            .page-content {
-                display: none !important;
-            }
-            /* CHỈ HIỂN THỊ trang đang 'active' khi in */
-            .page-content.active {
-                display: block !important;
-                page-break-before: auto !important; /* Không ngắt trang trước */
-            }
-            /* Reset styles cho gọn gàng */
-            .bg-white, .bg-gray-100 {
-                background-color: #fff !important;
-            }
-            .shadow-md {
-                box-shadow: none !important;
-                border: 1px solid #eee !important;
-            }
-            h1, h2, h3 {
-                color: #000 !important;
-            }
-            .text-indigo-700, .text-green-700, .text-gray-700, .text-gray-900, .text-gray-600 {
-                color: #000 !important;
-            }
-            a {
-                text-decoration: none;
-                color: #000;
-            }
-            table, th, td {
-                border: 1px solid #ccc !important;
-                page-break-inside: avoid;
-            }
-            ul, p, div {
-                page-break-inside: avoid;
-            }
-            /* Đảm bảo ô trả lời hiển thị rõ ràng */
-            .answer-box {
-                border: 1px dashed #999 !important;
-                background-color: #f9f9f9 !important;
-                page-break-inside: avoid;
-                /* Hiển thị nội dung của textarea khi in */
-                overflow: visible !important;
-                height: auto !important;
-            }
-            /* Ẩn các chi tiết không cần thiết */
-            #q2-a-details.hidden, #q2-b-details.hidden {
-                display: none !important;
-            }
+        /* UI Styles */
+        .nav-btn.active { color: #059669; font-weight: 700; }
+        .nav-btn::after {
+            content: ''; position: absolute; bottom: -2px; left: 50%; width: 0; height: 3px;
+            background-color: #059669; transition: all 0.3s ease; transform: translateX(-50%); border-radius: 2px;
+        }
+        .nav-btn.active::after { width: 80%; }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .shriveled-cucumber {
+            border-radius: 60% 40% 50% 50% / 50% 55% 45% 50%;
+            border: 6px solid #166534; 
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        /* Tab Styles in Lab */
+        .lab-tab {
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        .lab-tab.active {
+            background-color: #ccfbf1; /* teal-100 */
+            color: #0f766e; /* teal-700 */
+            border-color: #99f6e4;
+        }
+        .lab-tab:hover:not(.active) {
+            background-color: #f3f4f6;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="h-screen flex flex-col overflow-hidden bg-gradient-to-br from-emerald-50 to-teal-100">
 
-    <div class="flex flex-col md:flex-row min-h-screen">
-        
-        <!-- Thanh điều hướng bên (Sidebar) -->
-        <nav class="w-full md:w-72 bg-indigo-800 text-white p-5 space-y-3 shrink-0 flex flex-col">
-            <div>
-                <h1 class="text-2xl font-bold mb-6 text-center">
-                    Năng lực Sáng tạo NDS
-                </h1>
-                <a href="#" class="nav-link active block p-3 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors duration-200" data-target="page-home">
-                    Trang chủ
-                </a>
-                <a href="#" class="nav-link block p-3 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors duration-200" data-target="page-bt1">
-                    Bài tập 1: Phát triển NDS
-                </a>
-                <a href="#" class="nav-link block p-3 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors duration-200" data-target="page-bt2">
-                    Bài tập 2: Tích hợp & Tái lập
-                </a>
-                <a href="#" class="nav-link block p-3 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors duration-200" data-target="page-bt3">
-                    Bài tập 3: Lập trình
-                </a>
+    <!-- Header & Navigation -->
+    <header class="bg-white/90 backdrop-blur-md shadow-sm z-30 border-b border-emerald-100">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center py-3">
+                <div class="flex items-center gap-3 mb-2 md:mb-0">
+                    <div class="w-10 h-10 bg-gradient-to-tr from-emerald-500 to-teal-400 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg transform -rotate-3">10</div>
+                    <div>
+                        <h1 class="font-bold text-lg text-emerald-900 leading-tight">Vận chuyển qua màng sinh chất</h1>
+                        <p class="text-xs text-emerald-600 font-medium">Sinh học 10 - Chân trời sáng tạo</p>
+                    </div>
+                </div>
+                <nav class="flex items-center gap-1 overflow-x-auto max-w-full pb-1 md:pb-0 hide-scrollbar">
+                    <button onclick="showSection('intro')" id="btn-intro" class="nav-btn active px-4 py-2 text-sm text-gray-600 hover:text-emerald-600 whitespace-nowrap">🥒 Khởi động</button>
+                    <button onclick="showSection('concept')" id="btn-concept" class="nav-btn px-4 py-2 text-sm text-gray-600 hover:text-emerald-600 whitespace-nowrap">🧬 Kiến thức</button>
+                    <button onclick="showSection('passive')" id="btn-passive" class="nav-btn px-4 py-2 text-sm text-gray-600 hover:text-emerald-600 whitespace-nowrap">🌊 Vận chuyển</button>
+                    <button onclick="showSection('lab')" id="btn-lab" class="nav-btn px-4 py-2 text-sm text-teal-600 font-bold hover:text-teal-700 whitespace-nowrap bg-teal-50 rounded-lg mx-2 border border-teal-100">🧪 PTN Ảo</button>
+                    <button onclick="showSection('bulk')" id="btn-bulk" class="nav-btn px-4 py-2 text-sm text-gray-600 hover:text-emerald-600 whitespace-nowrap">📦 Nhập/Xuất bào</button>
+                    <button onclick="showSection('practice')" id="btn-practice" class="nav-btn px-4 py-2 text-sm text-gray-600 hover:text-emerald-600 whitespace-nowrap">📝 Luyện tập</button>
+                    <button onclick="showSection('apply')" id="btn-apply" class="nav-btn px-4 py-2 text-sm text-gray-600 hover:text-emerald-600 whitespace-nowrap">🏺 Vận dụng</button>
+                </nav>
             </div>
-        </nav>
+        </div>
+    </header>
 
-        <!-- Khu vực nội dung chính -->
-        <main class="flex-1 p-6 md:p-10 overflow-auto">
-
-            <!-- Trang: Trang chủ -->
-            <div id="page-home" class="page-content active space-y-6">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">
-                    Chào mừng đến với Nền tảng Bài tập
-                </h2>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <p class="text-lg text-gray-700 leading-relaxed">
-                        Đây là nền tảng web được thiết kế để hỗ trợ bạn thực hành các bài tập phát triển năng lực sáng tạo nội dung số (NDS).
-                    </p>
-                    <p class="text-gray-700 leading-relaxed mt-4">
-                        Mỗi bài tập được xây dựng theo cấu trúc 4 giai đoạn:
-                    </p>
-                    <ul class="list-decimal list-inside text-gray-700 mt-4 space-y-2">
-                        <li><strong>Trải nghiệm cụ thể (Tình huống sư phạm):</strong> Đặt ra bối cảnh thực tiễn.</li>
-                        <li><strong>Quan sát phản tư (Thiết lập nền tảng):</strong> Thiết kế nhiệm vụ để phát triển năng lực.</li>
-                        <li><strong>Trừu tượng hóa (Nhiệm vụ kiến tạo):</strong> Thiết kế khung nội dung/kế hoạch cho sản phẩm.</li>
-                        <li><strong>Thử nghiệm tích cực (Thử thách sáng tạo):</strong> Vận dụng kiến thức để phát triển sản phẩm.</li>
-                    </ul>
-                    <p class="text-gray-700 leading-relaxed mt-4">
-                        Sử dụng thanh điều hướng bên trái để chọn bài tập bạn muốn thực hiện.
-                    </p>
+    <!-- Main Content -->
+    <div class="flex-1 overflow-y-auto relative scroll-smooth p-4 md:p-8" id="main-content">
+        <div class="max-w-6xl mx-auto min-h-full">
+            
+            <!-- SECTION 1: INTRO -->
+            <section id="sec-intro" class="space-y-8 animate-[float_0.5s_ease-out]">
+                <div class="text-center mb-10">
+                    <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Hoạt động 1</span>
+                    <h2 class="text-3xl font-bold text-emerald-900 mt-2">Tình huống Khởi động</h2>
+                    <p class="text-emerald-600">Quan sát hiện tượng thực tế với Dưa leo/Cà rốt</p>
                 </div>
-            </div>
-
-            <!-- Trang: Bài tập 1 -->
-            <div id="page-bt1" class="page-content space-y-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-3xl font-bold text-gray-800">Bài tập 1: Phát triển Năng lực Phát triển Nội dung số</h2>
-                    <a href="#" class="print-exercise-button p-3 rounded-lg text-sm font-medium bg-green-600 text-white text-center hover:bg-green-700 transition-colors duration-200">
-                        In Bài 1 / Xuất PDF
-                    </a>
-                </div>
-                
-                <!-- Phần 1: Tình huống sư phạm -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 1: Tình huống sư phạm</h3>
-                    <p class="text-gray-700 leading-relaxed">
-                        Là một GVBM Sinh học tại trường THPT A, tham gia cuộc thi “Thiết kế bài giảng E – learning năm học 2025-2026” và nhận chủ đề thiết kế bài giảng thuộc chương trình sinh học 10. Bạn đang đứng trước các vấn đề: E-learning có những ưu việt gì so với bài giảng truyền thống? Làm thế nào để thiết kế một bài giảng E-learning có tính tương tác cao, giúp học sinh tự khám phá, thao tác và hiểu sâu kiến thức Sinh học thông qua các công cụ số phù hợp?
-                    </p>
-                </div>
-                
-                <!-- Phần 2: Thiết lập nền tảng -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 2: Thiết lập nền tảng</h3>
-                    <div class="space-y-4 text-gray-700">
-                        <div>
-                            <p><strong>1. Xác định mục tiêu nội dung/chủ đề cho bài giảng E – learning?</strong></p>
-                            <!-- Thêm ID để JS có thể lấy giá trị -->
-                            <textarea id="bt1-q1-answer" class="answer-box" rows="3" placeholder="Nhập câu trả lời của bạn..."></textarea>
-                        </div>
-                        <p><strong>2. Có thể áp dụng công cụ nào để nhận thấy e – learning góp phần nâng cao hiệu quả dạy học chủ đề đã chọn so với bài giảng truyền thống?</strong></p>
-                        <div class="ml-5 space-y-2 mt-2">
-                            <div class="flex items-center">
-                                <input id="bt1-q2-a" name="bt1-q2" type="radio" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
-                                <label for="bt1-q2-a" class="ml-3 block text-gray-900">a) Khảo sát (thu nhận phản hồi từ người học)</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="bt1-q2-b" name="bt1-q2" type="radio" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
-                                <label for="bt1-q2-b" class="ml-3 block text-gray-900">b) Bài kiểm tra cuối khóa</label>
-                            </div>
-                        </div>
-                        <p><strong>3. Xác định phương tiện/công nghệ số mà bạn có thể sử dụng thành thạo để thiết kế các nội dung số cho e – learning?</strong></p>
-                        <div class="space-y-2 ml-5 text-gray-700 mt-2">
-                            <!-- Checkboxes -->
-                            <div class="flex items-center">
-                                <input id="bt1-tool-canva" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt1-tool-canva" class="ml-3 block text-gray-900">Canva/ Power Point</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="bt1-tool-gpt" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt1-tool-gpt" class="ml-3 block text-gray-900">GPT/Gemini</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="bt1-tool-powtoon" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt1-tool-powtoon" class="ml-3 block text-gray-900">Powtoon/Prezi</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="bt1-tool-docs" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt1-tool-docs" class="ml-3 block text-gray-900">Google docs/word</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="bt1-tool-draw" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt1-tool-draw" class="ml-3 block text-gray-900">Draw/ App đồ họa</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="bt1-tool-kahoot" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt1-tool-kahoot" class="ml-3 block text-gray-900">Kahoot</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="bt1-tool-leoai" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt1-tool-leoai" class="ml-3 block text-gray-900">Leonardo AI</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="bt1-tool-other" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt1-tool-other" class="ml-3 block text-gray-900">Khác</label>
-                            </div>
-                        </div>
-                        <div>
-                            <p><strong>4. Thời gian hoàn thành E-learning?</strong></p>
-                            <textarea class="answer-box" rows="2" placeholder="Nhập câu trả lời của bạn..."></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Phần 3: Nhiệm vụ kiến tạo -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 3: Nhiệm vụ kiến tạo</h3>
-                    <p class="text-gray-700 mb-4">Theo kết quả phân tích các yêu cầu ở phần thiết lập nền tảng, lập kế hoạch thiết kế e – learning theo KHBD theo hướng dẫn bên dưới:</p>
-
-                    <!-- CÁC NÚT TÍCH HỢP GEMINI API -->
-                    <div class="my-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <button type="button" id="gemini-suggest-plan-btn" class="flex items-center justify-center gap-2 w-full px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors duration-200 shadow-sm">
-                            ✨ Gợi ý Kế hoạch E-learning
-                        </button>
-                        <button type="button" id="gemini-generate-quiz-btn" class="flex items-center justify-center gap-2 w-full px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors duration-200 shadow-sm">
-                            ✨ Gợi ý 3 câu hỏi Quiz H5P
-                        </button>
-                    </div>
-
-                    <div class="overflow-x-auto mt-4">
-                        <table class="min-w-full divide-y divide-gray-200 border">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Yêu cầu</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hướng dẫn</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200 text-gray-700">
-                                <tr>
-                                    <td class="px-6 py-4 font-medium">Phân tích cấu trúc kế hoạch dạy học</td>
-                                    <td class="px-6 py-4">"Xác định: mục tiêu bài học? nội dung trọng tâm? hình thức tổ chức (trực tiếp, trực tuyến, kết hợp)?"</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 font-medium">Xác định vai trò của nội dung số trong từng hoạt động học</td>
-                                    <td class="px-6 py-4">
-                                        <ul class="list-disc list-inside">
-                                            <li>Hoạt động khởi động: sử dụng video, hình ảnh, câu hỏi gợi mở.</li>
-                                            <li>Hoạt động hình thành/khám phá kiến thức: video – bải giảng tương tác</li>
-                                            <li>Hoạt động luyện tập/đánh giá: quiz, trò chơi, bài tập tương tác</li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 font-medium">"Xác định thời gian, nguồn lực và công cụ số"</td>
-                                    <td class="px-6 py-4">"Lập kế hoạch chi tiết cho từng loại nội dung: thời lượng, công cụ (Canva, H5P, ..)"</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 font-medium">Tìm hiểu về H5P</td>
-                                    <td class="px-6 py-4"><a href="https://drive.google.com/file/d/1HdthPJHYe4EdaG4PBbiB6nP6ztCslysk/view?usp=sharing" target="_blank" class="text-blue-600 hover:underline">Link tài liệu H5P</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Phần 4: Thử thách sáng tạo -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 4: Thử thách sáng tạo</h3>
-                    <p class="text-gray-700 leading-relaxed">
-                        Tham khảo tài liệu hưởng dẫn để sử dụng H5P để tạo E – learning triển khai KHBD và kế hoạch thiết kế E – learning đã hoàn thành ở phần kiến tạo.
-                    </p>
-                    <!-- Bổ sung ô nhập link sản phẩm -->
-                    <div class="mt-4">
-                        <p class="text-gray-700 font-medium">Sản phẩm: Nộp lại 01 đường link (URL) sản phẩm E-learning H5P hoàn chỉnh.</p>
-                        <input type="text" class="answer-box" placeholder="Dán đường link (URL) sản phẩm H5P của bạn tại đây...">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Trang: Bài tập 2 -->
-            <div id="page-bt2" class="page-content space-y-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-3xl font-bold text-gray-800">Bài tập 2: Tích hợp & Tái lập nội dung số</h2>
-                    <a href="#" class="print-exercise-button p-3 rounded-lg text-sm font-medium bg-green-600 text-white text-center hover:bg-green-700 transition-colors duration-200">
-                        In Bài 2 / Xuất PDF
-                    </a>
-                </div>
-
-                <!-- Phần 1: Tình huống sư phạm -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 1: Tình huống sư phạm</h3>
-                    <p class="text-gray-700 leading-relaxed">
-                        Bạn đang cần tổ chức hoạt động học cho học sinh tích hợp kiến thức của 2 chủ đề (Ví dụ: Trao đổi chất và Năng lượng + Ứng dụng công nghệ sinh học) bằng việc tái lập nội dung số. Bạn có thể sử dụng công cụ số nào để tích hợp 2 chủ đề này? Làm thế nào để đảm bảo học sinh có thể tự thao tác và thực hành với nội dung tích hợp này?
-                    </p>
-                </div>
-
-                <!-- Phần 2: Thiết lập nền tảng -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 2: Thiết lập nền tảng</h3>
-                    <div class="space-y-4 text-gray-700">
-                        <div>
-                            <p><strong>1. Xác định hình thức học liệu tích hợp sẽ thực hiện?</strong></p>
-                            <div class="ml-5 space-y-2 mt-2">
-                                <div class="flex items-center">
-                                    <input id="q1-flipbook" name="hoc-lieu-type" type="radio" value="flipbook" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
-                                    <label for="q1-flipbook" class="ml-3 block text-gray-900">a) Flipbook (Sách điện tử tương tác)</label>
+                <div class="bg-white/80 backdrop-blur rounded-3xl shadow-xl border border-emerald-100 overflow-hidden">
+                    <div class="p-8 md:p-12">
+                        <div class="flex flex-col md:flex-row gap-12 items-center justify-center mb-10">
+                            <!-- Bowl 1 -->
+                            <div class="text-center group cursor-pointer transition-all duration-300 hover:-translate-y-2" onclick="toggleObservation('bowl1')">
+                                <div class="relative w-48 h-48 bg-gradient-to-b from-blue-50 to-blue-100 rounded-full border-4 border-white shadow-lg flex items-center justify-center overflow-hidden mx-auto">
+                                    <div class="absolute inset-0 bg-blue-400/10 animate-pulse"></div>
+                                    <div class="relative w-28 h-28 bg-green-200 rounded-full border-[6px] border-green-500 flex items-center justify-center shadow-md transform group-hover:scale-105 transition-transform">
+                                        <div class="w-24 h-24 bg-green-300/40 rounded-full border border-green-400 grid grid-cols-3 grid-rows-3 gap-1 p-2 opacity-60">
+                                            <div class="bg-white/60 rounded-full"></div><div></div><div class="bg-white/60 rounded-full"></div><div></div><div class="bg-white/60 rounded-full"></div><div></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="flex items-center">
-                                    <input id="q1-website" name="hoc-lieu-type" type="radio" value="website" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
-                                    <label for="q1-website" class="ml-3 block text-gray-900">b) Website (Trang web nội dung)</label>
+                                <div class="mt-4 inline-block px-4 py-1 bg-blue-100 text-blue-700 rounded-full font-bold shadow-sm">Bát 1: Nước lọc</div>
+                                <div id="obs-bowl1" class="text-sm font-medium text-emerald-600 mt-2 hidden bg-white px-3 py-1 rounded-lg shadow-sm inline-block">🥒 Tươi, căng mọng, cứng</div>
+                            </div>
+
+                            <!-- Bowl 2 -->
+                            <div class="text-center group cursor-pointer transition-all duration-300 hover:-translate-y-2" onclick="toggleObservation('bowl2')">
+                                <div class="relative w-48 h-48 bg-gradient-to-b from-gray-100 to-gray-200 rounded-full border-4 border-white shadow-lg flex items-center justify-center overflow-hidden mx-auto">
+                                    <div class="absolute inset-0 bg-yellow-400/5"></div>
+                                    <div class="absolute w-2 h-2 bg-white rounded-full top-10 left-10 opacity-80"></div>
+                                    <div class="absolute w-2 h-2 bg-white rounded-full bottom-12 right-12 opacity-80"></div>
+                                    <div class="relative w-24 h-24 bg-green-300 flex items-center justify-center shadow-md transform transition-all duration-1000 shriveled-cucumber" 
+                                         id="salt-slice"
+                                         style="border-radius: 50%; transform: scale(1);"> 
+                                         <div class="w-16 h-16 bg-green-400/40 rounded-full border border-green-500 opacity-60"></div>
+                                    </div>
+                                </div>
+                                <div class="mt-4 inline-block px-4 py-1 bg-orange-100 text-orange-700 rounded-full font-bold shadow-sm">Bát 2: Nước muối đặc</div>
+                                <div id="obs-bowl2" class="text-sm font-medium text-orange-600 mt-2 hidden bg-white px-3 py-1 rounded-lg shadow-sm inline-block">🥀 Mềm, teo nhỏ, dẻo</div>
+                            </div>
+                        </div>
+                        <div class="bg-emerald-50/80 p-6 rounded-2xl border border-emerald-100 max-w-3xl mx-auto">
+                            <h3 class="font-bold text-emerald-900 mb-4 flex items-center gap-2"><span class="text-xl">🤔</span> Câu hỏi thảo luận</h3>
+                            <div class="space-y-4">
+                                <div class="flex gap-4 p-3 bg-white rounded-xl shadow-sm border border-emerald-50">
+                                    <div class="bg-emerald-100 text-emerald-700 w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
+                                    <p class="text-gray-700">Tại sao cùng là dưa leo nhưng miếng ngâm nước lọc vẫn tươi, còn miếng ngâm nước muối lại bị teo?</p>
+                                </div>
+                                <div class="flex gap-4 p-3 bg-white rounded-xl shadow-sm border border-emerald-50">
+                                    <div class="bg-emerald-100 text-emerald-700 w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
+                                    <p class="text-gray-700">Điều gì đã xảy ra với các phân tử nước trong 2 trường hợp này?</p>
                                 </div>
                             </div>
+                            <div class="mt-6 text-center">
+                                <button onclick="document.getElementById('intro-hint').classList.remove('hidden')" class="text-sm font-bold text-teal-600 hover:text-teal-800 underline decoration-dotted underline-offset-4 transition">💡 Gợi ý cho giáo viên</button>
+                                <p id="intro-hint" class="hidden mt-3 text-sm text-teal-800 bg-teal-100 p-3 rounded-lg inline-block">"Nước di chuyển từ nơi thế nước cao sang nơi thế nước thấp. Trong bát nước muối, nước từ bên trong tế bào dưa leo đã bị 'hút' ra ngoài."</p>
+                            </div>
                         </div>
+                    </div>
+                </div>
+            </section>
 
-                        <div>
-                            <p><strong>2. Xác định công cụ sẽ sử dụng để tái lập nội dung số?</strong></p>
+            <!-- SECTION 2: CONCEPT -->
+            <section id="sec-concept" class="hidden space-y-8 animate-[float_0.5s_ease-out]">
+                <div class="text-center mb-8">
+                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Kiến thức nền</span>
+                    <h2 class="text-3xl font-bold text-slate-800 mt-2">Trao đổi chất ở Tế bào</h2>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="glass-panel p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
+                        <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-3xl mb-6 text-blue-600">🔄</div>
+                        <h3 class="font-bold text-xl mb-3 text-slate-800">Định nghĩa</h3>
+                        <p class="text-slate-600 leading-relaxed">Trao đổi chất ở tế bào bao gồm quá trình trao đổi chất giữa tế bào với môi trường và các phản ứng sinh hóa diễn ra bên trong tế bào. Quá trình chuyển hóa vật chất trong tế bào bao gồm có đồng hóa và dị hóa.</p>
+                    </div>
+                    <div class="glass-panel p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
+                        <div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center text-3xl mb-6 text-emerald-600">🛡️</div>
+                        <h3 class="font-bold text-xl mb-3 text-slate-800">Vai trò Màng sinh chất</h3>
+                        <p class="text-slate-600 leading-relaxed">Đóng vai trò như "người gác cổng", kiểm soát các chất ra/vào tế bào một cách có chọn lọc. Giúp duy trì môi trường nội bào ổn định để tế bào hoạt động bình thường.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: TRANSPORT -->
+            <section id="sec-passive" class="hidden space-y-8 animate-[float_0.5s_ease-out]">
+                <div class="text-center mb-8">
+                    <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Phân biệt</span>
+                    <h2 class="text-3xl font-bold text-slate-800 mt-2">Các hình thức vận chuyển</h2>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden group">
+                        <div class="h-2 bg-gradient-to-r from-green-400 to-green-600"></div>
+                        <div class="p-8">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="font-bold text-2xl text-green-800">Thụ động</h3>
+                                <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded">Passive</span>
+                            </div>
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="bg-green-100 p-1 rounded text-green-600 text-lg">✅</span>
+                                    <div><strong class="block text-slate-800">Nguyên lý</strong><span class="text-sm text-slate-500">Nồng độ Cao ➔ Thấp (Xuôi dòng)</span></div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="bg-green-100 p-1 rounded text-green-600 text-lg">⚡</span>
+                                    <div><strong class="block text-slate-800">Năng lượng</strong><span class="text-sm text-slate-500">Không tốn ATP</span></div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="bg-green-100 p-1 rounded text-green-600 text-lg">🔍</span>
+                                    <div><strong class="block text-slate-800">Ví dụ</strong><span class="text-sm text-slate-500">O2, CO2, H2O, Glucose (qua kênh protein)</span></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden group">
+                        <div class="h-2 bg-gradient-to-r from-red-400 to-red-600"></div>
+                        <div class="p-8">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="font-bold text-2xl text-red-800">Chủ động</h3>
+                                <span class="bg-red-100 text-red-700 text-xs font-bold px-2 py-1 rounded">Active</span>
+                            </div>
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="bg-red-100 p-1 rounded text-red-600 text-lg">⚙️</span>
+                                    <div><strong class="block text-slate-800">Nguyên lý</strong><span class="text-sm text-slate-500">Nồng độ Thấp ➔ Cao (Ngược dòng)</span></div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="bg-red-100 p-1 rounded text-red-600 text-lg">⚡</span>
+                                    <div><strong class="block text-slate-800">Năng lượng</strong><span class="text-sm text-slate-500">Cần tiêu tốn ATP</span></div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="bg-red-100 p-1 rounded text-red-600 text-lg">🔍</span>
+                                    <div><strong class="block text-slate-800">Ví dụ</strong><span class="text-sm text-slate-500">Bơm Na-K, tái hấp thu tại ống thận</span></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 5: LAB (COMPLETE WITH 3 TABS) -->
+            <section id="sec-lab" class="hidden min-h-[650px] flex-col animate-[float_0.5s_ease-out]">
+                <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden flex flex-col h-full">
+                    
+                    <!-- Lab Tabs Header -->
+                    <div class="bg-slate-50 border-b border-slate-200 p-4 flex gap-2 overflow-x-auto">
+                        <button onclick="switchLabTab('diffusion')" id="tab-diffusion" class="lab-tab active">1. Khuếch tán (Diffusion)</button>
+                        <button onclick="switchLabTab('osmosis-basic')" id="tab-osmosis-basic" class="lab-tab text-gray-500">2. Thẩm thấu (Cơ bản)</button>
+                        <button onclick="switchLabTab('osmosis-cell')" id="tab-osmosis-cell" class="lab-tab text-gray-500">3. Thẩm thấu (Tế bào)</button>
+                    </div>
+
+                    <!-- LAB 1: DIFFUSION -->
+                    <div id="lab-diffusion" class="flex flex-col md:flex-row flex-1">
+                        <div class="w-full md:w-80 bg-slate-50 border-r border-slate-100 p-8 flex flex-col gap-4 z-10">
+                            <div class="mb-4">
+                                <h2 class="text-2xl font-bold text-teal-800">Khuếch tán</h2>
+                                <p class="text-sm text-slate-500">Sự di chuyển của chất tan</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-xl shadow-sm border border-slate-100 text-sm text-slate-600">
+                                <p class="mb-2 font-bold">Nguyên lý:</p>
+                                <p>Chất tan di chuyển từ nơi có <strong>nồng độ cao</strong> sang nơi có <strong>nồng độ thấp</strong> cho đến khi cân bằng.</p>
+                            </div>
+                            <button onclick="runDiffusion()" class="mt-4 w-full py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold shadow-md transition transform hover:-translate-y-1">▶️ Bắt đầu</button>
+                            <button onclick="resetDiffusion()" class="w-full py-2 bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl font-bold transition">🔄 Làm lại</button>
+                        </div>
+                        <div class="flex-1 bg-[#002b5b] relative overflow-hidden flex items-center justify-center p-8">
+                            <div class="relative w-[500px] h-[300px] border-4 border-white/50 rounded-xl bg-white/5 backdrop-blur-sm flex">
+                                <div class="w-1/2 h-full border-r-2 border-dashed border-white/40 flex items-center justify-center relative z-0">
+                                    <div class="absolute bottom-2 text-white/50 text-xs font-bold uppercase">Nồng độ Cao</div>
+                                </div>
+                                <div class="w-1/2 h-full flex items-center justify-center relative z-0">
+                                    <div class="absolute bottom-2 text-white/50 text-xs font-bold uppercase">Nồng độ Thấp</div>
+                                </div>
+                                <div id="diffusion-particles" class="absolute inset-0 pointer-events-none z-10"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LAB 2: OSMOSIS BASIC (BEAKER) -->
+                    <div id="lab-osmosis-basic" class="hidden flex flex-col md:flex-row flex-1">
+                        <div class="w-full md:w-80 bg-slate-50 border-r border-slate-100 p-8 flex flex-col gap-4 z-10">
+                            <div class="mb-4">
+                                <h2 class="text-2xl font-bold text-teal-800">Thẩm thấu (Cơ bản)</h2>
+                                <p class="text-sm text-slate-500">Sự di chuyển của nước qua màng</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-xl shadow-sm border border-slate-100 text-sm text-slate-600">
+                                <p class="mb-2 font-bold">Thí nghiệm:</p>
+                                <p>Một bể nước được ngăn đôi bởi màng bán thấm. Bên phải có <strong>nhiều chất tan</strong> hơn.</p>
+                            </div>
+                            <button onclick="runOsmosisBasic()" class="mt-4 w-full py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold shadow-md transition transform hover:-translate-y-1">▶️ Quan sát</button>
+                            <button onclick="resetOsmosisBasic()" class="w-full py-2 bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl font-bold transition">🔄 Làm lại</button>
+                        </div>
+                        <div class="flex-1 bg-[#002b5b] relative overflow-hidden flex items-center justify-center p-8">
                             
-                            <!-- NÚT TÍCH HỢP GEMINI API -->
-                            <button type="button" id="gemini-tool-analysis-btn" class="mb-2 text-sm flex items-center gap-2 px-3 py-1 bg-indigo-100 text-indigo-700 rounded-md hover:bg-indigo-200 transition-colors duration-200 border border-indigo-200">
-                                ✨ Gợi ý Phân tích Công cụ
-                            </button>
+                            <!-- Beaker Container -->
+                            <div class="relative w-[400px] h-[300px] border-4 border-white/60 border-t-0 rounded-b-xl bg-white/5 backdrop-blur-sm shadow-xl">
+                                
+                                <!-- The Membrane -->
+                                <div class="absolute inset-y-0 left-1/2 w-1 -translate-x-1/2 border-l-4 border-dashed border-red-400/70 z-20"></div>
 
-                            <div class="ml-5 space-y-2 mt-2">
-                                <div class="flex items-center">
-                                    <input id="q2-a-flipbook" name="tool-type" type="radio" value="flipbook-tool" disabled class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
-                                    <label for="q2-a-flipbook" class="ml-3 block text-gray-500 cursor-not-allowed">a) Dùng phần mềm tạo Flipbook (Ví dụ: FlipHTML5, PubHTML5)</label>
-                                </div>
-                                <div id="q2-a-details" class="ml-10 hidden bg-gray-50 p-3 rounded-lg border border-gray-200 text-sm mt-1">
-                                    <p class="font-medium">Ưu điểm:</p>
-                                    <textarea id="q2-a-pros" class="answer-box" rows="2" placeholder="Ưu điểm của công cụ tạo Flipbook..."></textarea>
-                                    <p class="font-medium mt-2">Hạn chế:</p>
-                                    <textarea id="q2-a-cons" class="answer-box" rows="2" placeholder="Hạn chế của công cụ tạo Flipbook..."></textarea>
+                                <!-- Water Left -->
+                                <div id="water-left-beaker" class="absolute bottom-0 left-0 w-1/2 bg-blue-500/60 transition-all duration-[4s] ease-in-out border-r border-blue-400/30 z-10" style="height: 150px;">
+                                    <div class="absolute top-0 w-full h-1 bg-blue-300/80"></div>
+                                    <!-- Solutes Left (Few) -->
+                                    <div class="absolute inset-0 p-4 flex flex-wrap content-end justify-center gap-6 opacity-90">
+                                        <div class="w-4 h-4 bg-green-400 rounded-full shadow-md border border-white/20"></div>
+                                        <div class="w-4 h-4 bg-green-400 rounded-full shadow-md border border-white/20"></div>
+                                        <div class="w-4 h-4 bg-green-400 rounded-full shadow-md border border-white/20"></div>
+                                    </div>
                                 </div>
 
-                                <div class="flex items-center">
-                                    <input id="q2-b-website" name="tool-type" type="radio" value="website-tool" disabled class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
-                                    <label for="q2-b-website" class="ml-3 block text-gray-500 cursor-not-allowed">b) Dùng công cụ lập trình web (Ví dụ: HTML, CSS, Javascript)</label>
+                                <!-- Water Right -->
+                                <div id="water-right-beaker" class="absolute bottom-0 right-0 w-1/2 bg-blue-500/60 transition-all duration-[4s] ease-in-out border-l border-blue-400/30 z-10" style="height: 150px;">
+                                    <div class="absolute top-0 w-full h-1 bg-blue-300/80"></div>
+                                    <!-- Solutes Right (Many) -->
+                                    <div class="absolute inset-0 p-4 flex flex-wrap content-end justify-center gap-3 opacity-90">
+                                        <!-- Generating many solute dots -->
+                                        <div class="w-4 h-4 bg-green-400 rounded-full shadow-md border border-white/20"></div>
+                                        <div class="w-4 h-4 bg-green-400 rounded-full shadow-md border border-white/20"></div>
+                                        <div class="w-4 h-4 bg-green-400 rounded-full shadow-md border border-white/20"></div>
+                                        <div class="w-4 h-4 bg-green-400 rounded-full shadow-md border border-white/20"></div>
+                                        <div class="w-4 h-4 bg-green-400 rounded-full shadow-md border border-white/20"></div>
+                                        <div class="w-4 h-4 bg-green-400 rounded-full shadow-md border border-white/20"></div>
+                                        <div class="w-4 h-4 bg-green-400 rounded-full shadow-md border border-white/20"></div>
+                                        <div class="w-4 h-4 bg-green-400 rounded-full shadow-md border border-white/20"></div>
+                                        <div class="w-4 h-4 bg-green-400 rounded-full shadow-md border border-white/20"></div>
+                                        <div class="w-4 h-4 bg-green-400 rounded-full shadow-md border border-white/20"></div>
+                                        <div class="w-4 h-4 bg-green-400 rounded-full shadow-md border border-white/20"></div>
+                                        <div class="w-4 h-4 bg-green-400 rounded-full shadow-md border border-white/20"></div>
+                                    </div>
                                 </div>
-                                <div id="q2-b-details" class="ml-10 hidden bg-gray-50 p-3 rounded-lg border border-gray-200 text-sm mt-1">
-                                    <p class="font-medium">Ưu điểm:</p>
-                                    <textarea id="q2-b-pros" class="answer-box" rows="2" placeholder="Ưu điểm của công cụ lập trình web..."></textarea>
-                                    <p class="font-medium mt-2">Hạn chế:</p>
-                                    <textarea id="q2-b-cons" class="answer-box" rows="2" placeholder="Hạn chế của công cụ lập trình web..."></textarea>
+                                
+                                <!-- Arrow -->
+                                <div id="osmosis-arrow" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-5xl font-bold opacity-0 transition-opacity duration-1000 z-30 drop-shadow-lg filter drop-shadow-lg">
+                                    ➡️
                                 </div>
                             </div>
-                        </div>
-
-                        <div>
-                            <p><strong>3. Xác định thời gian hoàn thành?</strong></p>
-                            <textarea class="answer-box" rows="2" placeholder="Nhập câu trả lời của bạn..."></textarea>
                         </div>
                     </div>
-                </div>
 
-                <!-- Phần 3: Nhiệm vụ kiến tạo -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 3: Nhiệm vụ kiến tạo</h3>
-                    <p class="text-gray-700 mb-4">Lập kế hoạch thiết kế và tái lập nội dung số theo hướng dẫn:</p>
-                    <div class="overflow-x-auto mt-4">
-                        <table class="min-w-full divide-y divide-gray-200 border">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/3">Yêu cầu</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-2/3">Kế hoạch chi tiết</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200 text-gray-700">
-                                <tr>
-                                    <td class="px-6 py-4 font-medium align-top">Xác định cấu trúc nội dung</td>
-                                    <td class="px-6 py-2">
-                                        <textarea class="answer-box" rows="3" placeholder="Liệt kê các chủ đề/mục tiêu kiến thức cần tích hợp và tái lập (cấu trúc của nội dung số)"></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 font-medium align-top">Xác định vai trò của nội dung số</td>
-                                    <td class="px-6 py-2">
-                                        <textarea class="answer-box" rows="3" placeholder="Mô tả cách nội dung được tái lập sẽ giúp HS khám phá/thực hành kiến thức tích hợp"></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 font-medium align-top">"Xác định nguồn lực, công cụ"</td>
-                                    <td class="px-6 py-2">
-                                        <textarea class="answer-box" rows="3" placeholder="Liệt kê tài liệu tham khảo, công cụ số (tạo hình ảnh, video, âm thanh...)"></textarea>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Phần 4: Thử thách sáng tạo -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 4: Thử thách sáng tạo</h3>
-                    <p class="text-gray-700 leading-relaxed">
-                        Theo kế hoạch đã lập, thiết kế sản phẩm nội dung số tích hợp (Flipbook hoặc Website) và nộp lại link.
-                    </p>
-                    <div class="mt-4">
-                        <p class="text-gray-700 font-medium">Sản phẩm: Nộp lại 01 đường link (URL) sản phẩm nội dung số tích hợp hoàn chỉnh.</p>
-                        <input type="text" class="answer-box" placeholder="Dán đường link (URL) sản phẩm của bạn tại đây...">
-                        <textarea class="answer-box mt-4" rows="5" placeholder="Viết đoạn phản tư của bạn về sản phẩm..."></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Trang: Bài tập 3 -->
-            <div id="page-bt3" class="page-content space-y-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-3xl font-bold text-gray-800">Bài tập 3: Lập trình</h2>
-                    <a href="#" class="print-exercise-button p-3 rounded-lg text-sm font-medium bg-green-600 text-white text-center hover:bg-green-700 transition-colors duration-200">
-                        In Bài 3 / Xuất PDF
-                    </a>
-                </div>
-
-                <!-- Phần 1: Tình huống sư phạm -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 1: Tình huống sư phạm</h3>
-                    <p class="text-gray-700 leading-relaxed">
-                        Bạn cần thiết kế một mô hình mô phỏng cơ chế tái bản DNA bằng HTML + CSS + Javascript để học sinh có thể trực quan hóa và thao tác. Bạn quyết định sử dụng AI để hỗ trợ lập trình. Làm thế nào để ra lệnh cho AI một cách hiệu quả nhất để nó tạo ra một sản phẩm code chính xác và có tính sư phạm? Làm thế nào để khắc phục lỗi code khi AI tạo ra sản phẩm bị lỗi?
-                    </p>
-                </div>
-
-                <!-- Phần 2: Thiết lập nền tảng -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 2: Thiết lập nền tảng</h3>
-                    <div class="space-y-4 text-gray-700">
-                        <div>
-                            <p><strong>1. Xác định mục tiêu nội dung/chủ đề lập trình?</strong></p>
-                            <textarea class="answer-box" rows="3" placeholder="Nhập câu trả lời của bạn..."></textarea>
-                        </div>
-                        <p><strong>2. Xác định các công cụ lập trình sẽ sử dụng?</strong></p>
-                        <div class="space-y-2 ml-5 text-gray-700 mt-2">
-                            <!-- Checkboxes -->
-                            <div class="flex items-center">
-                                <input id="bt3-tool-html" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt3-tool-html" class="ml-3 block text-gray-900">HTML / CSS / Javascript</label>
+                    <!-- LAB 3: OSMOSIS CELL -->
+                    <div id="lab-osmosis-cell" class="hidden flex flex-col md:flex-row flex-1">
+                        <div class="w-full md:w-80 bg-slate-50 border-r border-slate-100 p-8 flex flex-col gap-4 z-10">
+                            <div class="mb-4">
+                                <h2 class="text-2xl font-bold text-teal-800">Thẩm thấu (Tế bào)</h2>
+                                <p class="text-sm text-slate-500">Thí nghiệm trên tế bào Hồng cầu</p>
                             </div>
-                            <div class="flex items-center">
-                                <input id="bt3-tool-p5" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt3-tool-p5" class="ml-3 block text-gray-900">p5.js (Thư viện mô phỏng/đồ họa)</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="bt3-tool-three" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt3-tool-three" class="ml-3 block text-gray-900">three.js (Thư viện 3D)</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="bt3-tool-other" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="bt3-tool-other" class="ml-3 block text-gray-900">Công cụ khác (Ví dụ: Thư viện âm thanh, Physic Engine...)</label>
-                            </div>
-                        </div>
-                        <div>
-                            <p><strong>3. Thời gian hoàn thành sản phẩm lập trình?</strong></p>
-                            <textarea class="answer-box" rows="2" placeholder="Nhập câu trả lời của bạn..."></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Phần 3: Nhiệm vụ kiến tạo -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 3: Nhiệm vụ kiến tạo</h3>
-                    <div class="space-y-4 text-gray-700">
-                        <div>
-                            <p><strong>1. Lập kế hoạch chi tiết cho sản phẩm lập trình:</strong></p>
-                            <textarea class="answer-box" rows="4" placeholder="Mô tả các thành phần, chức năng, giao diện của mô phỏng DNA..."></textarea>
-                        </div>
-                        <div>
-                            <p><strong>2. Xác định các bước dò lỗi code (debugging) khi sản phẩm bị lỗi:</strong></p>
-                            <textarea class="answer-box" rows="3" placeholder="Liệt kê các bước bạn sẽ làm để tìm và khắc phục lỗi code..."></textarea>
-                        </div>
-                        <div>
-                            <p><strong>3. Viết Prompt (câu lệnh) cho AI để tạo code:</strong></p>
-                            <p class="p-3 bg-gray-100 rounded-md border border-gray-200 text-sm mt-2">
-                                <strong>(Prompt mẫu):</strong> "Hãy viết code p5.js mô phỏng 4 giai đoạn tái bản DNA, có enzyme là hình tròn, có âm thanh click..."
-                            </p>
-                            <!-- Thêm ID để JS có thể lấy giá trị -->
-                            <textarea id="bt3-prompt-answer" class="answer-box" rows="6" placeholder="Viết prompt của bạn tại đây..."></textarea>
-                            
-                            <!-- NÚT TÍCH HỢP GEMINI API -->
-                            <div class="mt-4">
-                                <button type="button" id="gemini-improve-prompt-btn" class="flex items-center justify-center gap-2 w-full px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors duration-200 shadow-sm">
-                                    ✨ Cải thiện Prompt (với Gemini)
+                            <div class="space-y-3">
+                                <button onclick="runLab('hyper')" class="w-full p-4 rounded-2xl border-2 border-transparent bg-white shadow-sm hover:border-orange-300 hover:bg-orange-50 transition-all text-left group">
+                                    <div class="font-bold text-slate-700 group-hover:text-orange-700">1. Ưu trương</div>
+                                    <div class="text-xs text-slate-400 group-hover:text-orange-600">Muối nhiều (Hypertonic)</div>
+                                </button>
+                                <button onclick="runLab('iso')" class="w-full p-4 rounded-2xl border-2 border-transparent bg-white shadow-sm hover:border-green-300 hover:bg-green-50 transition-all text-left group">
+                                    <div class="font-bold text-slate-700 group-hover:text-green-700">2. Đẳng trương</div>
+                                    <div class="text-xs text-slate-400 group-hover:text-green-600">Cân bằng (Isotonic)</div>
+                                </button>
+                                <button onclick="runLab('hypo')" class="w-full p-4 rounded-2xl border-2 border-transparent bg-white shadow-sm hover:border-blue-300 hover:bg-blue-50 transition-all text-left group">
+                                    <div class="font-bold text-slate-700 group-hover:text-blue-700">3. Nhược trương</div>
+                                    <div class="text-xs text-slate-400 group-hover:text-blue-600">Nước cất (Hypotonic)</div>
                                 </button>
                             </div>
+                            <div id="lab-result" class="mt-auto p-4 rounded-xl bg-slate-800 text-white text-sm hidden shadow-lg transform transition-all"></div>
+                            <div class="mt-4 p-4 bg-slate-100 rounded-lg text-xs text-slate-600 space-y-2">
+                                <div class="font-bold text-slate-800 mb-1">Chú thích:</div>
+                                <div class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-green-400 border border-white inline-block"></span><span>Chất tan (Muối)</span></div>
+                                <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-400 inline-block"></span><span>Phân tử Nước</span></div>
+                                <div class="flex items-center gap-2"><span class="text-lg">➔</span><span>Hướng nước di chuyển</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Visual Area -->
+                        <div class="flex-1 bg-[#002b5b] relative overflow-hidden flex items-center justify-center p-8">
+                            <div id="molecules-layer" class="absolute inset-0 pointer-events-none z-30"></div>
+                            <div class="absolute w-[450px] h-[450px] rounded-[40px] border-2 border-white/80 shadow-2xl backdrop-blur-[2px] bg-white/5 pointer-events-none z-0"></div>
+                            <div id="arrows-container" class="absolute inset-0 z-20 pointer-events-none flex items-center justify-center"></div>
+                            <div id="cell-wrapper" class="relative w-48 h-48 flex items-center justify-center z-10 transition-all duration-1000">
+                                <div id="cell-normal" class="absolute inset-0 bg-red-700 rounded-full shadow-[inset_0px_0px_30px_rgba(0,0,0,0.5),0_10px_20px_rgba(0,0,0,0.5)] flex items-center justify-center border-0 overflow-hidden transition-all duration-1000">
+                                    <div class="absolute w-28 h-28 bg-red-900/40 rounded-full blur-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+                                </div>
+                                 <div id="cell-crenated-bg" class="absolute inset-0 bg-red-700 shadow-lg hidden"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- Phần 4: Thử thách sáng tạo -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Phần 4: Thử thách sáng tạo</h3>
-                    
-                    <!-- BỔ SUNG ĐỀ BÀI -->
-                    <p class="text-gray-700 leading-relaxed mb-4">
-                        <strong>Đề bài:</strong> Tích hợp công cụ HTML + CSS + Javascript - hoclaptrinh.io – Github để thiết kế mô phỏng cơ chế tái bản DNA và hướng dẫn/ kế hoạch giáo dục định hướng HS phát triển năng lực STEM với quy trình phát triển sản phẩm bằng ngôn ngữ lập trình
-                    </p>
-                    
-                    <p class="text-gray-700">Sản phẩm mẫu: <a href="https://myletoday-oss.github.io/Fubao/" target="_blank" class="text-blue-600 hover:underline">https://myletoday-oss.github.io/Fubao/</a></p>
-                    <p class="text-gray-700 font-medium mt-4">Yêu cầu:</p>
-                    <ul class="list-disc list-inside text-gray-700 space-y-2 mt-2">
-                        <li><strong>Vận hành công cụ:</strong>
-                            <ul class="list-circle list-inside ml-5">
-                                <li>Gửi Prompt ở Phần 3 cho AI (Gemini/GPT).</li>
-                                <li>"Tích hợp nội dung" (code) mà AI trả về vào hoclaptrinh.io.</li>
-                            </ul>
-                        </li>
-                        <li><strong>Kiểm thử (Testing) & Lặp lại:</strong>
-                            <ul class="list-circle list-inside ml-5">
-                                <li>"Chạy thử" code.</li>
-                                <li>(Quan trọng) "Phát hiện lỗi logic hoặc giao diện" (VD: enzyme chạy quá nhanh, lệch giao diện).</li>
-                                <li>"Khắc phục" bằng cách quay lại AI, "mô tả lỗi đang gặp" và yêu cầu nó sửa (sử dụng "AI hỗ trợ dò lỗi code").</li>
-                                <li>Lặp lại chu trình (Dán code mới -> Chạy thử -> Phát hiện lỗi -> Yêu cầu AI sửa) cho đến khi sản phẩm "ổn định".</li>
-                            </ul>
-                        </li>
-                        <li><strong>Chia sẻ (Optional):</strong>
-                            <ul class="list-circle list-inside ml-5">
-                                <li>Khi đã ổn định, "Đưa sản phẩm lên GitHub" và kích hoạt GitHub Pages.</li>
-                            </ul>
-                        </li>
-                         <li><strong>Vận dụng Sư phạm:</strong> thiết kế hướng dẫn/ kế hoạch giáo dục định hướng HS phát triển năng lực STEM với quy trình phát triển sản phẩm bằng ngôn ngữ lập trình.</li>
-                    </ul>
-                    <div>
-                        <p class="text-gray-700 font-medium mt-4">Sản phẩm: Nộp lại 01 link GitHub Pages (sản phẩm mẫu) VÀ 01 đoạn phản tư sư phạm.</p>
-                        <input type="text" class="answer-box" placeholder="Dán link GitHub Pages tại đây...">
-                        <textarea class="answer-box mt-4" rows="5" placeholder="Viết đoạn phản tư sư phạm của bạn tại đây..."></textarea>
+            <!-- SECTION 4: BULK -->
+            <section id="sec-bulk" class="hidden space-y-8 animate-[float_0.5s_ease-out]">
+                <div class="text-center mb-8">
+                    <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Biến dạng màng</span>
+                    <h2 class="text-3xl font-bold text-slate-800 mt-2">Nhập bào & Xuất bào</h2>
+                    <p class="text-slate-500 mt-2">Dành cho các đại phân tử (Protein, Vi khuẩn...)</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white p-8 rounded-3xl border border-purple-100 shadow-sm relative overflow-hidden group hover:shadow-lg transition">
+                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-purple-50 rounded-full group-hover:bg-purple-100 transition"></div>
+                        <h3 class="font-bold text-2xl mb-4 text-purple-800 relative z-10 flex items-center gap-3"><span class="text-3xl">📥</span> Nhập bào</h3>
+                        <div class="space-y-4 relative z-10">
+                            <div class="bg-purple-50 p-4 rounded-2xl border border-purple-100"><span class="font-bold block text-purple-900">Thực bào (Ăn)</span><span class="text-sm text-purple-600">Màng lõm vào bao lấy chất rắn.</span></div>
+                            <div class="bg-purple-50 p-4 rounded-2xl border border-purple-100"><span class="font-bold block text-purple-900">Ẩm bào (Uống)</span><span class="text-sm text-purple-600">Màng lõm vào bao lấy giọt dịch.</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-3xl border border-orange-100 shadow-sm relative overflow-hidden group hover:shadow-lg transition">
+                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-orange-50 rounded-full group-hover:bg-orange-100 transition"></div>
+                        <h3 class="font-bold text-2xl mb-4 text-orange-800 relative z-10 flex items-center gap-3"><span class="text-3xl">📤</span> Xuất bào</h3>
+                        <p class="text-slate-600 mb-4 relative z-10 leading-relaxed">Túi tiết chứa chất (hormone, enzyme) di chuyển đến màng sinh chất ➔ Hòa nhập màng ➔ Đẩy chất ra ngoài.</p>
+                        <div class="inline-block px-3 py-1 bg-orange-100 text-orange-700 rounded text-sm font-bold">⚠️ Luôn tiêu tốn ATP</div>
                     </div>
                 </div>
-            </div>
-            
-        </main>
-    </div>
+            </section>
 
-    <!-- Modal cho Tính năng Gemini -->
-    <div id="gemini-modal" class="modal-overlay">
-        <div class="modal-content">
-            <!-- Header -->
-            <div class="modal-header">
-                <h3 id="gemini-modal-title" class="modal-title">Kết quả từ Gemini</h3>
-                <button id="gemini-modal-close" class="text-gray-400 hover:text-gray-600 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
-            <!-- Body -->
-            <div id="gemini-modal-body-content" class="modal-body-container">
-                <div class="flex justify-center items-center h-24">
-                    <div class="modal-spinner"></div>
+            <!-- SECTION 6: PRACTICE -->
+            <section id="sec-practice" class="hidden max-w-3xl mx-auto animate-[float_0.5s_ease-out]">
+                <div class="bg-white p-10 rounded-3xl shadow-xl border border-slate-100">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3"><span class="bg-yellow-100 p-2 rounded-lg text-2xl">📝</span> Điền từ còn thiếu</h2>
+                    <div class="text-lg leading-loose text-slate-600 font-medium">
+                        "Sự vận chuyển chất từ nơi có nồng độ <select id="q1" class="border-b-2 border-emerald-300 bg-emerald-50 text-emerald-800 font-bold outline-none px-3 py-1 rounded cursor-pointer hover:bg-emerald-100 transition"><option value="">...</option><option value="cao">cao</option><option value="thấp">thấp</option></select> sang nơi có nồng độ <select id="q2" class="border-b-2 border-emerald-300 bg-emerald-50 text-emerald-800 font-bold outline-none px-3 py-1 rounded cursor-pointer hover:bg-emerald-100 transition"><option value="">...</option><option value="cao">cao</option><option value="thấp">thấp</option></select> mà không tiêu tốn năng lượng gọi là <select id="q3" class="border-b-2 border-emerald-300 bg-emerald-50 text-emerald-800 font-bold outline-none px-3 py-1 rounded cursor-pointer hover:bg-emerald-100 transition"><option value="">...</option><option value="chủ động">vận chuyển chủ động</option><option value="thụ động">vận chuyển thụ động</option></select>. Nước luôn thẩm thấu từ môi trường <select id="q4" class="border-b-2 border-emerald-300 bg-emerald-50 text-emerald-800 font-bold outline-none px-3 py-1 rounded cursor-pointer hover:bg-emerald-100 transition"><option value="">...</option><option value="ưu trương">ưu trương</option><option value="nhược trương">nhược trương</option></select> (thế nước cao) sang môi trường <select id="q5" class="border-b-2 border-emerald-300 bg-emerald-50 text-emerald-800 font-bold outline-none px-3 py-1 rounded cursor-pointer hover:bg-emerald-100 transition"><option value="">...</option><option value="ưu trương">ưu trương</option><option value="nhược trương">nhược trương</option></select>."
+                    </div>
+                    <div class="mt-8 flex items-center justify-between">
+                        <div id="quiz-feedback" class="hidden text-sm font-bold px-4 py-2 rounded-lg"></div>
+                        <button onclick="checkQuiz()" class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold py-3 px-8 rounded-xl shadow-lg transform hover:-translate-y-1 transition-all">Kiểm tra</button>
+                    </div>
                 </div>
-            </div>
-            <!-- Footer (New) -->
-            <div class="modal-footer">
-                <button id="gemini-modal-close-footer" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg font-medium hover:bg-gray-300 transition-colors duration-200">
-                    Đóng
-                </button>
-            </div>
+            </section>
+
+            <!-- SECTION 7: APPLY -->
+            <section id="sec-apply" class="hidden animate-[float_0.5s_ease-out]">
+                <div class="max-w-4xl mx-auto bg-gradient-to-br from-white to-orange-50 p-10 rounded-3xl shadow-xl border border-orange-100 min-h-[500px] flex flex-col justify-center">
+                    <div id="apply-slide-1" class="transition-all duration-500">
+                        <div class="text-center mb-10">
+                            <div class="inline-block p-4 bg-orange-100 rounded-full text-4xl mb-4 shadow-sm">🥬</div>
+                            <h2 class="text-3xl font-bold text-orange-900">Giải thích hiện tượng "Muối dưa"</h2>
+                            <p class="text-orange-700/80 mt-2 font-medium italic">"Muối dưa, dưa khú - Muối cà, cà teo"</p>
+                        </div>
+                        <div class="space-y-8 text-center max-w-2xl mx-auto">
+                            <p class="text-slate-600 text-lg leading-relaxed">Khi ta ngâm rau cải vào nước muối, sau một thời gian, rau bị <strong>teo nhỏ lại</strong>, dai hơn và nước trong hũ trở nên <strong>đục và chua</strong>.</p>
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-orange-100 inline-block text-left"><strong class="text-orange-800 block mb-2 text-lg">🔍 Hiện tượng quan sát được:</strong><span class="text-slate-500 text-lg">Co nguyên sinh (Tế bào mất nước)</span></div>
+                            <div class="pt-4"><button onclick="toggleApplySlide(2)" class="bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transform hover:-translate-y-1 transition-all flex items-center gap-2 mx-auto text-lg">Xem giải thích cơ chế ➡️</button></div>
+                        </div>
+                    </div>
+                    <div id="apply-slide-2" class="hidden transition-all duration-500">
+                        <div class="text-center mb-8"><span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Kiến thức cốt lõi</span><h2 class="text-3xl font-bold text-orange-900 mt-2">Cơ chế Thẩm thấu</h2></div>
+                        <div class="bg-white/60 p-8 rounded-3xl border border-orange-200 shadow-sm max-w-3xl mx-auto">
+                            <ul class="space-y-6">
+                                <li class="flex gap-4 items-start"><div class="bg-orange-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0 shadow-md mt-1">1</div><div><p class="text-lg text-slate-800">Môi trường nước muối là <strong>Ưu trương</strong>.</p><p class="text-sm text-slate-500">(Nồng độ muối bên ngoài cao hơn nồng độ chất tan trong tế bào).</p></div></li>
+                                <li class="flex gap-4 items-start"><div class="bg-orange-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0 shadow-md mt-1">2</div><div><p class="text-lg text-slate-800">Nước di chuyển từ <strong>trong tế bào</strong> (thế nước cao) ra <strong>ngoài môi trường</strong> (thế nước thấp).</p></div></li>
+                                <li class="flex gap-4 items-start"><div class="bg-orange-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0 shadow-md mt-1">3</div><div><p class="text-lg text-slate-800">Kết quả: Tế bào rau bị mất nước nên <strong>teo lại</strong>. Đồng thời đường và chất dinh dưỡng đi ra ngoài tạo điều kiện cho vi khuẩn lactic lên men gây chua.</p></div></li>
+                            </ul>
+                        </div>
+                        <div class="mt-8 text-center"><button onclick="toggleApplySlide(1)" class="text-slate-500 font-bold hover:text-orange-600 hover:underline flex items-center gap-2 mx-auto transition-colors">⬅️ Quay lại hiện tượng</button></div>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="h-12"></div>
         </div>
     </div>
 
+    <!-- Scripts -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const navLinks = document.querySelectorAll('.nav-link');
-            const pages = document.querySelectorAll('.page-content');
+        function showSection(id) {
+            document.querySelectorAll('#main-content > div > section').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById('sec-' + id);
+            target.classList.remove('hidden');
+            target.classList.remove('animate-[float_0.5s_ease-out]');
+            void target.offsetWidth; 
+            target.classList.add('animate-[float_0.5s_ease-out]');
+            if(id === 'lab') { target.classList.remove('hidden'); target.classList.add('flex'); } else { target.classList.remove('flex'); }
+            if (id !== 'apply') { toggleApplySlide(1); }
+            document.getElementById('btn-' + id).classList.add('active');
+        }
 
-            // Hàm để hiển thị trang và cập nhật link active
-            function showPage(targetId) {
-                // Ẩn tất cả các trang
-                pages.forEach(page => {
-                    page.classList.remove('active');
-                });
-                
-                // Hiển thị trang mục tiêu
-                const targetPage = document.getElementById(targetId);
-                if (targetPage) {
-                    targetPage.classList.add('active');
-                }
-
-                // Cập nhật trạng thái active cho các link
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.dataset.target === targetId) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-
-            // Thêm sự kiện click cho mỗi link điều hướng
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault(); // Ngăn hành vi mặc định của thẻ <a>
-                    const targetId = e.currentTarget.dataset.target;
-                    showPage(targetId);
-                });
-            });
-
-            // Hiển thị trang chủ khi tải lần đầu
-            showPage('page-home');
-
-            // --- Logic cho Bài tập 2, Phần 2 (Tái lập nội dung số) ---
-            const q1Radios = document.querySelectorAll('input[name="hoc-lieu-type"]');
-            
-            const q2aRadio = document.getElementById('q2-a-flipbook');
-            const q2aDetails = document.getElementById('q2-a-details');
-            const q2aLabel = document.querySelector('label[for="q2-a-flipbook"]');
-
-            const q2bRadio = document.getElementById('q2-b-website');
-            const q2bDetails = document.getElementById('q2-b-details');
-            const q2bLabel = document.querySelector('label[for="q2-b-website"]');
-            
-            q1Radios.forEach(radio => {
-                radio.addEventListener('change', (e) => {
-                    const selectedValue = e.target.value;
-
-                    if (selectedValue === 'flipbook') {
-                        // Kích hoạt lựa chọn A
-                        q2aRadio.disabled = false;
-                        q2aRadio.checked = true;
-                        q2aLabel.classList.remove('cursor-not-allowed', 'text-gray-500');
-                        q2aLabel.classList.add('text-gray-900');
-                        q2aDetails.classList.remove('hidden');
-
-                        // Vô hiệu hóa lựa chọn B
-                        q2bRadio.disabled = true;
-                        q2bRadio.checked = false;
-                        q2bLabel.classList.add('cursor-not-allowed', 'text-gray-500');
-                        q2bLabel.classList.remove('text-gray-900');
-                        q2bDetails.classList.add('hidden');
-
-                    } else if (selectedValue === 'website') {
-                        // Kích hoạt lựa chọn B
-                        q2bRadio.disabled = false;
-                        q2bRadio.checked = true;
-                        q2bLabel.classList.remove('cursor-not-allowed', 'text-gray-500');
-                        q2bLabel.classList.add('text-gray-900');
-                        q2bDetails.classList.remove('hidden');
-
-                        // Vô hiệu hóa lựa chọn A
-                        q2aRadio.disabled = true;
-                        q2aRadio.checked = false;
-                        q2aLabel.classList.add('cursor-not-allowed', 'text-gray-500');
-                        q2aLabel.classList.remove('text-gray-900');
-                        q2aDetails.classList.add('hidden');
-                    }
-                });
-            });
-            
-            // --- Logic cho nút In ---
-            const printButtons = document.querySelectorAll('.print-exercise-button');
-            printButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    window.print();
-                });
-            });
-
-            // --- LOGIC TÍCH HỢP GEMINI API (ĐÃ NÂNG CẤP & SỬA LỖI FONT) ---
-
-            const modal = document.getElementById('gemini-modal');
-            const modalCloseBtn = document.getElementById('gemini-modal-close');
-            const modalCloseFooterBtn = document.getElementById('gemini-modal-close-footer'); // Nút đóng mới
-            const modalTitle = document.getElementById('gemini-modal-title');
-            const modalBody = document.getElementById('gemini-modal-body-content');
-            const spinnerHTML = `<div class="flex justify-center items-center h-24"><div class="modal-spinner"></div></div>`;
-
-            // Hàm xử lý Markdown đơn giản để hiển thị đẹp hơn
-            function simpleMarkdownParser(text) {
-                if (!text) return '';
-                let html = text;
-
-                // Xử lý tiêu đề (### Title)
-                html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-                html = html.replace(/^## (.*$)/gim, '<h3>$1</h3>'); // Gom hết về h3 cho gọn
-
-                // Xử lý in đậm (**text**)
-                html = html.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>');
-
-                // Xử lý danh sách (* item hoặc - item)
-                // Cách đơn giản: thay * đầu dòng bằng &bull; và xuống dòng
-                html = html.replace(/^\* (.*$)/gim, '<ul><li>$1</li></ul>');
-                html = html.replace(/^- (.*$)/gim, '<ul><li>$1</li></ul>');
-                
-                // Gom các ul liền kề (đơn giản hóa)
-                html = html.replace(/<\/ul>\s*<ul>/gim, '');
-
-                // Xử lý xuống dòng
-                html = html.replace(/\n/gim, '<br>');
-
-                return `<div class="markdown-content modal-body-text">${html}</div>`;
-            }
-
-            // Mở modal
-            function openModal(title) {
-                modalTitle.textContent = title;
-                modalBody.innerHTML = spinnerHTML;
-                modal.classList.add('active');
-            }
-
-            // Đóng modal
-            function closeModal() {
-                modal.classList.remove('active');
-            }
-            
-            // Gán sự kiện đóng
-            modalCloseBtn.addEventListener('click', closeModal);
-            if(modalCloseFooterBtn) modalCloseFooterBtn.addEventListener('click', closeModal);
-            
-            // Đóng khi click ra ngoài modal
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    closeModal();
+        // --- Tab Switcher Logic ---
+        function switchLabTab(tab) {
+            const tabs = ['diffusion', 'osmosis-basic', 'osmosis-cell'];
+            tabs.forEach(t => {
+                const btn = document.getElementById('tab-' + t);
+                const content = document.getElementById('lab-' + t);
+                if(t === tab) {
+                    btn.classList.add('active', 'text-teal-700', 'bg-teal-100', 'border-teal-200');
+                    btn.classList.remove('text-gray-500');
+                    content.classList.remove('hidden');
+                    if (tab === 'diffusion') resetDiffusion();
+                    if (tab === 'osmosis-basic') resetOsmosisBasic();
+                } else {
+                    btn.classList.remove('active', 'text-teal-700', 'bg-teal-100', 'border-teal-200');
+                    btn.classList.add('text-gray-500');
+                    content.classList.add('hidden');
                 }
             });
+        }
 
-            // Hàm gọi API Gemini
-            async function callGeminiAPI(userPrompt, systemPrompt = "", maxRetries = 3) {
-                const apiKey = ""; // API key tự động
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+        // --- 1. Diffusion Logic ---
+        function resetDiffusion() {
+            const container = document.getElementById('diffusion-particles');
+            container.innerHTML = '';
+            for(let i=0; i<30; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'absolute w-3 h-3 bg-green-400 rounded-full shadow-sm border border-white/30 transition-all duration-[4s] ease-in-out z-20';
+                const left = Math.random() * 45; 
+                const top = Math.random() * 90 + 5; 
+                dot.style.left = left + '%'; dot.style.top = top + '%';
+                container.appendChild(dot);
+            }
+        }
+        function runDiffusion() {
+            const dots = document.getElementById('diffusion-particles').children;
+            for(let i=0; i<dots.length; i++) {
+                const targetLeft = Math.random() * 95; 
+                const targetTop = Math.random() * 90 + 5;
+                dots[i].style.left = targetLeft + '%'; dots[i].style.top = targetTop + '%';
+            }
+        }
 
-                const payload = {
-                    contents: [{ parts: [{ text: userPrompt }] }],
-                };
+        // --- 2. Osmosis Basic (Beaker) Logic ---
+        function resetOsmosisBasic() {
+            document.getElementById('water-left-beaker').style.height = '150px';
+            document.getElementById('water-right-beaker').style.height = '150px';
+            document.getElementById('osmosis-arrow').style.opacity = '0';
+        }
+        function runOsmosisBasic() {
+            document.getElementById('water-left-beaker').style.height = '80px'; 
+            document.getElementById('water-right-beaker').style.height = '220px'; 
+            document.getElementById('osmosis-arrow').style.opacity = '1';
+        }
 
-                if (systemPrompt) {
-                    payload.systemInstruction = {
-                        parts: [{ text: systemPrompt }]
-                    };
+        // --- 3. Osmosis Cell Logic ---
+        function runLab(type) {
+            const cellWrapper = document.getElementById('cell-wrapper');
+            const cellNormal = document.getElementById('cell-normal');
+            const cellCrenated = document.getElementById('cell-crenated-bg');
+            const resultBox = document.getElementById('lab-result');
+            
+            cellWrapper.style.animation = 'none';
+            cellWrapper.style.transform = 'scale(1)';
+            cellWrapper.style.opacity = '1';
+            cellWrapper.style.display = 'flex';
+            
+            cellNormal.style.display = 'flex';
+            cellCrenated.style.display = 'none';
+            cellCrenated.classList.remove('cell-crenated');
+            
+            void cellWrapper.offsetWidth;
+            
+            resultBox.classList.remove('hidden');
+            drawMolecules(type); drawArrows(type);
+            setTimeout(() => { animateExistingMolecules(type); }, 100);
+
+            if(type === 'hyper') {
+                cellWrapper.style.animation = 'morph-shrink 6s forwards';
+                setTimeout(() => { cellNormal.style.display = 'none'; cellCrenated.style.display = 'block'; cellCrenated.classList.add('cell-crenated'); }, 5800); 
+                resultBox.innerHTML = "<strong class='text-orange-300 block mb-1'>Ưu trương (Hypertonic):</strong><br> - Ngoài: Nhiều Chất tan.<br> - Trong: Nhiều Nước.<br> ➔ Nước đi RA ➔ Tế bào teo lại.";
+                resultBox.className = "mt-auto p-4 rounded-xl bg-slate-800 border-l-4 border-orange-500 text-white text-sm shadow-lg";
+            } else if(type === 'iso') {
+                resultBox.innerHTML = "<strong class='text-green-300 block mb-1'>Đẳng trương (Isotonic):</strong><br> Cân bằng.<br> ➔ Nước ra/vào như nhau ➔ Tế bào bình thường.";
+                resultBox.className = "mt-auto p-4 rounded-xl bg-slate-800 border-l-4 border-green-500 text-white text-sm shadow-lg";
+            } else if(type === 'hypo') {
+                cellWrapper.style.animation = 'swell-burst 6s forwards';
+                resultBox.innerHTML = "<strong class='text-blue-300 block mb-1'>Nhược trương (Hypotonic):</strong><br> - Ngoài: Nhiều Nước.<br> - Trong: Nhiều Chất tan.<br> ➔ Nước đi VÀO ➔ Tế bào trương lên và VỠ.";
+                resultBox.className = "mt-auto p-4 rounded-xl bg-slate-800 border-l-4 border-blue-500 text-white text-sm shadow-lg";
+            }
+        }
+
+        // Shared Utils for Cell Lab
+        function drawArrows(type) {
+            const container = document.getElementById('arrows-container'); container.innerHTML = '';
+            if (type === 'iso') return; 
+            const arrowCount = 6; const isOut = type === 'hyper'; 
+            for(let i=0; i<arrowCount; i++) {
+                const angle = (360 / arrowCount) * i;
+                const arrowEl = document.createElement('div');
+                arrowEl.className = 'absolute flex items-center justify-center';
+                arrowEl.style.transform = `rotate(${angle}deg) translateY(-140px)`; 
+                arrowEl.style.opacity = '0.8';
+                const directionTransform = isOut ? 'rotate(180deg)' : 'rotate(0deg)'; 
+                arrowEl.innerHTML = `<svg width="40" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: ${directionTransform}"><path d="M12 4L12 20M12 20L6 14M12 20L18 14" stroke="rgba(255,255,255,0.7)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+                arrowEl.animate([{ opacity: 0, transform: `rotate(${angle}deg) translateY(${isOut ? '-120px' : '-160px'})` }, { opacity: 1, transform: `rotate(${angle}deg) translateY(-140px)` }, { opacity: 0, transform: `rotate(${angle}deg) translateY(${isOut ? '-160px' : '-120px'})` }], { duration: 2000, iterations: Infinity, delay: i * 200, easing: 'ease-in-out' });
+                container.appendChild(arrowEl);
+            }
+        }
+
+        function drawMolecules(type) {
+            const container = document.getElementById('molecules-layer'); container.innerHTML = ''; 
+            let outCounts = [0, 0]; let inCounts = [0, 0];
+            if(type === 'hyper') { outCounts = [5, 8]; inCounts = [2, 12]; } 
+            else if(type === 'iso') { outCounts = [4, 7]; inCounts = [4, 7]; } 
+            else if(type === 'hypo') { outCounts = [3, 20]; inCounts = [10, 5]; }
+            
+            const placedPositions = [];
+            const getPos = (isInside, particleRadius) => {
+                let maxTries = 100; let bestPos = {x: 50, y: 50}; let foundSafe = false;
+                while(maxTries > 0 && !foundSafe) {
+                    const angle = Math.random() * Math.PI * 2;
+                    let r = isInside ? Math.random() * 15 : 30 + Math.random() * 15;
+                    const x = 50 + r * Math.cos(angle);
+                    const y = 50 + r * Math.sin(angle);
+                    let collision = false;
+                    for (let p of placedPositions) {
+                        const dx = x - p.x; const dy = y - p.y;
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+                        if (dist < particleRadius + p.radius + 3) { collision = true; break; }
+                    }
+                    if (!collision) { bestPos = {x, y}; foundSafe = true; }
+                    maxTries--;
                 }
+                return bestPos;
+            };
 
-                let attempt = 0;
-                let delay = 1000;
-
-                while (attempt < maxRetries) {
-                    try {
-                        const response = await fetch(apiUrl, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(payload)
-                        });
-
-                        if (!response.ok) {
-                            const errorResult = await response.json();
-                            return { error: `Lỗi API: ${errorResult.error?.message || response.statusText}` };
-                        }
-
-                        const result = await response.json();
-                        const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
-
-                        if (text) {
-                            // QUAN TRỌNG: Parse Markdown trước khi trả về
-                            return { text: simpleMarkdownParser(text) };
-                        } else {
-                            return { error: "Không nhận được nội dung hợp lệ từ API." };
-                        }
-
-                    } catch (error) {
-                        attempt++;
-                        if (attempt >= maxRetries) {
-                            return { error: `Đã hết số lần thử. Lỗi cuối cùng: ${error.message}` };
-                        }
-                        await new Promise(resolve => setTimeout(resolve, delay));
-                        delay *= 2;
-                    }
+            const spawn = (count, moleculeType, isInside) => {
+                const pRadius = moleculeType === 'solute' ? 4 : 2;
+                for(let i=0; i<count; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = `molecule-particle absolute rounded-full static-jitter`;
+                    if(moleculeType === 'solute') { dot.classList.add('bg-green-400', 'w-6', 'h-6', 'shadow-sm'); } else { dot.classList.add('bg-blue-400', 'w-3', 'h-3'); } 
+                    const pos = getPos(isInside, pRadius);
+                    placedPositions.push({x: pos.x, y: pos.y, radius: pRadius});
+                    dot.style.left = pos.x + '%'; dot.style.top = pos.y + '%';
+                    dot.dataset.loc = isInside ? 'in' : 'out';
+                    dot.dataset.type = moleculeType; 
+                    container.appendChild(dot);
                 }
-                return { error: "Đã xảy ra lỗi không xác định." };
-            }
+            };
+            spawn(outCounts[0], 'solute', false); spawn(inCounts[0], 'solute', true); 
+            spawn(outCounts[1], 'water', false); spawn(inCounts[1], 'water', true);
+        }
 
-            // --- Các Event Listeners cho nút chức năng ---
+        function animateExistingMolecules(type) {
+            const particles = document.querySelectorAll('.molecule-particle');
+            particles.forEach(p => {
+                if(p.dataset.type !== 'water') return; 
+                if(type === 'hyper' && p.dataset.loc === 'in') {
+                    const angle = Math.random() * Math.PI * 2;
+                    const r = 30 + Math.random() * 15; 
+                    const x = 50 + r * Math.cos(angle); const y = 50 + r * Math.sin(angle);
+                    p.style.left = x + '%'; p.style.top = y + '%'; p.style.opacity = 0;
+                }
+                else if(type === 'hypo' && p.dataset.loc === 'out') {
+                    const angle = Math.random() * Math.PI * 2;
+                    const r = Math.random() * 15; 
+                    const x = 50 + r * Math.cos(angle); const y = 50 + r * Math.sin(angle);
+                    p.style.left = x + '%'; p.style.top = y + '%'; p.style.opacity = 0; 
+                }
+            });
+        }
 
-            // 1. Gợi ý Kế hoạch E-learning (Bài 1)
-            const suggestPlanBtn = document.getElementById('gemini-suggest-plan-btn');
-            if (suggestPlanBtn) {
-                suggestPlanBtn.addEventListener('click', async () => {
-                    const topic = document.getElementById('bt1-q1-answer').value;
-                    if (!topic.trim()) {
-                        alert("Vui lòng nhập Mục tiêu/Chủ đề (Phần 2, Câu 1) trước khi dùng tính năng này.");
-                        return;
-                    }
-                    openModal("Đang tạo gợi ý kế hoạch...");
-                    const systemPrompt = "Bạn là chuyên gia thiết kế E-learning.";
-                    const userPrompt = `Lập kế hoạch E-learning 5 bước cho chủ đề: "${topic}". Dùng định dạng Markdown đơn giản (Gạch đầu dòng, in đậm).`;
-                    const result = await callGeminiAPI(userPrompt, systemPrompt);
-                    
-                    modalTitle.textContent = result.error ? "Lỗi" : "✨ Gợi ý Kế hoạch E-learning";
-                    modalBody.innerHTML = result.error || result.text; // Sử dụng innerHTML để hiển thị HTML đã parse
-                });
-            }
+        function toggleObservation(id) {
+            const el = document.getElementById('obs-' + id);
+            el.classList.remove('hidden'); el.classList.add('animate-pulse');
+            setTimeout(() => el.classList.remove('animate-pulse'), 1000);
+            if(id === 'bowl2') { document.getElementById('salt-slice').style.transform = "scale(0.85) rotate(15deg)"; }
+        }
 
-            // 1.5. Gợi ý Quiz (Bài 1)
-            const generateQuizBtn = document.getElementById('gemini-generate-quiz-btn');
-            if (generateQuizBtn) {
-                generateQuizBtn.addEventListener('click', async () => {
-                    const topic = document.getElementById('bt1-q1-answer').value;
-                    if (!topic.trim()) {
-                        alert("Vui lòng nhập Mục tiêu/Chủ đề (Phần 2, Câu 1) trước khi dùng tính năng này.");
-                        return;
-                    }
-                    openModal("Đang tạo câu hỏi Quiz...");
-                    const systemPrompt = "Bạn là giáo viên Sinh học.";
-                    const userPrompt = `Tạo 3 câu hỏi trắc nghiệm về chủ đề: "${topic}". Dùng định dạng Markdown. In đậm đáp án đúng.`;
-                    const result = await callGeminiAPI(userPrompt, systemPrompt);
-                    
-                    modalTitle.textContent = result.error ? "Lỗi" : "✨ Gợi ý 3 câu hỏi Quiz (H5P)";
-                    modalBody.innerHTML = result.error || result.text;
-                });
+        // --- FIXED: Missing Function Added Here ---
+        function toggleApplySlide(slideNum) {
+            const s1 = document.getElementById('apply-slide-1');
+            const s2 = document.getElementById('apply-slide-2');
+            if(slideNum === 1) { 
+                s2.classList.add('hidden'); 
+                s1.classList.remove('hidden'); 
+                s1.classList.remove('animate-[float_0.5s_ease-out]'); 
+                void s1.offsetWidth; 
+                s1.classList.add('animate-[float_0.5s_ease-out]'); 
+            } else { 
+                s1.classList.add('hidden'); 
+                s2.classList.remove('hidden'); 
+                s2.classList.remove('animate-[float_0.5s_ease-out]'); 
+                void s2.offsetWidth; 
+                s2.classList.add('animate-[float_0.5s_ease-out]'); 
             }
+        }
 
-            // 2. Phân tích Công cụ (Bài 2)
-            const toolAnalysisBtn = document.getElementById('gemini-tool-analysis-btn');
-            if (toolAnalysisBtn) {
-                toolAnalysisBtn.addEventListener('click', async () => {
-                    let selectedTool = "";
-                    if (document.getElementById('q1-flipbook').checked) selectedTool = "Flipbook";
-                    else if (document.getElementById('q1-website').checked) selectedTool = "Website";
-                    else {
-                        alert("⚠️ Vui lòng chọn 'Flipbook' hoặc 'Website' ở Câu 1 trước.");
-                        return;
-                    }
-                    openModal("Đang phân tích công cụ...");
-                    const systemPrompt = "Bạn là chuyên gia EdTech.";
-                    const userPrompt = `Phân tích Ưu/Nhược điểm của "${selectedTool}" trong dạy học Sinh học. Dùng Markdown.`;
-                    const result = await callGeminiAPI(userPrompt, systemPrompt);
-                    
-                    modalTitle.textContent = result.error ? "Lỗi" : `✨ Phân tích: ${selectedTool}`;
-                    modalBody.innerHTML = result.error || result.text;
-                });
-            }
-
-            // 3. Cải thiện Prompt (Bài 3)
-            const improvePromptBtn = document.getElementById('gemini-improve-prompt-btn');
-            if (improvePromptBtn) {
-                improvePromptBtn.addEventListener('click', async () => {
-                    const userPromptText = document.getElementById('bt3-prompt-answer').value;
-                    if (!userPromptText.trim()) {
-                        alert("Vui lòng nhập nội dung prompt của bạn trước.");
-                        return;
-                    }
-                    openModal("Đang cải thiện prompt...");
-                    const systemPrompt = "Bạn là kỹ sư prompt AI.";
-                    const apiPrompt = `Cải thiện prompt sau để tạo code p5.js sinh học: "${userPromptText}". Trả lời bằng Markdown.`;
-                    const result = await callGeminiAPI(apiPrompt, systemPrompt);
-                    
-                    modalTitle.textContent = result.error ? "Lỗi" : "✨ Prompt đã được cải thiện";
-                    modalBody.innerHTML = result.error || result.text;
-                });
-            }
-        });
+        function checkQuiz() {
+            const answers = { q1: 'cao', q2: 'thấp', q3: 'thụ động', q4: 'nhược trương', q5: 'ưu trương' };
+            let score = 0; let total = 5;
+            for (let id in answers) { const userVal = document.getElementById(id).value; const el = document.getElementById(id); if (userVal === answers[id]) { score++; el.classList.add('bg-green-100', 'text-green-800', 'border-green-400'); el.classList.remove('bg-red-100', 'text-red-800', 'border-red-400'); } else { el.classList.add('bg-red-100', 'text-red-800', 'border-red-400'); el.classList.remove('bg-green-100', 'text-green-800', 'border-green-400'); } }
+            const fbBox = document.getElementById('quiz-feedback'); fbBox.classList.remove('hidden');
+            if(score === total) { fbBox.innerHTML = `🎉 Xuất sắc! ${score}/${total} câu đúng.`; fbBox.className = "text-sm font-bold px-4 py-2 rounded-lg bg-green-100 text-green-700 border border-green-200"; } else { fbBox.innerHTML = `💪 Cố lên! ${score}/${total} câu đúng.`; fbBox.className = "text-sm font-bold px-4 py-2 rounded-lg bg-orange-100 text-orange-700 border border-orange-200"; }
+        }
+        
+        // Init with Diffusion
+        showSection('intro');
+        resetDiffusion();
     </script>
 </body>
 </html>
