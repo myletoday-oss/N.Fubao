@@ -112,6 +112,25 @@
         .lab-tab:hover:not(.active) {
             background-color: #f3f4f6;
         }
+
+        /* Copyright Glow Animation */
+        @keyframes glow-pulse {
+            0% { 
+                text-shadow: 0 0 2px rgba(16, 185, 129, 0.2);
+                opacity: 0.7;
+            }
+            100% { 
+                text-shadow: 0 0 10px rgba(52, 211, 153, 0.8), 0 0 20px rgba(16, 185, 129, 0.4);
+                opacity: 1;
+            }
+        }
+        .copyright-text {
+            background: linear-gradient(to right, #059669, #34d399);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent; /* Fallback: #059669 if gradient fails */
+            animation: glow-pulse 2s infinite alternate;
+        }
     </style>
 </head>
 <body class="h-screen flex flex-col overflow-hidden bg-gradient-to-br from-emerald-50 to-teal-100">
@@ -502,8 +521,10 @@
             <div class="h-12"></div>
             
             <!-- Copyright -->
-            <div class="text-center pb-8 text-emerald-800/40 text-sm font-bold tracking-widest uppercase">
-                Design by Fubao
+            <div class="text-center pb-8">
+                <span class="text-sm font-bold tracking-widest uppercase copyright-text">
+                    Design by Nguyen Hong Phuc
+                </span>
             </div>
         </div>
     </div>
