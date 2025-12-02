@@ -65,6 +65,16 @@
             animation: jitter 3s infinite linear;
         }
 
+        /* Water Level Animation for U-tube */
+        @keyframes rise {
+            0% { height: 120px; }
+            100% { height: 180px; }
+        }
+        @keyframes fall {
+            0% { height: 120px; }
+            100% { height: 60px; }
+        }
+
         /* UI Styles */
         .nav-btn.active { color: #059669; font-weight: 700; }
         .nav-btn::after {
@@ -282,7 +292,7 @@
                                     <span class="bg-red-100 p-1 rounded text-red-600 text-lg">🔍</span>
                                     <div>
                                         <strong class="block text-slate-800">Ví dụ</strong>
-                                        <span class="text-slate-500">Bơm Na-K, tái hấp thu tại ống thận</span>
+                                        <span class="text-slate-500">Bơm Na-K, tái hấp thu tại ống thận, <strong>Protein vận chuyển nước Aquaporin</strong></span>
                                     </div>
                                 </li>
                             </ul>
@@ -490,6 +500,11 @@
             </section>
             
             <div class="h-12"></div>
+            
+            <!-- Copyright -->
+            <div class="text-center pb-8 text-emerald-800/40 text-sm font-bold tracking-widest uppercase">
+                Design by Fubao
+            </div>
         </div>
     </div>
 
