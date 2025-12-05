@@ -12,6 +12,7 @@
             font-family: 'Quicksand', sans-serif;
             background-color: #ecfdf5; /* emerald-50 */
             color: #064e3b; /* emerald-900 */
+            font-size: 18px; /* Tăng cỡ chữ cơ bản */
         }
 
         /* --- Animations --- */
@@ -95,13 +96,13 @@
 
         /* Tab Styles in Lab */
         .lab-tab {
-            padding: 8px 16px;
+            padding: 10px 20px; /* Tăng padding */
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.2s;
             border: 1px solid transparent;
-            font-size: 0.9rem;
+            font-size: 1.1rem; /* Tăng font size tab */
             white-space: nowrap;
         }
         .lab-tab.active {
@@ -138,22 +139,22 @@
     <!-- Header & Navigation -->
     <header class="bg-white/90 backdrop-blur-md shadow-sm z-30 border-b border-emerald-100">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center py-3">
-                <div class="flex items-center gap-3 mb-2 md:mb-0">
-                    <div class="w-10 h-10 bg-gradient-to-tr from-emerald-500 to-teal-400 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg transform -rotate-3">10</div>
+            <div class="flex flex-col md:flex-row justify-between items-center py-4">
+                <div class="flex items-center gap-4 mb-2 md:mb-0">
+                    <div class="w-12 h-12 bg-gradient-to-tr from-emerald-500 to-teal-400 rounded-xl flex items-center justify-center text-white font-bold text-2xl shadow-lg transform -rotate-3">10</div>
                     <div>
-                        <h1 class="font-bold text-lg text-emerald-900 leading-tight">Vận chuyển qua màng sinh chất</h1>
-                        <p class="text-xs text-emerald-600 font-medium">Sinh học 10 - Chân trời sáng tạo</p>
+                        <h1 class="font-bold text-2xl text-emerald-900 leading-tight">Vận chuyển qua màng sinh chất</h1>
+                        <p class="text-base text-emerald-600 font-medium">Sinh học 10 - Chân trời sáng tạo</p>
                     </div>
                 </div>
-                <nav class="flex items-center gap-1 overflow-x-auto max-w-full pb-1 md:pb-0 hide-scrollbar">
-                    <button onclick="showSection('intro')" id="btn-intro" class="nav-btn active px-4 py-2 text-sm text-gray-600 hover:text-emerald-600 whitespace-nowrap">🥒 Khởi động</button>
-                    <button onclick="showSection('concept')" id="btn-concept" class="nav-btn px-4 py-2 text-sm text-gray-600 hover:text-emerald-600 whitespace-nowrap">🧬 Kiến thức</button>
-                    <button onclick="showSection('passive')" id="btn-passive" class="nav-btn px-4 py-2 text-sm text-gray-600 hover:text-emerald-600 whitespace-nowrap">🌊 Vận chuyển</button>
-                    <button onclick="showSection('lab')" id="btn-lab" class="nav-btn px-4 py-2 text-sm text-teal-600 font-bold hover:text-teal-700 whitespace-nowrap bg-teal-50 rounded-lg mx-2 border border-teal-100">🧪 PTN Ảo</button>
-                    <button onclick="showSection('bulk')" id="btn-bulk" class="nav-btn px-4 py-2 text-sm text-gray-600 hover:text-emerald-600 whitespace-nowrap">📦 Nhập/Xuất bào</button>
-                    <button onclick="showSection('practice')" id="btn-practice" class="nav-btn px-4 py-2 text-sm text-gray-600 hover:text-emerald-600 whitespace-nowrap">📝 Luyện tập</button>
-                    <button onclick="showSection('apply')" id="btn-apply" class="nav-btn px-4 py-2 text-sm text-gray-600 hover:text-emerald-600 whitespace-nowrap">🏺 Vận dụng</button>
+                <nav class="flex items-center gap-2 overflow-x-auto max-w-full pb-1 md:pb-0 hide-scrollbar">
+                    <button onclick="showSection('intro')" id="btn-intro" class="nav-btn active px-5 py-3 text-lg text-gray-600 hover:text-emerald-600 whitespace-nowrap">🥒 Khởi động</button>
+                    <button onclick="showSection('concept')" id="btn-concept" class="nav-btn px-5 py-3 text-lg text-gray-600 hover:text-emerald-600 whitespace-nowrap">🧬 Kiến thức</button>
+                    <button onclick="showSection('passive')" id="btn-passive" class="nav-btn px-5 py-3 text-lg text-gray-600 hover:text-emerald-600 whitespace-nowrap">🌊 Vận chuyển</button>
+                    <button onclick="showSection('lab')" id="btn-lab" class="nav-btn px-5 py-3 text-lg text-teal-600 font-bold hover:text-teal-700 whitespace-nowrap bg-teal-50 rounded-lg mx-2 border border-teal-100">🧪 PTN Ảo</button>
+                    <button onclick="showSection('bulk')" id="btn-bulk" class="nav-btn px-5 py-3 text-lg text-gray-600 hover:text-emerald-600 whitespace-nowrap">📦 Nhập/Xuất bào</button>
+                    <button onclick="showSection('practice')" id="btn-practice" class="nav-btn px-5 py-3 text-lg text-gray-600 hover:text-emerald-600 whitespace-nowrap">📝 Luyện tập</button>
+                    <button onclick="showSection('apply')" id="btn-apply" class="nav-btn px-5 py-3 text-lg text-gray-600 hover:text-emerald-600 whitespace-nowrap">🏺 Vận dụng</button>
                 </nav>
             </div>
         </div>
@@ -161,63 +162,63 @@
 
     <!-- Main Content -->
     <div class="flex-1 overflow-y-auto relative scroll-smooth p-4 md:p-8" id="main-content">
-        <div class="max-w-6xl mx-auto min-h-full">
+        <div class="max-w-7xl mx-auto min-h-full">
             
             <!-- SECTION 1: INTRO -->
             <section id="sec-intro" class="space-y-8 animate-[float_0.5s_ease-out]">
                 <div class="text-center mb-10">
-                    <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Hoạt động 1</span>
-                    <h2 class="text-3xl font-bold text-emerald-900 mt-2">Tình huống Khởi động</h2>
-                    <p class="text-emerald-600">Quan sát hiện tượng thực tế với Dưa leo/Cà rốt</p>
+                    <span class="bg-emerald-100 text-emerald-700 px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wide">Hoạt động 1</span>
+                    <h2 class="text-4xl md:text-5xl font-bold text-emerald-900 mt-4">Tình huống Khởi động</h2>
+                    <p class="text-xl text-emerald-600 mt-2">Quan sát hiện tượng thực tế với Dưa leo/Cà rốt</p>
                 </div>
                 <div class="bg-white/80 backdrop-blur rounded-3xl shadow-xl border border-emerald-100 overflow-hidden">
                     <div class="p-8 md:p-12">
-                        <div class="flex flex-col md:flex-row gap-12 items-center justify-center mb-10">
+                        <div class="flex flex-col md:flex-row gap-16 items-center justify-center mb-10">
                             <!-- Bowl 1 -->
                             <div class="text-center group cursor-pointer transition-all duration-300 hover:-translate-y-2" onclick="toggleObservation('bowl1')">
-                                <div class="relative w-48 h-48 bg-gradient-to-b from-blue-50 to-blue-100 rounded-full border-4 border-white shadow-lg flex items-center justify-center overflow-hidden mx-auto">
+                                <div class="relative w-56 h-56 bg-gradient-to-b from-blue-50 to-blue-100 rounded-full border-4 border-white shadow-lg flex items-center justify-center overflow-hidden mx-auto">
                                     <div class="absolute inset-0 bg-blue-400/10 animate-pulse"></div>
-                                    <div class="relative w-28 h-28 bg-green-200 rounded-full border-[6px] border-green-500 flex items-center justify-center shadow-md transform group-hover:scale-105 transition-transform">
-                                        <div class="w-24 h-24 bg-green-300/40 rounded-full border border-green-400 grid grid-cols-3 grid-rows-3 gap-1 p-2 opacity-60">
+                                    <div class="relative w-32 h-32 bg-green-200 rounded-full border-[6px] border-green-500 flex items-center justify-center shadow-md transform group-hover:scale-105 transition-transform">
+                                        <div class="w-28 h-28 bg-green-300/40 rounded-full border border-green-400 grid grid-cols-3 grid-rows-3 gap-1 p-2 opacity-60">
                                             <div class="bg-white/60 rounded-full"></div><div></div><div class="bg-white/60 rounded-full"></div><div></div><div class="bg-white/60 rounded-full"></div><div></div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-4 inline-block px-4 py-1 bg-blue-100 text-blue-700 rounded-full font-bold shadow-sm">Bát 1: Nước lọc</div>
-                                <div id="obs-bowl1" class="text-sm font-medium text-emerald-600 mt-2 hidden bg-white px-3 py-1 rounded-lg shadow-sm inline-block">🥒 Tươi, căng mọng, cứng</div>
+                                <div class="mt-6 inline-block px-5 py-2 bg-blue-100 text-blue-700 rounded-full font-bold shadow-sm text-lg">Bát 1: Nước lọc</div>
+                                <div id="obs-bowl1" class="text-lg font-medium text-emerald-600 mt-3 hidden bg-white px-4 py-2 rounded-lg shadow-sm inline-block">🥒 Tươi, căng mọng, cứng</div>
                             </div>
 
                             <!-- Bowl 2 -->
                             <div class="text-center group cursor-pointer transition-all duration-300 hover:-translate-y-2" onclick="toggleObservation('bowl2')">
-                                <div class="relative w-48 h-48 bg-gradient-to-b from-gray-100 to-gray-200 rounded-full border-4 border-white shadow-lg flex items-center justify-center overflow-hidden mx-auto">
+                                <div class="relative w-56 h-56 bg-gradient-to-b from-gray-100 to-gray-200 rounded-full border-4 border-white shadow-lg flex items-center justify-center overflow-hidden mx-auto">
                                     <div class="absolute inset-0 bg-yellow-400/5"></div>
                                     <div class="absolute w-2 h-2 bg-white rounded-full top-10 left-10 opacity-80"></div>
                                     <div class="absolute w-2 h-2 bg-white rounded-full bottom-12 right-12 opacity-80"></div>
-                                    <div class="relative w-24 h-24 bg-green-300 flex items-center justify-center shadow-md transform transition-all duration-1000 shriveled-cucumber" 
+                                    <div class="relative w-32 h-32 bg-green-300 flex items-center justify-center shadow-md transform transition-all duration-1000 shriveled-cucumber" 
                                          id="salt-slice"
                                          style="border-radius: 50%; transform: scale(1);"> 
-                                         <div class="w-16 h-16 bg-green-400/40 rounded-full border border-green-500 opacity-60"></div>
+                                         <div class="w-20 h-20 bg-green-400/40 rounded-full border border-green-500 opacity-60"></div>
                                     </div>
                                 </div>
-                                <div class="mt-4 inline-block px-4 py-1 bg-orange-100 text-orange-700 rounded-full font-bold shadow-sm">Bát 2: Nước muối đặc</div>
-                                <div id="obs-bowl2" class="text-sm font-medium text-orange-600 mt-2 hidden bg-white px-3 py-1 rounded-lg shadow-sm inline-block">🥀 Mềm, teo nhỏ, dẻo</div>
+                                <div class="mt-6 inline-block px-5 py-2 bg-orange-100 text-orange-700 rounded-full font-bold shadow-sm text-lg">Bát 2: Nước muối đặc</div>
+                                <div id="obs-bowl2" class="text-lg font-medium text-orange-600 mt-3 hidden bg-white px-4 py-2 rounded-lg shadow-sm inline-block">🥀 Mềm, teo nhỏ, dẻo</div>
                             </div>
                         </div>
-                        <div class="bg-emerald-50/80 p-6 rounded-2xl border border-emerald-100 max-w-3xl mx-auto">
-                            <h3 class="font-bold text-emerald-900 mb-4 flex items-center gap-2"><span class="text-xl">🤔</span> Câu hỏi thảo luận</h3>
-                            <div class="space-y-4">
-                                <div class="flex gap-4 p-3 bg-white rounded-xl shadow-sm border border-emerald-50">
-                                    <div class="bg-emerald-100 text-emerald-700 w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
-                                    <p class="text-gray-700">Tại sao cùng là dưa leo nhưng miếng ngâm nước lọc vẫn tươi, còn miếng ngâm nước muối lại bị teo?</p>
+                        <div class="bg-emerald-50/80 p-8 rounded-2xl border border-emerald-100 max-w-4xl mx-auto">
+                            <h3 class="font-bold text-2xl text-emerald-900 mb-6 flex items-center gap-3"><span class="text-3xl">🤔</span> Câu hỏi thảo luận</h3>
+                            <div class="space-y-6">
+                                <div class="flex gap-5 p-4 bg-white rounded-xl shadow-sm border border-emerald-50">
+                                    <div class="bg-emerald-100 text-emerald-700 w-10 h-10 rounded-full flex items-center justify-center font-bold flex-shrink-0 text-lg">1</div>
+                                    <p class="text-gray-800 text-lg">Tại sao cùng là dưa leo nhưng miếng ngâm nước lọc vẫn tươi, còn miếng ngâm nước muối lại bị teo?</p>
                                 </div>
-                                <div class="flex gap-4 p-3 bg-white rounded-xl shadow-sm border border-emerald-50">
-                                    <div class="bg-emerald-100 text-emerald-700 w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
-                                    <p class="text-gray-700">Điều gì đã xảy ra với các phân tử nước trong 2 trường hợp này?</p>
+                                <div class="flex gap-5 p-4 bg-white rounded-xl shadow-sm border border-emerald-50">
+                                    <div class="bg-emerald-100 text-emerald-700 w-10 h-10 rounded-full flex items-center justify-center font-bold flex-shrink-0 text-lg">2</div>
+                                    <p class="text-gray-800 text-lg">Điều gì đã xảy ra với các phân tử nước trong 2 trường hợp này?</p>
                                 </div>
                             </div>
-                            <div class="mt-6 text-center">
-                                <button onclick="document.getElementById('intro-hint').classList.remove('hidden')" class="text-sm font-bold text-teal-600 hover:text-teal-800 underline decoration-dotted underline-offset-4 transition">💡 Gợi ý cho giáo viên</button>
-                                <p id="intro-hint" class="hidden mt-3 text-sm text-teal-800 bg-teal-100 p-3 rounded-lg inline-block">"Nước di chuyển từ nơi thế nước cao sang nơi thế nước thấp. Trong bát nước muối, nước từ bên trong tế bào dưa leo đã bị 'hút' ra ngoài."</p>
+                            <div class="mt-8 text-center">
+                                <button onclick="document.getElementById('intro-hint').classList.remove('hidden')" class="text-base font-bold text-teal-600 hover:text-teal-800 underline decoration-dotted underline-offset-4 transition">💡 Gợi ý cho giáo viên</button>
+                                <p id="intro-hint" class="hidden mt-4 text-lg text-teal-800 bg-teal-100 p-4 rounded-lg inline-block">"Nước di chuyển từ nơi thế nước cao sang nơi thế nước thấp. Trong bát nước muối, nước từ bên trong tế bào dưa leo đã bị 'hút' ra ngoài."</p>
                             </div>
                         </div>
                     </div>
@@ -226,20 +227,30 @@
 
             <!-- SECTION 2: CONCEPT -->
             <section id="sec-concept" class="hidden space-y-8 animate-[float_0.5s_ease-out]">
-                <div class="text-center mb-8">
-                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Kiến thức nền</span>
-                    <h2 class="text-3xl font-bold text-slate-800 mt-2">Trao đổi chất ở tế bào</h2>
+                <div class="text-center mb-10">
+                    <span class="bg-blue-100 text-blue-700 px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wide">Kiến thức nền</span>
+                    <h2 class="text-4xl md:text-5xl font-bold text-slate-800 mt-4">Trao đổi chất ở tế bào</h2>
                 </div>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="glass-panel p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
-                        <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-3xl mb-6 text-blue-600">🔄</div>
-                        <h3 class="font-bold text-xl mb-3 text-slate-800">Định nghĩa</h3>
-                        <p class="text-slate-600 leading-relaxed">Trao đổi chất ở tế bào bao gồm quá trình trao đổi chất giữa tế bào với môi trường và các phản ứng sinh hóa diễn ra bên trong tế bào. Quá trình chuyển hóa vật chất trong tế bào bao gồm có đồng hóa và dị hóa.</p>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="glass-panel p-10 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
+                        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center text-4xl mb-6 text-blue-600">🔄</div>
+                        <h3 class="font-bold text-2xl mb-4 text-slate-800">Trao đổi chất ở tế bào</h3>
+                        <div class="text-slate-700 leading-relaxed text-lg space-y-2">
+                            <p>Tế bào luôn thực hiện quá trình trao đổi chất để duy trì sự sống. Trao đổi chất ở tế bào gồm:</p>
+                            <ul class="list-disc pl-6 space-y-2">
+                                <li><strong>1. Chuyển hoá vật chất và năng lượng trong tế bào:</strong> gồm đồng hoá (tổng hợp chất, tích luỹ năng lượng) và dị hoá (phân giải chất, giải phóng năng lượng).</li>
+                                <li><strong>2. Trao đổi chất qua màng sinh chất:</strong> là quá trình vận chuyển có chọn lọc các chất giữa tế bào và môi trường.</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="glass-panel p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
-                        <div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center text-3xl mb-6 text-emerald-600">🛡️</div>
-                        <h3 class="font-bold text-xl mb-3 text-slate-800">Vai trò màng sinh chất</h3>
-                        <p class="text-slate-600 leading-relaxed">Đóng vai trò như "người gác cổng", kiểm soát các chất ra/vào tế bào một cách có chọn lọc. Giúp duy trì môi trường nội bào ổn định để tế bào hoạt động bình thường.</p>
+                    <div class="glass-panel p-10 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
+                        <div class="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center text-4xl mb-6 text-emerald-600">🛡️</div>
+                        <h3 class="font-bold text-2xl mb-4 text-slate-800">Vai trò màng sinh chất</h3>
+                        <ul class="text-slate-700 leading-relaxed text-lg list-disc pl-6 space-y-2">
+                            <li>Kiểm soát quá trình vận chuyển các chất ra và vào tế bào (tính thấm chọn lọc).</li>
+                            <li>Tiếp nhận thông tin từ môi trường.</li>
+                            <li>Nhận biết tế bào.</li>
+                        </ul>
                     </div>
                 </div>
             </section>
@@ -247,85 +258,95 @@
             <!-- SECTION 3: TRANSPORT -->
             <section id="sec-passive" class="hidden space-y-8 animate-[float_0.5s_ease-out]">
                 
-                <div class="grid grid-cols-2 gap-4 md:gap-8">
+                <div class="grid grid-cols-2 gap-6 md:gap-10">
                     <!-- Passive -->
                     <div class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden group">
-                        <div class="h-2 bg-gradient-to-r from-green-400 to-green-600"></div>
-                        <div class="p-4 md:p-8">
-                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 md:mb-6">
-                                <h3 class="font-bold text-xl md:text-2xl text-green-800">Thụ động</h3>
-                                <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded w-fit">Passive</span>
+                        <div class="h-3 bg-gradient-to-r from-green-400 to-green-600"></div>
+                        <div class="p-6 md:p-10">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 md:mb-8">
+                                <h3 class="font-bold text-2xl md:text-3xl text-green-800">Vận chuyển thụ động</h3>
+                                <span class="bg-green-100 text-green-700 text-sm font-bold px-3 py-1 rounded w-fit">Passive</span>
                             </div>
                             
-                            <ul class="space-y-4 text-sm md:text-base">
-                                <li class="flex items-start gap-2 md:gap-3">
-                                    <span class="bg-green-100 p-1 rounded text-green-600 text-lg">✅</span>
+                            <ul class="space-y-6 text-lg">
+                                <li class="flex items-start gap-3 md:gap-4">
+                                    <span class="bg-green-100 p-2 rounded text-green-600 text-xl">✅</span>
                                     <div>
-                                        <strong class="block text-slate-800">Nguyên lý</strong>
-                                        <span class="text-slate-500">Nồng độ Cao ➔ Thấp (Xuôi dòng)</span>
+                                        <strong class="block text-slate-800 text-xl">Nguyên lý</strong>
+                                        <span class="text-slate-600">Khuếch tán từ nơi có <strong>nồng độ cao</strong> sang nơi có <strong>nồng độ thấp</strong> (xuôi chiều gradient nồng độ).</span>
                                     </div>
                                 </li>
-                                <li class="flex items-start gap-2 md:gap-3">
-                                    <span class="bg-green-100 p-1 rounded text-green-600 text-lg">⚡</span>
+                                <li class="flex items-start gap-3 md:gap-4">
+                                    <span class="bg-green-100 p-2 rounded text-green-600 text-xl">⚡</span>
                                     <div>
-                                        <strong class="block text-slate-800">Năng lượng</strong>
-                                        <span class="text-slate-500">Không tốn ATP</span>
+                                        <strong class="block text-slate-800 text-xl">Năng lượng</strong>
+                                        <span class="text-slate-600">Không tiêu tốn năng lượng ATP.</span>
                                     </div>
                                 </li>
-                                <li class="flex items-start gap-2 md:gap-3">
-                                    <span class="bg-green-100 p-1 rounded text-green-600 text-lg">🔍</span>
+                                <li class="flex items-start gap-3 md:gap-4">
+                                    <span class="bg-green-100 p-2 rounded text-green-600 text-xl">🛣️</span>
                                     <div>
-                                        <strong class="block text-slate-800">Ví dụ</strong>
-                                        <span class="text-slate-500">O2, CO2, H2O, Glucose (qua kênh protein)</span>
+                                        <strong class="block text-slate-800 text-xl">Các con đường</strong>
+                                        <div class="text-slate-600 text-base space-y-2 mt-2">
+                                            <p>1. <strong>Qua lớp phospholipid kép:</strong> chất kích thước nhỏ, không phân cực (O2, CO2, chất tan trong lipid).</p>
+                                            <p>2. <strong>Qua kênh protein:</strong> chất kích thước lớn, phân cực, tan trong nước (Glucose).</p>
+                                            <p>3. <strong>Thẩm thấu:</strong> Nước di chuyển qua kênh protein đặc biệt gọi là <strong>aquaporin</strong>.</p>
+                                        </div>
                                     </div>
                                 </li>
                             </ul>
+                            <div class="mt-8 text-center">
+                                <img src="https://images.unsplash.com/photo-1530210124550-912dc1381cb8?q=80&w=2070&auto=format&fit=crop" alt="Thụ động" class="rounded-lg object-cover w-full h-56" onerror="this.src='https://placehold.co/300x200?text=Passive+Transport'">
+                            </div>
                         </div>
                     </div>
 
                     <!-- Active -->
                     <div class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden group">
-                        <div class="h-2 bg-gradient-to-r from-red-400 to-red-600"></div>
-                        <div class="p-4 md:p-8">
-                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 md:mb-6">
-                                <h3 class="font-bold text-xl md:text-2xl text-red-800">Chủ động</h3>
-                                <span class="bg-red-100 text-red-700 text-xs font-bold px-2 py-1 rounded w-fit">Active</span>
+                        <div class="h-3 bg-gradient-to-r from-red-400 to-red-600"></div>
+                        <div class="p-6 md:p-10">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 md:mb-8">
+                                <h3 class="font-bold text-2xl md:text-3xl text-red-800">Vận chuyển chủ động</h3>
+                                <span class="bg-red-100 text-red-700 text-sm font-bold px-3 py-1 rounded w-fit">Active</span>
                             </div>
                             
-                            <ul class="space-y-4 text-sm md:text-base">
-                                <li class="flex items-start gap-2 md:gap-3">
-                                    <span class="bg-red-100 p-1 rounded text-red-600 text-lg">⚙️</span>
+                            <ul class="space-y-6 text-lg">
+                                <li class="flex items-start gap-3 md:gap-4">
+                                    <span class="bg-red-100 p-2 rounded text-red-600 text-xl">⚙️</span>
                                     <div>
-                                        <strong class="block text-slate-800">Nguyên lý</strong>
-                                        <span class="text-slate-500">Nồng độ Thấp ➔ Cao (Ngược dòng)</span>
+                                        <strong class="block text-slate-800 text-xl">Nguyên lý</strong>
+                                        <span class="text-slate-600">Vận chuyển từ nơi có <strong>nồng độ chất tan thấp</strong> sang nơi có <strong>nồng độ cao</strong> (ngược chiều gradient nồng độ).</span>
                                     </div>
                                 </li>
-                                <li class="flex items-start gap-2 md:gap-3">
-                                    <span class="bg-red-100 p-1 rounded text-red-600 text-lg">⚡</span>
+                                <li class="flex items-start gap-3 md:gap-4">
+                                    <span class="bg-red-100 p-2 rounded text-red-600 text-xl">⚡</span>
                                     <div>
-                                        <strong class="block text-slate-800">Năng lượng</strong>
-                                        <span class="text-slate-500">Cần tiêu tốn ATP</span>
+                                        <strong class="block text-slate-800 text-xl">Điều kiện</strong>
+                                        <span class="text-slate-600">Cần <strong>protein vận chuyển</strong> (bơm) đặc hiệu và tiêu tốn <strong>năng lượng ATP</strong>.</span>
                                     </div>
                                 </li>
-                                <li class="flex items-start gap-2 md:gap-3">
-                                    <span class="bg-red-100 p-1 rounded text-red-600 text-lg">🔍</span>
+                                <li class="flex items-start gap-3 md:gap-4">
+                                    <span class="bg-red-100 p-2 rounded text-red-600 text-xl">🔍</span>
                                     <div>
-                                        <strong class="block text-slate-800">Ví dụ</strong>
-                                        <span class="text-slate-500">Bơm Na-K, tái hấp thu tại ống thận, <strong>Protein vận chuyển nước Aquaporin</strong></span>
+                                        <strong class="block text-slate-800 text-xl">Ví dụ</strong>
+                                        <span class="text-slate-600">Bơm Na-K, tái hấp thu các chất tại ống thận.</span>
                                     </div>
                                 </li>
                             </ul>
+                            <div class="mt-8 text-center">
+                                <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop" alt="Chủ động" class="rounded-lg object-cover w-full h-56" onerror="this.src='https://placehold.co/300x200?text=Active+Transport'">
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- SECTION 5: LAB (COMPLETE WITH 3 TABS) -->
-            <section id="sec-lab" class="hidden min-h-[650px] flex-col animate-[float_0.5s_ease-out]">
+            <section id="sec-lab" class="hidden min-h-[750px] flex-col animate-[float_0.5s_ease-out]">
                 <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden flex flex-col h-full">
                     
                     <!-- Lab Tabs Header -->
-                    <div class="bg-slate-50 border-b border-slate-200 p-4 flex gap-2 overflow-x-auto">
+                    <div class="bg-slate-50 border-b border-slate-200 p-6 flex gap-4 overflow-x-auto">
                         <button onclick="switchLabTab('diffusion')" id="tab-diffusion" class="lab-tab active">1. Khuếch tán (Diffusion)</button>
                         <button onclick="switchLabTab('osmosis-basic')" id="tab-osmosis-basic" class="lab-tab text-gray-500">2. Thẩm thấu (Cơ bản)</button>
                         <button onclick="switchLabTab('osmosis-cell')" id="tab-osmosis-cell" class="lab-tab text-gray-500">3. Thẩm thấu (Tế bào)</button>
@@ -333,72 +354,99 @@
 
                     <!-- LAB 1: DIFFUSION -->
                     <div id="lab-diffusion" class="flex flex-col md:flex-row flex-1">
-                        <div class="w-full md:w-80 bg-slate-50 border-r border-slate-100 p-8 flex flex-col gap-4 z-10">
-                            <div class="mb-4">
-                                <h2 class="text-2xl font-bold text-teal-800">Khuếch tán</h2>
-                                <p class="text-sm text-slate-500">Sự di chuyển của chất tan</p>
+                        <div class="w-full md:w-96 bg-slate-50 border-r border-slate-100 p-10 flex flex-col gap-6 z-10">
+                            <div class="mb-2">
+                                <h2 class="text-3xl font-bold text-teal-800">Khuếch tán</h2>
+                                <p class="text-lg text-slate-500">Sự di chuyển của chất tan</p>
                             </div>
-                            <div class="p-4 bg-white rounded-xl shadow-sm border border-slate-100 text-sm text-slate-600">
-                                <p class="mb-2 font-bold">Nguyên lý:</p>
+                            <div class="p-6 bg-white rounded-xl shadow-sm border border-slate-100 text-base text-slate-600">
+                                <p class="mb-3 font-bold text-lg">Nguyên lý:</p>
                                 <p>Chất tan di chuyển từ nơi <strong>nồng độ cao</strong> sang nơi <strong>nồng độ thấp</strong> cho đến khi đạt trạng thái <strong>cân bằng động</strong> (các hạt vẫn chuyển động nhưng nồng độ 2 bên bằng nhau).</p>
                             </div>
-                            <button onclick="runDiffusion()" class="mt-4 w-full py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold shadow-md transition transform hover:-translate-y-1">▶️ Bắt đầu</button>
-                            <button onclick="resetDiffusion()" class="w-full py-2 bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl font-bold transition">🔄 Làm lại</button>
+                            <button onclick="runDiffusion()" class="mt-2 w-full py-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold shadow-md transition transform hover:-translate-y-1 text-lg">▶️ Bắt đầu</button>
+                            <button onclick="resetDiffusion()" class="w-full py-3 bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl font-bold transition text-lg">🔄 Làm lại</button>
                         </div>
-                        <div class="flex-1 bg-[#002b5b] relative overflow-hidden flex items-center justify-center p-8">
-                            <div class="relative w-[500px] h-[300px] border-4 border-white/50 rounded-xl bg-white/5 backdrop-blur-sm flex">
+                        <div class="flex-1 bg-[#002b5b] relative overflow-hidden flex items-center justify-center p-10">
+                            <div class="relative w-[600px] h-[360px] border-4 border-white/50 rounded-xl bg-white/5 backdrop-blur-sm flex">
                                 <!-- Background Labels -->
                                 <div class="w-1/2 h-full border-r-2 border-dashed border-white/40 flex items-center justify-center relative z-0">
-                                    <div id="diff-label-left" class="absolute bottom-2 text-white/50 text-xs font-bold uppercase transition-all">Nồng độ Cao</div>
+                                    <div id="diff-label-left" class="absolute bottom-4 text-white/50 text-sm font-bold uppercase transition-all">Nồng độ Cao</div>
                                 </div>
                                 <div class="w-1/2 h-full flex items-center justify-center relative z-0">
-                                    <div id="diff-label-right" class="absolute bottom-2 text-white/50 text-xs font-bold uppercase transition-all">Nồng độ Thấp</div>
+                                    <div id="diff-label-right" class="absolute bottom-4 text-white/50 text-sm font-bold uppercase transition-all">Nồng độ Thấp</div>
                                 </div>
                                 <!-- Particles Container -->
                                 <div id="diffusion-particles" class="absolute inset-0 pointer-events-none z-10"></div>
+                                
+                                <!-- ANNOTATION FOR DIFFUSION -->
+                                <div class="absolute top-10 left-10 z-30 pointer-events-none flex items-center gap-2 animate-bounce">
+                                    <div class="text-white text-base font-bold bg-slate-800/80 px-2 py-1 rounded border border-white/30">Phân tử chất tan</div>
+                                    <svg width="40" height="20" viewBox="0 0 40 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0 10H35M35 10L25 2M35 10L25 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- LAB 2: OSMOSIS BASIC (BEAKER) -->
                     <div id="lab-osmosis-basic" class="hidden flex flex-col md:flex-row flex-1">
-                        <div class="w-full md:w-80 bg-slate-50 border-r border-slate-100 p-8 flex flex-col gap-4 z-10">
-                            <div class="mb-4">
-                                <h2 class="text-2xl font-bold text-teal-800">Thẩm thấu (Cơ bản)</h2>
-                                <p class="text-sm text-slate-500">Sự di chuyển của nước qua màng</p>
+                        <div class="w-full md:w-96 bg-slate-50 border-r border-slate-100 p-10 flex flex-col gap-6 z-10">
+                            <div class="mb-2">
+                                <h2 class="text-3xl font-bold text-teal-800">Thẩm thấu (Cơ bản)</h2>
+                                <p class="text-lg text-slate-500">Sự di chuyển của nước qua màng</p>
                             </div>
-                            <div class="p-4 bg-white rounded-xl shadow-sm border border-slate-100 text-sm text-slate-600">
-                                <p class="mb-2 font-bold">Thí nghiệm:</p>
-                                <p>Một bể nước được ngăn đôi bởi màng bán thấm. Bên phải có <strong>nhiều chất tan</strong> hơn.</p>
+                            <div class="p-6 bg-white rounded-xl shadow-sm border border-slate-100 text-base text-slate-600">
+                                <p class="mb-3 font-bold text-lg">Thí nghiệm:</p>
+                                <p>Một bể nước được ngăn đôi bởi màng bán thấm. Nước sẽ thẩm thấu từ nơi có thế nước cao (ít chất tan) sang nơi có thế nước thấp (nhiều chất tan).</p>
                             </div>
-                            <button onclick="runOsmosisBasic()" class="mt-4 w-full py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold shadow-md transition transform hover:-translate-y-1">▶️ Quan sát</button>
-                            <button onclick="resetOsmosisBasic()" class="w-full py-2 bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl font-bold transition">🔄 Làm lại</button>
+                            <button onclick="runOsmosisBasic()" class="mt-2 w-full py-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold shadow-md transition transform hover:-translate-y-1 text-lg">▶️ Quan sát</button>
+                            <button onclick="resetOsmosisBasic()" class="w-full py-3 bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl font-bold transition text-lg">🔄 Làm lại</button>
                         </div>
-                        <div class="flex-1 bg-[#002b5b] relative overflow-hidden flex items-center justify-center p-8">
+                        <div class="flex-1 bg-[#002b5b] relative overflow-hidden flex items-center justify-center p-10">
                             
                             <!-- Beaker Container -->
-                            <div class="relative w-[400px] h-[300px] border-4 border-white/60 border-t-0 rounded-b-xl bg-white/5 backdrop-blur-sm shadow-xl">
+                            <div class="relative w-[500px] h-[360px] border-4 border-white/60 border-t-0 rounded-b-xl bg-white/5 backdrop-blur-sm shadow-xl">
                                 
                                 <!-- The Membrane -->
                                 <div class="absolute inset-y-0 left-1/2 w-1 -translate-x-1/2 border-l-4 border-dashed border-red-400/70 z-20"></div>
 
                                 <!-- Water Left -->
-                                <div id="water-left-beaker" class="absolute bottom-0 left-0 w-1/2 bg-blue-500/60 transition-all duration-[4s] ease-in-out border-r border-blue-400/30 z-10" style="height: 150px;">
+                                <div id="water-left-beaker" class="absolute bottom-0 left-0 w-1/2 bg-blue-500/60 transition-all duration-[4s] ease-in-out border-r border-blue-400/30 z-10" style="height: 180px;">
                                     <div class="absolute top-0 w-full h-1 bg-blue-300/80"></div>
                                     <!-- Solutes Left (Few) -->
                                     <div id="solutes-left-beaker" class="absolute inset-0 pointer-events-none z-10"></div>
                                 </div>
 
                                 <!-- Water Right -->
-                                <div id="water-right-beaker" class="absolute bottom-0 right-0 w-1/2 bg-blue-500/60 transition-all duration-[4s] ease-in-out border-l border-blue-400/30 z-10" style="height: 150px;">
+                                <div id="water-right-beaker" class="absolute bottom-0 right-0 w-1/2 bg-blue-500/60 transition-all duration-[4s] ease-in-out border-l border-blue-400/30 z-10" style="height: 180px;">
                                     <div class="absolute top-0 w-full h-1 bg-blue-300/80"></div>
                                     <!-- Solutes Right (Many) -->
                                     <div id="solutes-right-beaker" class="absolute inset-0 pointer-events-none z-10"></div>
                                 </div>
                                 
                                 <!-- Arrow -->
-                                <div id="osmosis-arrow" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-5xl font-bold opacity-0 transition-opacity duration-1000 z-30 drop-shadow-lg filter drop-shadow-lg">
+                                <div id="osmosis-arrow" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-6xl font-bold opacity-0 transition-opacity duration-1000 z-30 drop-shadow-lg filter drop-shadow-lg">
                                     ➡️
+                                </div>
+
+                                <!-- ANNOTATIONS FOR OSMOSIS -->
+                                <!-- 1. Membrane Label -->
+                                <div class="absolute -top-10 left-1/2 -translate-x-1/2 flex flex-col items-center z-40">
+                                    <div class="text-white text-xs font-bold bg-red-500/80 px-2 py-1 rounded mb-1 whitespace-nowrap">Màng bán thấm</div>
+                                    <div class="w-0.5 h-10 bg-red-400/70 border-l-2 border-dashed border-white"></div>
+                                </div>
+
+                                <!-- 2. Solute Label -->
+                                <div class="absolute bottom-10 right-10 flex items-center gap-2 z-40">
+                                    <div class="w-4 h-4 bg-green-400 rounded-full shadow-sm"></div>
+                                    <div class="text-white text-xs font-bold bg-slate-800/80 px-2 py-1 rounded border border-white/30">Chất tan</div>
+                                </div>
+
+                                <!-- 3. Solvent Label -->
+                                <div class="absolute bottom-4 left-10 flex items-center gap-2 z-40">
+                                    <div class="text-white text-xs font-bold bg-blue-600/80 px-2 py-1 rounded border border-white/30">Dung môi (Nước)</div>
+                                    <div class="w-4 h-4 bg-blue-300 rounded-full shadow-sm"></div>
                                 </div>
                             </div>
                         </div>
@@ -406,42 +454,42 @@
 
                     <!-- LAB 3: OSMOSIS CELL -->
                     <div id="lab-osmosis-cell" class="hidden flex flex-col md:flex-row flex-1">
-                        <div class="w-full md:w-80 bg-slate-50 border-r border-slate-100 p-8 flex flex-col gap-4 z-10">
+                        <div class="w-full md:w-96 bg-slate-50 border-r border-slate-100 p-10 flex flex-col gap-4 z-10">
                             <div class="mb-4">
-                                <h2 class="text-2xl font-bold text-teal-800">Thẩm thấu (Tế bào)</h2>
-                                <p class="text-sm text-slate-500">Thí nghiệm trên tế bào Hồng cầu</p>
+                                <h2 class="text-3xl font-bold text-teal-800">Thẩm thấu (Tế bào)</h2>
+                                <p class="text-lg text-slate-500">Tác động của môi trường lên tế bào</p>
                             </div>
-                            <div class="space-y-3">
-                                <button onclick="runLab('hyper')" class="w-full p-4 rounded-2xl border-2 border-transparent bg-white shadow-sm hover:border-orange-300 hover:bg-orange-50 transition-all text-left group">
-                                    <div class="font-bold text-slate-700 group-hover:text-orange-700">1. Ưu trương</div>
-                                    <div class="text-xs text-slate-400 group-hover:text-orange-600">Muối nhiều (Hypertonic)</div>
+                            <div class="space-y-4">
+                                <button onclick="runLab('hyper')" class="w-full p-5 rounded-2xl border-2 border-transparent bg-white shadow-sm hover:border-orange-300 hover:bg-orange-50 transition-all text-left group">
+                                    <div class="font-bold text-xl text-slate-700 group-hover:text-orange-700">1. Ưu trương (Hypertonic)</div>
+                                    <div class="text-sm text-slate-400 group-hover:text-orange-600">Nồng độ chất tan MT > TB</div>
                                 </button>
-                                <button onclick="runLab('iso')" class="w-full p-4 rounded-2xl border-2 border-transparent bg-white shadow-sm hover:border-green-300 hover:bg-green-50 transition-all text-left group">
-                                    <div class="font-bold text-slate-700 group-hover:text-green-700">2. Đẳng trương</div>
-                                    <div class="text-xs text-slate-400 group-hover:text-green-600">Cân bằng (Isotonic)</div>
+                                <button onclick="runLab('iso')" class="w-full p-5 rounded-2xl border-2 border-transparent bg-white shadow-sm hover:border-green-300 hover:bg-green-50 transition-all text-left group">
+                                    <div class="font-bold text-xl text-slate-700 group-hover:text-green-700">2. Đẳng trương (Isotonic)</div>
+                                    <div class="text-sm text-slate-400 group-hover:text-green-600">Nồng độ chất tan MT = TB</div>
                                 </button>
-                                <button onclick="runLab('hypo')" class="w-full p-4 rounded-2xl border-2 border-transparent bg-white shadow-sm hover:border-blue-300 hover:bg-blue-50 transition-all text-left group">
-                                    <div class="font-bold text-slate-700 group-hover:text-blue-700">3. Nhược trương</div>
-                                    <div class="text-xs text-slate-400 group-hover:text-blue-600">Nước cất (Hypotonic)</div>
+                                <button onclick="runLab('hypo')" class="w-full p-5 rounded-2xl border-2 border-transparent bg-white shadow-sm hover:border-blue-300 hover:bg-blue-50 transition-all text-left group">
+                                    <div class="font-bold text-xl text-slate-700 group-hover:text-blue-700">3. Nhược trương (Hypotonic)</div>
+                                    <div class="text-sm text-slate-400 group-hover:text-blue-600">Nồng độ chất tan MT < TB</div>
                                 </button>
                             </div>
-                            <div id="lab-result" class="mt-auto p-4 rounded-xl bg-slate-800 text-white text-sm hidden shadow-lg transform transition-all"></div>
-                            <div class="mt-4 p-4 bg-slate-100 rounded-lg text-xs text-slate-600 space-y-2">
-                                <div class="font-bold text-slate-800 mb-1">Chú thích:</div>
-                                <div class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-green-400 border border-white inline-block"></span><span>Chất tan (NaCl)</span></div>
-                                <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-400 inline-block"></span><span>Phân tử Nước</span></div>
-                                <div class="flex items-center gap-2"><span class="text-lg">➔</span><span>Hướng nước di chuyển</span></div>
+                            <div id="lab-result" class="mt-auto p-6 rounded-xl bg-slate-800 text-white text-lg hidden shadow-lg transform transition-all leading-relaxed"></div>
+                            <div class="mt-6 p-5 bg-slate-100 rounded-lg text-sm text-slate-600 space-y-3">
+                                <div class="font-bold text-base text-slate-800 mb-2">Chú thích:</div>
+                                <div class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-green-400 border border-white inline-block"></span><span>Chất tan</span></div>
+                                <div class="flex items-center gap-3"><span class="w-3 h-3 rounded-full bg-blue-400 inline-block"></span><span>Phân tử Nước</span></div>
+                                <div class="flex items-center gap-3"><span class="text-xl">➔</span><span>Hướng nước di chuyển</span></div>
                             </div>
                         </div>
 
                         <!-- Visual Area -->
-                        <div class="flex-1 bg-[#002b5b] relative overflow-hidden flex items-center justify-center p-8">
+                        <div class="flex-1 bg-[#002b5b] relative overflow-hidden flex items-center justify-center p-10">
                             <div id="molecules-layer" class="absolute inset-0 pointer-events-none z-30"></div>
-                            <div class="absolute w-[450px] h-[450px] rounded-[40px] border-2 border-white/80 shadow-2xl backdrop-blur-[2px] bg-white/5 pointer-events-none z-0"></div>
+                            <div class="absolute w-[500px] h-[500px] rounded-[50px] border-2 border-white/80 shadow-2xl backdrop-blur-[2px] bg-white/5 pointer-events-none z-0"></div>
                             <div id="arrows-container" class="absolute inset-0 z-20 pointer-events-none flex items-center justify-center"></div>
-                            <div id="cell-wrapper" class="relative w-48 h-48 flex items-center justify-center z-10 transition-all duration-1000">
+                            <div id="cell-wrapper" class="relative w-56 h-56 flex items-center justify-center z-10 transition-all duration-1000">
                                 <div id="cell-normal" class="absolute inset-0 bg-red-700 rounded-full shadow-[inset_0px_0px_30px_rgba(0,0,0,0.5),0_10px_20px_rgba(0,0,0,0.5)] flex items-center justify-center border-0 overflow-hidden transition-all duration-1000">
-                                    <div class="absolute w-28 h-28 bg-red-900/40 rounded-full blur-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+                                    <div class="absolute w-36 h-36 bg-red-900/40 rounded-full blur-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
                                 </div>
                                  <div id="cell-crenated-bg" class="absolute inset-0 bg-red-700 shadow-lg hidden"></div>
                             </div>
@@ -452,77 +500,86 @@
 
             <!-- SECTION 4: BULK -->
             <section id="sec-bulk" class="hidden space-y-8 animate-[float_0.5s_ease-out]">
-                <div class="text-center mb-8">
-                    <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Biến dạng màng</span>
-                    <h2 class="text-3xl font-bold text-slate-800 mt-2">Nhập bào & Xuất bào</h2>
-                    <p class="text-slate-500 mt-2">Dành cho các đại phân tử (Protein, Vi khuẩn...)</p>
+                <div class="text-center mb-10">
+                    <span class="bg-purple-100 text-purple-700 px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wide">Vận chuyển các đại phân tử</span>
+                    <h2 class="text-4xl md:text-5xl font-bold text-slate-800 mt-4">Nhập bào & Xuất bào</h2>
+                    <p class="text-xl text-slate-500 mt-3">Vận chuyển thông qua sự biến dạng của màng sinh chất</p>
                 </div>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="bg-white p-8 rounded-3xl border border-purple-100 shadow-sm relative overflow-hidden group hover:shadow-lg transition">
-                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-purple-50 rounded-full group-hover:bg-purple-100 transition"></div>
-                        <h3 class="font-bold text-2xl mb-4 text-purple-800 relative z-10 flex items-center gap-3"><span class="text-3xl">📥</span> Nhập bào</h3>
-                        <div class="space-y-4 relative z-10">
-                            <div class="bg-purple-50 p-4 rounded-2xl border border-purple-100"><span class="font-bold block text-purple-900">Thực bào (Ăn)</span><span class="text-sm text-purple-600">Màng lõm vào bao lấy chất rắn.</span></div>
-                            <div class="bg-purple-50 p-4 rounded-2xl border border-purple-100"><span class="font-bold block text-purple-900">Ẩm bào (Uống)</span><span class="text-sm text-purple-600">Màng lõm vào bao lấy giọt dịch.</span></div>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="bg-white p-10 rounded-3xl border border-purple-100 shadow-sm relative overflow-hidden group hover:shadow-lg transition">
+                        <div class="absolute -right-10 -top-10 w-40 h-40 bg-purple-50 rounded-full group-hover:bg-purple-100 transition"></div>
+                        <h3 class="font-bold text-3xl mb-6 text-purple-800 relative z-10 flex items-center gap-4"><span class="text-4xl">📥</span> Nhập bào</h3>
+                        <div class="space-y-6 relative z-10">
+                            <p class="text-slate-600 text-lg mb-4">Là quá trình tế bào lấy các chất vào bên trong bằng cách biến dạng màng sinh chất.</p>
+                            <div class="bg-purple-50 p-6 rounded-2xl border border-purple-100"><span class="font-bold block text-xl text-purple-900 mb-1">Thực bào (Phagocytosis)</span><span class="text-lg text-purple-700">Tế bào "ăn" các loại vi khuẩn, mảnh vỡ tế bào... bằng cách hình thành chân giả.</span></div>
+                            <div class="bg-purple-50 p-6 rounded-2xl border border-purple-100"><span class="font-bold block text-xl text-purple-900 mb-1">Ẩm bào (Pinocytosis)</span><span class="text-lg text-purple-700">Tế bào "uống" các giọt dịch bằng cách lõm màng sinh chất.</span></div>
                         </div>
+                                        <div class="mt-8 text-center">
+                                <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=2080&auto=format&fit=crop" alt="Nhập bào" class="rounded-lg object-cover w-full h-56" onerror="this.src='https://placehold.co/300x200?text=Endocytosis'">
+                            </div>
                     </div>
-                    <div class="bg-white p-8 rounded-3xl border border-orange-100 shadow-sm relative overflow-hidden group hover:shadow-lg transition">
-                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-orange-50 rounded-full group-hover:bg-orange-100 transition"></div>
-                        <h3 class="font-bold text-2xl mb-4 text-orange-800 relative z-10 flex items-center gap-3"><span class="text-3xl">📤</span> Xuất bào</h3>
-                        <p class="text-slate-600 mb-4 relative z-10 leading-relaxed">Túi tiết chứa chất (hormone, enzyme) di chuyển đến màng sinh chất ➔ Hòa nhập màng ➔ Đẩy chất ra ngoài.</p>
-                        <div class="inline-block px-3 py-1 bg-orange-100 text-orange-700 rounded text-sm font-bold">⚠️ Luôn tiêu tốn ATP</div>
+                    <div class="bg-white p-10 rounded-3xl border border-orange-100 shadow-sm relative overflow-hidden group hover:shadow-lg transition">
+                        <div class="absolute -right-10 -top-10 w-40 h-40 bg-orange-50 rounded-full group-hover:bg-orange-100 transition"></div>
+                        <h3 class="font-bold text-3xl mb-6 text-orange-800 relative z-10 flex items-center gap-4"><span class="text-4xl">📤</span> Xuất bào</h3>
+                        <p class="text-slate-600 mb-6 relative z-10 leading-relaxed text-lg">Là quá trình vận chuyển các chất (hormone, kháng thể, protein,...) từ trong tế bào ra bên ngoài nhờ các bóng xuất bào.</p>
+                        <div class="inline-block px-4 py-2 bg-orange-100 text-orange-700 rounded text-base font-bold">⚠️ Có tiêu tốn năng lượng</div>
+                           <div class="mt-8 text-center">
+                                <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=2070&auto=format&fit=crop" alt="Xuất bào" class="rounded-lg object-cover w-full h-56" onerror="this.src='https://placehold.co/300x200?text=Exocytosis'">
+                            </div>
                     </div>
+                                 
                 </div>
+
             </section>
 
             <!-- SECTION 6: PRACTICE -->
-            <section id="sec-practice" class="hidden max-w-3xl mx-auto animate-[float_0.5s_ease-out]">
-                <div class="bg-white p-10 rounded-3xl shadow-xl border border-slate-100">
-                    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3"><span class="bg-yellow-100 p-2 rounded-lg text-2xl">📝</span> Điền từ còn thiếu</h2>
-                    <div class="text-lg leading-loose text-slate-600 font-medium">
-                        "Sự vận chuyển chất từ nơi có nồng độ <select id="q1" class="border-b-2 border-emerald-300 bg-emerald-50 text-emerald-800 font-bold outline-none px-3 py-1 rounded cursor-pointer hover:bg-emerald-100 transition"><option value="">...</option><option value="cao">cao</option><option value="thấp">thấp</option></select> sang nơi có nồng độ <select id="q2" class="border-b-2 border-emerald-300 bg-emerald-50 text-emerald-800 font-bold outline-none px-3 py-1 rounded cursor-pointer hover:bg-emerald-100 transition"><option value="">...</option><option value="cao">cao</option><option value="thấp">thấp</option></select> mà không tiêu tốn năng lượng gọi là <select id="q3" class="border-b-2 border-emerald-300 bg-emerald-50 text-emerald-800 font-bold outline-none px-3 py-1 rounded cursor-pointer hover:bg-emerald-100 transition"><option value="">...</option><option value="chủ động">vận chuyển chủ động</option><option value="thụ động">vận chuyển thụ động</option></select>. Nước luôn thẩm thấu từ môi trường <select id="q4" class="border-b-2 border-emerald-300 bg-emerald-50 text-emerald-800 font-bold outline-none px-3 py-1 rounded cursor-pointer hover:bg-emerald-100 transition"><option value="">...</option><option value="ưu trương">ưu trương</option><option value="nhược trương">nhược trương</option></select> (thế nước cao) sang môi trường <select id="q5" class="border-b-2 border-emerald-300 bg-emerald-50 text-emerald-800 font-bold outline-none px-3 py-1 rounded cursor-pointer hover:bg-emerald-100 transition"><option value="">...</option><option value="ưu trương">ưu trương</option><option value="nhược trương">nhược trương</option></select>."
+            <section id="sec-practice" class="hidden max-w-4xl mx-auto animate-[float_0.5s_ease-out]">
+                <div class="bg-white p-12 rounded-3xl shadow-xl border border-slate-100">
+                    <h2 class="text-4xl font-bold text-slate-800 mb-8 flex items-center gap-4"><span class="bg-yellow-100 p-3 rounded-lg text-4xl">📝</span> Điền từ còn thiếu</h2>
+                    <div class="text-2xl leading-loose text-slate-600 font-medium">
+                        "Sự vận chuyển chất từ nơi có nồng độ <select id="q1" class="border-b-4 border-emerald-300 bg-emerald-50 text-emerald-800 font-bold outline-none px-4 py-1 rounded cursor-pointer hover:bg-emerald-100 transition text-2xl"><option value="">...</option><option value="cao">cao</option><option value="thấp">thấp</option></select> sang nơi có nồng độ <select id="q2" class="border-b-4 border-emerald-300 bg-emerald-50 text-emerald-800 font-bold outline-none px-4 py-1 rounded cursor-pointer hover:bg-emerald-100 transition text-2xl"><option value="">...</option><option value="cao">cao</option><option value="thấp">thấp</option></select> mà không tiêu tốn năng lượng gọi là <select id="q3" class="border-b-4 border-emerald-300 bg-emerald-50 text-emerald-800 font-bold outline-none px-4 py-1 rounded cursor-pointer hover:bg-emerald-100 transition text-2xl"><option value="">...</option><option value="chủ động">vận chuyển chủ động</option><option value="thụ động">vận chuyển thụ động</option></select>. Nước luôn thẩm thấu từ môi trường <select id="q4" class="border-b-4 border-emerald-300 bg-emerald-50 text-emerald-800 font-bold outline-none px-4 py-1 rounded cursor-pointer hover:bg-emerald-100 transition text-2xl"><option value="">...</option><option value="ưu trương">ưu trương</option><option value="nhược trương">nhược trương</option></select> (thế nước cao) sang môi trường <select id="q5" class="border-b-4 border-emerald-300 bg-emerald-50 text-emerald-800 font-bold outline-none px-4 py-1 rounded cursor-pointer hover:bg-emerald-100 transition text-2xl"><option value="">...</option><option value="ưu trương">ưu trương</option><option value="nhược trương">nhược trương</option></select>."
                     </div>
-                    <div class="mt-8 flex items-center justify-between">
-                        <div id="quiz-feedback" class="hidden text-sm font-bold px-4 py-2 rounded-lg"></div>
-                        <button onclick="checkQuiz()" class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold py-3 px-8 rounded-xl shadow-lg transform hover:-translate-y-1 transition-all">Kiểm tra</button>
+                    <div class="mt-10 flex items-center justify-between">
+                        <div id="quiz-feedback" class="hidden text-xl font-bold px-6 py-3 rounded-lg"></div>
+                        <button onclick="checkQuiz()" class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold py-4 px-10 rounded-xl shadow-lg transform hover:-translate-y-1 transition-all text-xl">Kiểm tra</button>
                     </div>
                 </div>
             </section>
 
             <!-- SECTION 7: APPLY -->
             <section id="sec-apply" class="hidden animate-[float_0.5s_ease-out]">
-                <div class="max-w-4xl mx-auto bg-gradient-to-br from-white to-orange-50 p-10 rounded-3xl shadow-xl border border-orange-100 min-h-[500px] flex flex-col justify-center">
+                <div class="max-w-5xl mx-auto bg-gradient-to-br from-white to-orange-50 p-12 rounded-3xl shadow-xl border border-orange-100 min-h-[600px] flex flex-col justify-center">
                     <div id="apply-slide-1" class="transition-all duration-500">
-                        <div class="text-center mb-10">
-                            <div class="inline-block p-4 bg-orange-100 rounded-full text-4xl mb-4 shadow-sm">🥬</div>
-                            <h2 class="text-3xl font-bold text-orange-900">Giải thích hiện tượng "Muối dưa"</h2>
-                            <p class="text-orange-700/80 mt-2 font-medium italic">"Muối dưa, dưa khú - Muối cà, cà teo"</p>
+                        <div class="text-center mb-12">
+                            <div class="inline-block p-6 bg-orange-100 rounded-full text-5xl mb-6 shadow-sm">🥬</div>
+                            <h2 class="text-5xl font-bold text-orange-900">Giải thích hiện tượng "Muối dưa"</h2>
+                            <p class="text-orange-700/80 mt-4 font-medium italic text-xl">"Muối dưa, dưa khú - Muối cà, cà teo"</p>
                         </div>
-                        <div class="space-y-8 text-center max-w-2xl mx-auto">
-                            <p class="text-slate-600 text-lg leading-relaxed">Khi ta ngâm rau cải vào nước muối, sau một thời gian, rau bị <strong>teo nhỏ lại</strong>, dai hơn và nước trong hũ trở nên <strong>đục và chua</strong>.</p>
-                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-orange-100 inline-block text-left"><strong class="text-orange-800 block mb-2 text-lg">🔍 Hiện tượng quan sát được:</strong><span class="text-slate-500 text-lg">Co nguyên sinh (Tế bào mất nước)</span></div>
-                            <div class="pt-4"><button onclick="toggleApplySlide(2)" class="bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transform hover:-translate-y-1 transition-all flex items-center gap-2 mx-auto text-lg">Xem giải thích cơ chế ➡️</button></div>
+                        <div class="space-y-10 text-center max-w-3xl mx-auto">
+                            <p class="text-slate-600 text-2xl leading-relaxed">Khi ta ngâm rau cải vào nước muối, sau một thời gian, rau bị <strong>teo nhỏ lại</strong>, dai hơn và nước trong hũ trở nên <strong>đục và chua</strong>.</p>
+                            <div class="bg-white p-8 rounded-2xl shadow-sm border border-orange-100 inline-block text-left"><strong class="text-orange-800 block mb-3 text-2xl">🔍 Hiện tượng quan sát được:</strong><span class="text-slate-500 text-2xl">Co nguyên sinh (Tế bào mất nước)</span></div>
+                            <div class="pt-6"><button onclick="toggleApplySlide(2)" class="bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-bold py-4 px-10 rounded-full shadow-lg transform hover:-translate-y-1 transition-all flex items-center gap-3 mx-auto text-xl">Xem giải thích cơ chế ➡️</button></div>
                         </div>
                     </div>
                     <div id="apply-slide-2" class="hidden transition-all duration-500">
-                        <div class="text-center mb-8"><span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Kiến thức cốt lõi</span><h2 class="text-3xl font-bold text-orange-900 mt-2">Cơ chế Thẩm thấu</h2></div>
-                        <div class="bg-white/60 p-8 rounded-3xl border border-orange-200 shadow-sm max-w-3xl mx-auto">
-                            <ul class="space-y-6">
-                                <li class="flex gap-4 items-start"><div class="bg-orange-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0 shadow-md mt-1">1</div><div><p class="text-lg text-slate-800">Môi trường nước muối là <strong>Ưu trương</strong>.</p><p class="text-sm text-slate-500">(Nồng độ muối bên ngoài cao hơn nồng độ chất tan trong tế bào).</p></div></li>
-                                <li class="flex gap-4 items-start"><div class="bg-orange-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0 shadow-md mt-1">2</div><div><p class="text-lg text-slate-800">Nước di chuyển từ <strong>trong tế bào</strong> (thế nước cao) ra <strong>ngoài môi trường</strong> (thế nước thấp).</p></div></li>
-                                <li class="flex gap-4 items-start"><div class="bg-orange-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0 shadow-md mt-1">3</div><div><p class="text-lg text-slate-800">Kết quả: Tế bào rau bị mất nước nên <strong>teo lại</strong>. Đồng thời đường và chất dinh dưỡng đi ra ngoài tạo điều kiện cho vi khuẩn lactic lên men gây chua.</p></div></li>
+                        <div class="text-center mb-10"><span class="bg-orange-100 text-orange-800 px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wide">Kiến thức cốt lõi</span><h2 class="text-4xl font-bold text-orange-900 mt-4">Cơ chế Thẩm thấu</h2></div>
+                        <div class="bg-white/60 p-10 rounded-3xl border border-orange-200 shadow-sm max-w-4xl mx-auto">
+                            <ul class="space-y-8">
+                                <li class="flex gap-6 items-start"><div class="bg-orange-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold flex-shrink-0 shadow-md mt-1 text-xl">1</div><div><p class="text-2xl text-slate-800">Môi trường nước muối là <strong>Ưu trương</strong>.</p><p class="text-lg text-slate-500">(Nồng độ muối bên ngoài cao hơn nồng độ chất tan trong tế bào).</p></div></li>
+                                <li class="flex gap-6 items-start"><div class="bg-orange-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold flex-shrink-0 shadow-md mt-1 text-xl">2</div><div><p class="text-2xl text-slate-800">Nước di chuyển từ <strong>trong tế bào</strong> (thế nước cao) ra <strong>ngoài môi trường</strong> (thế nước thấp).</p></div></li>
+                                <li class="flex gap-6 items-start"><div class="bg-orange-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold flex-shrink-0 shadow-md mt-1 text-xl">3</div><div><p class="text-2xl text-slate-800">Kết quả: Tế bào rau bị mất nước nên <strong>co nguyên sinh</strong> (teo lại). Đồng thời đường và chất dinh dưỡng đi ra ngoài tạo điều kiện cho vi khuẩn lactic lên men gây chua.</p></div></li>
                             </ul>
                         </div>
-                        <div class="mt-8 text-center"><button onclick="toggleApplySlide(1)" class="text-slate-500 font-bold hover:text-orange-600 hover:underline flex items-center gap-2 mx-auto transition-colors">⬅️ Quay lại hiện tượng</button></div>
+                        <div class="mt-10 text-center"><button onclick="toggleApplySlide(1)" class="text-slate-500 font-bold hover:text-orange-600 hover:underline flex items-center gap-3 mx-auto transition-colors text-lg">⬅️ Quay lại hiện tượng</button></div>
                     </div>
                 </div>
             </section>
             
-            <div class="h-12"></div>
+            <div class="h-16"></div>
             
             <!-- Copyright -->
-            <div class="text-center pb-8">
-                <span class="text-sm font-bold tracking-widest uppercase copyright-text">
+            <div class="text-center pb-10">
+                <span class="text-base font-bold tracking-widest uppercase copyright-text">
                     Design by Nguyen Hong Phuc
                 </span>
             </div>
@@ -571,14 +628,14 @@
             
             // Reset Labels
             document.getElementById('diff-label-left').innerText = "Nồng độ Cao";
-            document.getElementById('diff-label-left').className = "absolute bottom-2 text-white/50 text-xs font-bold uppercase transition-all";
+            document.getElementById('diff-label-left').className = "absolute bottom-4 text-white/50 text-sm font-bold uppercase transition-all";
             document.getElementById('diff-label-right').innerText = "Nồng độ Thấp";
-            document.getElementById('diff-label-right').className = "absolute bottom-2 text-white/50 text-xs font-bold uppercase transition-all";
+            document.getElementById('diff-label-right').className = "absolute bottom-4 text-white/50 text-sm font-bold uppercase transition-all";
 
             // Create particles
             for(let i=0; i<30; i++) {
                 const dot = document.createElement('div');
-                dot.className = 'molecule-particle static-jitter absolute w-3 h-3 bg-green-400 rounded-full shadow-sm border border-white/30 transition-all duration-[4s] ease-in-out z-20';
+                dot.className = 'molecule-particle static-jitter absolute w-4 h-4 bg-green-400 rounded-full shadow-sm border border-white/30 transition-all duration-[4s] ease-in-out z-20';
                 const left = Math.random() * 45; 
                 const top = Math.random() * 90 + 5; 
                 dot.style.left = left + '%';
@@ -600,22 +657,22 @@
                 const lblLeft = document.getElementById('diff-label-left');
                 const lblRight = document.getElementById('diff-label-right');
                 lblLeft.innerText = "Cân bằng nồng độ";
-                lblLeft.className = "absolute bottom-2 text-green-300 text-xs font-bold uppercase transition-all scale-110";
+                lblLeft.className = "absolute bottom-4 text-green-300 text-sm font-bold uppercase transition-all scale-110";
                 lblRight.innerText = "Cân bằng nồng độ";
-                lblRight.className = "absolute bottom-2 text-green-300 text-xs font-bold uppercase transition-all scale-110";
+                lblRight.className = "absolute bottom-4 text-green-300 text-sm font-bold uppercase transition-all scale-110";
             }, 4000);
         }
 
         // --- 2. Osmosis Basic (Beaker) Logic ---
         function resetOsmosisBasic() {
-            document.getElementById('water-left-beaker').style.height = '150px';
-            document.getElementById('water-right-beaker').style.height = '150px';
+            document.getElementById('water-left-beaker').style.height = '180px';
+            document.getElementById('water-right-beaker').style.height = '180px';
             document.getElementById('osmosis-arrow').style.opacity = '0';
             drawBeakerMolecules(); // redraw random dots
         }
         function runOsmosisBasic() {
-            document.getElementById('water-left-beaker').style.height = '80px'; 
-            document.getElementById('water-right-beaker').style.height = '220px'; 
+            document.getElementById('water-left-beaker').style.height = '100px'; 
+            document.getElementById('water-right-beaker').style.height = '260px'; 
             document.getElementById('osmosis-arrow').style.opacity = '1';
         }
         function drawBeakerMolecules() {
@@ -627,7 +684,7 @@
             // Left: Low conc (e.g., 5 dots)
             for(let i=0; i<5; i++) {
                 const dot = document.createElement('div');
-                dot.className = 'absolute w-3 h-3 bg-green-400 rounded-full shadow-sm static-jitter';
+                dot.className = 'absolute w-4 h-4 bg-green-400 rounded-full shadow-sm static-jitter';
                 dot.style.left = Math.random() * 80 + 10 + '%';
                 dot.style.top = Math.random() * 80 + 10 + '%'; // Relative to container height
                 dot.style.animationDelay = Math.random() + 's';
@@ -636,7 +693,7 @@
             // Right: High conc (e.g., 20 dots)
             for(let i=0; i<20; i++) {
                 const dot = document.createElement('div');
-                dot.className = 'absolute w-3 h-3 bg-green-400 rounded-full shadow-sm static-jitter';
+                dot.className = 'absolute w-4 h-4 bg-green-400 rounded-full shadow-sm static-jitter';
                 dot.style.left = Math.random() * 80 + 10 + '%';
                 dot.style.top = Math.random() * 80 + 10 + '%';
                 dot.style.animationDelay = Math.random() + 's';
@@ -679,15 +736,15 @@
                     cellCrenated.style.display = 'block';
                     cellCrenated.classList.add('cell-crenated'); 
                 }, 5800); 
-                resultBox.innerHTML = "<strong class='text-orange-300 block mb-1'>Ưu trương (Hypertonic):</strong><br> - Ngoài: Nhiều Chất tan.<br> - Trong: Nhiều Nước.<br> ➔ Nước đi RA ➔ Tế bào teo lại.";
-                resultBox.className = "mt-auto p-4 rounded-xl bg-slate-800 border-l-4 border-orange-500 text-white text-sm shadow-lg";
+                resultBox.innerHTML = "<strong class='text-orange-300 block mb-2'>Môi trường Ưu trương:</strong><br> - Chất tan môi trường > trong tế bào.<br> ➔ Nước đi RA.<br> ➔ Tế bào nhân thực (động vật) bị teo lại.";
+                resultBox.className = "mt-auto p-6 rounded-xl bg-slate-800 border-l-8 border-orange-500 text-white text-lg shadow-lg";
             } else if(type === 'iso') {
-                resultBox.innerHTML = "<strong class='text-green-300 block mb-1'>Đẳng trương (Isotonic):</strong><br> Cân bằng.<br> ➔ Nước ra/vào như nhau ➔ Tế bào bình thường.";
-                resultBox.className = "mt-auto p-4 rounded-xl bg-slate-800 border-l-4 border-green-500 text-white text-sm shadow-lg";
+                resultBox.innerHTML = "<strong class='text-green-300 block mb-2'>Môi trường Đẳng trương:</strong><br> - Chất tan môi trường = trong tế bào.<br> ➔ Nước ra/vào cân bằng.<br> ➔ Kích thước tế bào không đổi.";
+                resultBox.className = "mt-auto p-6 rounded-xl bg-slate-800 border-l-8 border-green-500 text-white text-lg shadow-lg";
             } else if(type === 'hypo') {
                 cellWrapper.style.animation = 'swell-burst 6s forwards';
-                resultBox.innerHTML = "<strong class='text-blue-300 block mb-1'>Nhược trương (Hypotonic):</strong><br> - Ngoài: Nhiều Nước.<br> - Trong: Nhiều Chất tan.<br> ➔ Nước đi VÀO ➔ Tế bào trương lên và VỠ.";
-                resultBox.className = "mt-auto p-4 rounded-xl bg-slate-800 border-l-4 border-blue-500 text-white text-sm shadow-lg";
+                resultBox.innerHTML = "<strong class='text-blue-300 block mb-2'>Môi trường Nhược trương:</strong><br> - Chất tan môi trường < trong tế bào.<br> ➔ Nước đi VÀO.<br> ➔ Tế bào nhân thực (động vật) trương lên và vỡ (tan bào).";
+                resultBox.className = "mt-auto p-6 rounded-xl bg-slate-800 border-l-8 border-blue-500 text-white text-lg shadow-lg";
             }
         }
 
@@ -702,11 +759,11 @@
                 const angle = (360 / arrowCount) * i;
                 const arrowEl = document.createElement('div');
                 arrowEl.className = 'absolute flex items-center justify-center';
-                arrowEl.style.transform = `rotate(${angle}deg) translateY(-140px)`; 
+                arrowEl.style.transform = `rotate(${angle}deg) translateY(-160px)`; 
                 arrowEl.style.opacity = '0.8';
                 const directionTransform = isOut ? 'rotate(180deg)' : 'rotate(0deg)'; 
-                arrowEl.innerHTML = `<svg width="40" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: ${directionTransform}"><path d="M12 4L12 20M12 20L6 14M12 20L18 14" stroke="rgba(255,255,255,0.7)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-                arrowEl.animate([{ opacity: 0, transform: `rotate(${angle}deg) translateY(${isOut ? '-120px' : '-160px'})` }, { opacity: 1, transform: `rotate(${angle}deg) translateY(-140px)` }, { opacity: 0, transform: `rotate(${angle}deg) translateY(${isOut ? '-160px' : '-120px'})` }], { duration: 2000, iterations: Infinity, delay: i * 200, easing: 'ease-in-out' });
+                arrowEl.innerHTML = `<svg width="50" height="70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: ${directionTransform}"><path d="M12 4L12 20M12 20L6 14M12 20L18 14" stroke="rgba(255,255,255,0.9)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+                arrowEl.animate([{ opacity: 0, transform: `rotate(${angle}deg) translateY(${isOut ? '-140px' : '-180px'})` }, { opacity: 1, transform: `rotate(${angle}deg) translateY(-160px)` }, { opacity: 0, transform: `rotate(${angle}deg) translateY(${isOut ? '-180px' : '-140px'})` }], { duration: 2000, iterations: Infinity, delay: i * 200, easing: 'ease-in-out' });
                 container.appendChild(arrowEl);
             }
         }
@@ -738,7 +795,7 @@
                     if(isInside) {
                         r = Math.random() * 15; // Bên trong (gần tâm)
                     } else {
-                        r = 30 + Math.random() * 15; // Bên ngoài
+                        r = 35 + Math.random() * 15; // Bên ngoài
                     }
                     const x = 50 + r * Math.cos(angle);
                     const y = 50 + r * Math.sin(angle);
@@ -763,14 +820,14 @@
             };
 
             const spawn = (count, moleculeType, isInside) => {
-                const pRadius = moleculeType === 'solute' ? 4 : 2;
+                const pRadius = moleculeType === 'solute' ? 5 : 3;
                 for(let i=0; i<count; i++) {
                     const dot = document.createElement('div');
                     dot.className = `molecule-particle absolute rounded-full static-jitter`;
                     if(moleculeType === 'solute') { 
-                        dot.classList.add('bg-green-400', 'w-6', 'h-6', 'shadow-sm'); 
+                        dot.classList.add('bg-green-400', 'w-8', 'h-8', 'shadow-sm'); 
                     } else { 
-                        dot.classList.add('bg-blue-400', 'w-3', 'h-3'); 
+                        dot.classList.add('bg-blue-400', 'w-4', 'h-4'); 
                     } 
                     const pos = getPos(isInside, pRadius);
                     placedPositions.push({x: pos.x, y: pos.y, radius: pRadius});
@@ -809,7 +866,7 @@
                         const angle = Math.random() * Math.PI * 2;
                         let r;
                         if (targetLoc === 'in') { r = Math.random() * 18; } 
-                        else { r = 30 + Math.random() * 15; }
+                        else { r = 35 + Math.random() * 15; }
                         const x = 50 + r * Math.cos(angle);
                         const y = 50 + r * Math.sin(angle);
                         p.style.left = x + '%';
@@ -840,14 +897,14 @@
                 
                 if(type === 'hyper' && p.dataset.loc === 'in') {
                     const angle = Math.random() * Math.PI * 2;
-                    const r = 30 + Math.random() * 15; 
+                    const r = 35 + Math.random() * 15; 
                     const x = 50 + r * Math.cos(angle);
                     const y = 50 + r * Math.sin(angle);
                     p.style.left = x + '%'; p.style.top = y + '%'; p.style.opacity = 0; 
                 }
                 else if(type === 'hypo' && p.dataset.loc === 'out') {
                     const angle = Math.random() * Math.PI * 2;
-                    const r = Math.random() * 15; 
+                    const r = Math.random() * 18; 
                     const x = 50 + r * Math.cos(angle);
                     const y = 50 + r * Math.sin(angle);
                     p.style.left = x + '%'; p.style.top = y + '%'; p.style.opacity = 0; 
@@ -886,7 +943,7 @@
             let score = 0; let total = 5;
             for (let id in answers) { const userVal = document.getElementById(id).value; const el = document.getElementById(id); if (userVal === answers[id]) { score++; el.classList.add('bg-green-100', 'text-green-800', 'border-green-400'); el.classList.remove('bg-red-100', 'text-red-800', 'border-red-400'); } else { el.classList.add('bg-red-100', 'text-red-800', 'border-red-400'); el.classList.remove('bg-green-100', 'text-green-800', 'border-green-400'); } }
             const fbBox = document.getElementById('quiz-feedback'); fbBox.classList.remove('hidden');
-            if(score === total) { fbBox.innerHTML = `🎉 Xuất sắc! ${score}/${total} câu đúng.`; fbBox.className = "text-sm font-bold px-4 py-2 rounded-lg bg-green-100 text-green-700 border border-green-200"; } else { fbBox.innerHTML = `💪 Cố lên! ${score}/${total} câu đúng.`; fbBox.className = "text-sm font-bold px-4 py-2 rounded-lg bg-orange-100 text-orange-700 border border-orange-200"; }
+            if(score === total) { fbBox.innerHTML = `🎉 Xuất sắc! ${score}/${total} câu đúng.`; fbBox.className = "text-xl font-bold px-6 py-3 rounded-lg bg-green-100 text-green-700 border border-green-200"; } else { fbBox.innerHTML = `💪 Cố lên! ${score}/${total} câu đúng.`; fbBox.className = "text-xl font-bold px-6 py-3 rounded-lg bg-orange-100 text-orange-700 border border-orange-200"; }
         }
         
         // Init with Diffusion
